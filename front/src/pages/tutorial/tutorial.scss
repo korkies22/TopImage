@@ -1,0 +1,27 @@
+.tutorial{
+    width:50%;
+    margin:1rem auto;
+    padding: 1rem;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__button{
+        outline:none;
+        padding:0.5rem 1rem;
+        font-size: 1.5rem;
+        margin:1rem auto;
+        color:white;
+        background: blue;
+        border:none;
+        font-weight: bold;
+        border-radius: 10px;
+        background:linear-gradient(to right, #6DB5ED, #6ACAB1);
+        cursor: pointer;
+    }
+
+    &__title{
+        text-transform: uppercase;
+        font-size: 3rem;
+    }
+}

@@ -1,0 +1,55 @@
+@import "../../../css/variables.scss";
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__button {
+    background: $mainColor;
+    color: white;
+    padding: 0.6rem 2rem;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 33px/33px;
+    margin-top: 3rem;
+    cursor: pointer;
+    min-width: 10rem;
+    font-weight: bold;
+    outline: none;
+
+    &--error {
+      margin-top: 2rem;
+    }
+  }
+
+  &__errorMsg {
+    color: red;
+    margin-bottom: 0;
+  }
+
+  &__input {
+    border: 0;
+    border-bottom: 1px solid $mainColor;
+    width: 15rem;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    outline: none;
+
+    &::placeholder {
+      color: $mainColor;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: $mainColor;
+    }
+
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: $mainColor;
+    }
+  }
+}

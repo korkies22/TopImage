@@ -1,0 +1,1046 @@
+{
+	"info": {
+		"_postman_id": "0ac8ded6-29cf-4562-ae65-995428f7aefd",
+		"name": "academical-reborn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Setup",
+			"item": [
+				{
+					"name": "Delete all schedules",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"axficionado@hotmail.com\",\n\t\"password\":\"sasuke22\"\n}"
+						},
+						"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schedules",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "Create schedule empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									},
+									{
+										"key": "token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF4ZmljaW9uYWRvQGhvdG1haWwuY29tIiwiaWQiOiI1ZDY3Zjc0OWMwNzA1MjAzZjQwYzZjY2UiLCJpYXQiOjE1NjczMDcxNjIsImV4cCI6MTU2NzM1MDM2Mn0.odjPuNVRb_hO3O2DmfauV7gk6D0EKM04TaDYszkETmw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Coodfl\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty no title",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects 2\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":30,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects wrong index",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":25,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects overlapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":30,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t},\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":33,\n\t\"indexStart\":27,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "Create schedule no user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool2\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/1234/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule no schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool2\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/1234"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty Copy Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool2\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool2\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty no title",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create schedule empty Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects Update\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":30,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects wrong index",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Referer",
+										"value": "https://attendancelistapp-8c775.web.app/",
+										"type": "text"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"value": "cors",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":25,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create with subjects overlapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Subjects\",\n  \"description\":\"Desc\",\n  \"collegeEvents\":[\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":30,\n\t\"indexStart\":26,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t},\n  \t{\n\t\"description\":null,\n\t\"title\":\"Orquesta de los Andes\",\n\t\"dateEnd\":\"2019-08-28T02:00:30.754Z\",\n\t\"dateStart\":\"2019-08-28T00:00:30.754Z\",\n\t\"days\":[1],\n\t\"indexEnd\":33,\n\t\"indexStart\":27,\n\t\"place\":\"Auditorio Mario Laserna\",\n\t\"timeEnd\":\"21:00\",\"timeStart\":\"19:00\",\n\t\"type\":\"Grupos institucionales\"\n  \t}\n]\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9b06c732-66a8-462c-8978-de1c52afa7ff",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "588c6262-9afd-4054-838f-5e5c1c528f22",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Delete schedule",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4989dd57-9443-4ad6-a5d2-d97aadbbf6d3",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "{{token}}"
+									}
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Truora-API-Key",
+										"type": "text",
+										"value": "",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Referer",
+										"type": "text",
+										"value": "https://attendancelistapp-8c775.web.app/"
+									},
+									{
+										"key": "Sec-Fetch-Mode",
+										"type": "text",
+										"value": "cors"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\":\"Cool2\",\n  \"description\":\"Desc\"\n}"
+								},
+								"url": "http://localhost:4000/api/users/{{userId}}/schedules/{{scheduleId}}"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdc9e308-3f0e-41e9-8a9f-7c317ad50e6c",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\",jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"axficionado@hotmail.com\",\n\t\"password\":\"sasuke22\"\n}"
+				},
+				"url": "localhost:4000/api/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "signup user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7e9e77e-3db5-4e38-9aee-6f3e3db73ced",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\",jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"axficionado@hotmail.com\",\n\t\"password\":\"sasuke22\"\n}"
+				},
+				"url": "localhost:4000/api/users/signup"
+			},
+			"response": []
+		}
+	]
+}
