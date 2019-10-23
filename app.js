@@ -6,7 +6,7 @@ const fallback=require('express-history-api-fallback');
 require("dotenv").config();
 
 const app = express();
-let root = path.join(__dirname,'public');
+let root = path.join(__dirname,'front/build');
 
 
 app.use(require("cors")());

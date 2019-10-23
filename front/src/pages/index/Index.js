@@ -21,7 +21,7 @@ function Schedule(props) {
     };
   }, [props.history, dateTimeout,dispatch]);
   return (
-    <div className="schedulePage">
+    <div className="indexPage">
       <Nav></Nav>
       <Main></Main>
     </div>

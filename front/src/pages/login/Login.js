@@ -12,7 +12,7 @@ function Login() {
 
   return (
     <div className="loginPage">
-      <h1 className="loginPage__title">Academical</h1>
+      <h1 className="loginPage__title">Top</h1>
       {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
       <p>
         {isLogin ? "¿Eres nuevo?" : "Ya te uniste?"}{" "}
