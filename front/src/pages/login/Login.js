@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "./login.scss";
-import LoginForm from "../../components/login/loginForm/loginForm";
-import SignUpForm from "../../components/login/signUpForm/signUpForm";
+import React, { useState } from 'react';
+import './login.scss';
+import LoginForm from '../../components/login/loginForm/loginForm';
+import SignUpForm from '../../components/login/signUpForm/signUpForm';
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,18 +12,25 @@ function Login() {
 
   return (
     <div className="loginPage">
-      <h1 className="loginPage__title">Top</h1>
-      {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
-      <p>
-        {isLogin ? "¿Eres nuevo?" : "Ya te uniste?"}{" "}
-        <span
-          className="loginPage__butSwitch"
-          onClick={toggleIsLogin.bind(null)}
-        >
-          {isLogin ? "Regístrate" : "Inicia Sesion"}
-        </span>
-      </p>
-      <p>¿Perdido? Consulta nuestro <a href='/' target="_blank" className="loginPage__butSwitch">Tutorial</a></p>
+      <div className="loginPage__container">
+        <h1 className="loginPage__title">Top</h1>
+        {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
+        <p>
+          {isLogin ? 'Are you new?' : 'Have you joined?'}{' '}
+          <span
+            className="loginPage__butSwitch"
+            onClick={toggleIsLogin.bind(null)}
+          >
+            {isLogin ? 'Sign up' : 'Login'}
+          </span>
+        </p>
+        <p>
+          Lost? Check out the tutorial{' '}
+          <a href="/" target="_blank" className="loginPage__butSwitch">
+            Tutorial
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

@@ -4,19 +4,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
 
   &__button {
     background: $mainColor;
     color: white;
     padding: 0.6rem 2rem;
     text-transform: uppercase;
-    font-size: 1.2rem;
     border: none;
     border-radius: 33px/33px;
     margin-top: 3rem;
     cursor: pointer;
     min-width: 10rem;
-    font-weight: bold;
+    font-size: 1.1rem;
     outline: none;
 
     &--error{
@@ -38,18 +38,18 @@
     outline: none;
 
     &::placeholder {
-      color: $mainColor;
+      color: rgba($color: $mainColor, $alpha: 0.6);
       opacity: 1; /* Firefox */
     }
 
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: $mainColor;
+      color: rgba($color: $mainColor, $alpha: 0.6);
     }
 
     &::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: $mainColor;
+      color: rgba($color: $mainColor, $alpha: 0.6);
     }
   }
 }

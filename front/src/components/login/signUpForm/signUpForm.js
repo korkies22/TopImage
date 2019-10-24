@@ -20,11 +20,11 @@ function SignUpForm(props) {
     e.preventDefault();
     var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; // eslint-disable-line no-useless-escape
     if (!email || !re.test(String(email).toLowerCase())) {
-      return setErrorMsg("Debe ingresar un email válido");
+      return setErrorMsg("You have to use a valid email");
     }
     if (!password || password.length < 5) {
       return setErrorMsg(
-        "Debe ingresar una contraseña de al menos 5 caracteres"
+        "The password must have at least 5 characters"
       );
     }
     if (confirmPassword !== password) {
