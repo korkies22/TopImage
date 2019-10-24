@@ -1,9 +1,9 @@
 const router_users = require("./users/routes"),
-  router_events = require("./events/routes");
+  router_contests = require("./contests/routes");
 
 const routers = function(app) {
   app.use("/api/users", router_users);
-  app.use("/api/events", router_events);
+  app.use("/api/contests", router_contests);
 };
 
 module.exports = routers;
