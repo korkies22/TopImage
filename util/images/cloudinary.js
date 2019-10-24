@@ -1,8 +1,7 @@
 const axios= require("axios"),
-    crypto = require('crypto'),
-   shasum = crypto.createHash('sha1');
+    crypto = require('crypto');
 
-const cloudName=process.env.cloudianryCloudName;
+const cloudName=process.env.cloudinaryCloudName;
 const authKey=process.env.cloudinaryApiKey;
 
 const BASE_URL=`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
@@ -21,6 +20,7 @@ const calculateHash=(params)=>{
 
     msg+=process.env.cloudinaryApiSecret;
 
+    const shasum = crypto.createHash('sha1')
     shasum.update(msg);
     return (shasum.digest('hex'));
 }
@@ -28,6 +28,7 @@ const calculateHash=(params)=>{
 const postImage= async (data,timestamp,publicId,signature)=>{
     try
     {
+        console.log(BASE_URL,authKey,timestamp,publicId,process.env.cloudinaryApiSecret);
         let ans=await axios.post(
             `${BASE_URL}`,
             {
@@ -42,17 +43,17 @@ const postImage= async (data,timestamp,publicId,signature)=>{
         if(!ans.data)
             return null;
             
-        return ans;
+        return ans.data.secure_url;
     }
     catch(e)
     {
-        console.error(e.data);
+        console.error(e);
         return null;
     }
     
 }
 
-const getCloudinaryImages=async (id,images)=>{
+exports.getCloudinaryImages=async (id,images)=>{
     let ans=[];
     let params=[];
     let signature="";
@@ -73,7 +74,7 @@ const getCloudinaryImages=async (id,images)=>{
         ]
         signature=calculateHash(params);
 
-        let url= await postImage(images[i],params[1].value,params[0].value,signature);
+        let url= await postImage(images[i].data,params[1].value,params[0].value,signature);
         if(url==null)
         {
             return null;

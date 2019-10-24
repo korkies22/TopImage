@@ -5,7 +5,7 @@ const MAX_IMAGES=4;
 
 const authKey=process.env.unsplashKey;
 
-export const getUnsplash=async (topic)=>{
+exports.getUnsplashImages=async (topic)=>{
     const AuthStr=`Client-ID ${authKey}`;
     try
     {

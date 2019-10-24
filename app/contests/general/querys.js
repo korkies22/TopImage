@@ -6,14 +6,14 @@ const path = require("path"),
   contests = db.collection("contests"),
   users = db.collection("users");
 
-const  {getUnsplashImages} = require ("../../../util/images/unsplash");
-const {getCloudinaryImages} = require ("../../../util/images/cloudinary");
+const  { getUnsplashImages } = require ("../../../util/images/unsplash");
+const { getCloudinaryImages } = require ("../../../util/images/cloudinary");
 
-const getImages=(topic,imageData)=>{
-  if(!imageData)
-    return getUnsplashImages(topic);
+const getImages=async (id,topic,images)=>{
+  if(!images || images.length<4)
+    return await getUnsplashImages(topic,images);
   
-  return getCloudinaryImages(imageData);
+  return await getCloudinaryImages(id,images);
 }
 
 exports.findAll = async () => {
@@ -34,13 +34,13 @@ exports.newContest = async (userId,contest) => {
   if(user==null)
     return null;
 
-  let images=getImages(contest.imageData);
+  let images=await getImages(userId+Date.now(),contest.topic,contest.images);
   if(images==null)
     return null;
 
+  console.log("IMG");
   contest.username=user.email;
   contest.images=images;
-  contest.imageData=null;
 
   return await contests.insertOne(contest);
 };
