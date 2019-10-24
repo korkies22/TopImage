@@ -6,10 +6,12 @@ const path = require("path"),
   contests = db.collection("contests"),
   users = db.collection("users");
 
-const getImages=(imageData)=>{
-  return [];
+const  {getUnsplashImages} = require ("../../../util/images/unsplash");
+const {getCloudinaryImages} = require ("../../../util/images/cloudinary");
+
+const getImages=(topic,imageData)=>{
   if(!imageData)
-    return getUnsplashImages();
+    return getUnsplashImages(topic);
   
   return getCloudinaryImages(imageData);
 }
