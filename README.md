@@ -19,11 +19,14 @@ Users: {
 Contests: {
     "_id":Mongo default,
     "name":String,
+    "topic":String,
     "username":String,
     "endDate":Date,
     "images":Image[]
 }
 ```
+
+When making a request, the expected image format has "data" in it ;)
 
 ```
 Images:{
