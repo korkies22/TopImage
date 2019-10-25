@@ -11,7 +11,7 @@ const { getCloudinaryImages } = require ("../../../util/images/cloudinary");
 
 const getImages=async (id,topic,images)=>{
   if(!images || images.length<4)
-    return await getUnsplashImages(topic,images);
+    return await getUnsplashImages(topic);
   
   return await getCloudinaryImages(id,images);
 }
@@ -33,10 +33,12 @@ exports.newContest = async (userId,contest) => {
     console.log(e);
     return null;
   }
+
   let user = await users.findOne({ _id: mongoId });
   console.log("USER",user);
   if(user==null)
     return null;
+
 
   let images=await getImages(userId+Date.now(),contest.topic,contest.images);
   if(images==null)

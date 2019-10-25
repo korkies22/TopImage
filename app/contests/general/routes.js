@@ -2,7 +2,9 @@ const express = require("express"),
   path = require("path"),
   rootDir = path.dirname(process.mainModule.filename),
   contestController = require("./controller"),
-  { validate } = require("./validator");
+  multer  = require('multer'),
+  upload = multer();
+  ;
 
 const handlerExceptions = require(path.join(
   rootDir,
@@ -11,10 +13,12 @@ const handlerExceptions = require(path.join(
 ));
 const router = express.Router();
 
-//Get events
+//Get all
 router.get("", handlerExceptions(contestController.getAll));
+
+// Create contest (multiform-data)
 router.post("", 
-  validate("contest"),
+  upload.any(),
   handlerExceptions(contestController.create));
 
 router.put("/:id", handlerExceptions(contestController.getAll));

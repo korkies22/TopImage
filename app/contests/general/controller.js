@@ -21,15 +21,7 @@ exports.getAll = async (req, res, next) => {
 }
 
 exports.create = async (req, res, next) => {
-  const errors = validationResult(req);
   try {
-    if (!errors.isEmpty()) {
-      const error = new Error("Error de validación.");
-      error.statusCode = 422;
-      error.data = errors.array();
-      throw error;
-    }
-
     let auth = req.auth.split(" ")[1];
     let decodedToken = await tokenManager.decodeToken(auth);
 
@@ -41,8 +33,28 @@ exports.create = async (req, res, next) => {
       throw error;
     }
 
-    console.log(decodedToken);
-    let answer = await querys.newContest(decodedToken.id, req.body);
+    let name=req.body.name;
+    let topic=req.body.topic;
+    let endDateStr=req.body.endDate;
+
+    console.log(req.body);
+
+    if(!name || !topic || !endDateStr)
+    {
+      const error = new Error("Formato incorrecto de concurso.");
+      error.statusCode = 400;
+      error.data = "No se ha enviado toda la información del concurso, por favor revísalo e intenta de nuevo :)";
+      throw error;
+    }
+
+    let body={
+      name:name,
+      topic:topic,
+      endDate:new Date(endDateStr),
+      images:req.files
+    }
+
+    let answer = await querys.newContest(decodedToken.id, body);
     if (answer !== null) {
       res.status(201).json(answer);
       return;
