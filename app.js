@@ -3,7 +3,9 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fallback=require('express-history-api-fallback');
+
 require("dotenv").config();
+
 
 const app = express();
 let root = path.join(__dirname,'front/build');
@@ -15,6 +17,7 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(root));
+
 
 const PORT = process.env.PORT || 4000
 

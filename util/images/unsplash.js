@@ -17,7 +17,14 @@ exports.getUnsplashImages=async (topic)=>{
             return null;
 
         let data= ans.data.map(img=>
-            img.urls.regular
+            {
+                return {
+                    url:img.urls.regular,
+                    likes:0,
+                    likedBy:[]
+                }   
+            }
+            
         );
         console.log("DATA",data);
         return data;

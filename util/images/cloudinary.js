@@ -27,13 +27,12 @@ const calculateHash=(params)=>{
 
 const postImage= async (data,timestamp,publicId,signature)=>{
     try
-    {
-        console.log(BASE_URL,authKey,timestamp,publicId,process.env.cloudinaryApiSecret);
+    {        
         let ans=await axios.post(
             `${BASE_URL}`,
             {
                 api_key: authKey,
-                file:data,
+                file:`data:image/jpeg;base64,${data}`,
                 timestamp:timestamp,
                 public_id:publicId,
                 signature:signature
@@ -47,7 +46,7 @@ const postImage= async (data,timestamp,publicId,signature)=>{
     }
     catch(e)
     {
-        console.error(e);
+        console.log("ERROR",e.response);
         return null;
     }
     
@@ -59,6 +58,10 @@ exports.getCloudinaryImages=async (id,images)=>{
     let signature="";
 
     let size=images.length<4?images.length:4;
+
+    let imageData=images.map((el)=>
+        el.buffer.toString('base64')
+    );
 
     for(let i=0;i<size;i++)
     {
@@ -74,12 +77,17 @@ exports.getCloudinaryImages=async (id,images)=>{
         ]
         signature=calculateHash(params);
 
-        let url= await postImage(images[i].data,params[1].value,params[0].value,signature);
+        let url= await postImage(imageData[i],params[1].value,params[0].value,signature);
         if(url==null)
         {
             return null;
         }
-        ans.push(url);
+
+        ans.push({
+            url:url,
+            likes:0,
+            likedBy:[]
+        });
     }
 
     return ans;
