@@ -17,7 +17,9 @@ router.post("",
   validate("contest"),
   handlerExceptions(contestController.create));
 
-router.put(":id", handlerExceptions(contestController.getAll));
+router.put("/:id", handlerExceptions(contestController.getAll));
 router.delete("/:id", handlerExceptions(contestController.delete));
+
+router.post("/:id/images/:imageIndex/likes", handlerExceptions(contestController.likeImage));
 
 module.exports = router;

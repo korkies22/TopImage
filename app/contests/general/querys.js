@@ -16,6 +16,10 @@ const getImages=async (id,topic,images)=>{
   return await getCloudinaryImages(id,images);
 }
 
+const isLater=(newDate,endDate)=>{
+  return newDate.getTime()<=endDate.getTime();
+}
+
 exports.findAll = async () => {
   return await contests.find().toArray();
 };
@@ -41,9 +45,66 @@ exports.newContest = async (userId,contest) => {
   console.log("IMG");
   contest.username=user.email;
   contest.images=images;
+  contest.endDate=new Date(contest.endDate);
 
   return await contests.insertOne(contest);
 };
+
+exports.likeContest = async (userId,contestId,index) =>{
+  let mongoId = 0;
+  console.log("USER ID",userId);
+  try {
+    mongoId = ObjectId(userId);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+  let user = await users.findOne({ _id: mongoId });
+  console.log("USER",user);
+  if(user==null)
+    return null;
+  
+    try {
+      mongoId = ObjectId(contestId);
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+
+  let contest= await contests.findOne({ _id: mongoId });
+  if(!contest.endDate || isLater(new Date(),contest.endDate))
+  {
+    console.log("The given date happened after the endDate");
+    return null;
+  }
+
+  let image=contest.images[index];
+
+  image.likes=image.likes?image.likes+1:1;
+  image.likedBy=image.likedBy?image.likedBy:[];
+  console.log(image.likedBy);
+
+  let el={};
+  for (let i=0;i<image.likedBy.length;i++)
+  {
+    el=image.likedBy[i];
+    if (el===user.email)
+    {
+      return null;
+    }
+  }
+  
+  image.likedBy.push(user.email);
+
+  console.log(contest.images,image);
+  
+  return await contests.findOneAndUpdate({_id:mongoId},{
+    $set:{
+      images:contest.images
+    }
+  },{returnOriginal: false});
+
+}
 
 exports.deleteContest = async (userId,contestId) => {
   let mongoId = 0;

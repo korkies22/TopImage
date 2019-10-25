@@ -59,6 +59,45 @@ exports.create = async (req, res, next) => {
   }
 }
 
+exports.likeImage = async(req,res,next)=>{
+  const errors = validationResult(req);
+  try {
+    if (!errors.isEmpty()) {
+      const error = new Error("Error de validación.");
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
+    let auth = req.auth.split(" ")[1];
+    let decodedToken = await tokenManager.decodeToken(auth);
+
+    let ver = verifyToken(decodedToken);
+    if (!ver) {
+      const error = new Error("Error de autenticación.");
+      error.statusCode = 402;
+      error.data = "El recurso al que estás accediendo no es tuyo";
+      throw error;
+    }
+
+    console.log(decodedToken);
+    let answer = await querys.likeContest(decodedToken.id, req.params.id,req.params.imageIndex);
+    if (answer !== null) {
+      res.status(200).json(answer);
+      return;
+    }
+
+    const error = new Error("El concurso no puede recibir votos");
+    error.statusCode = 400;
+    throw error;
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
 exports.delete = async (req, res, next) => {
   const errors = validationResult(req);
   try {
