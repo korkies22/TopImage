@@ -1,10 +1,14 @@
 const express = require("express");
+const http = require("http");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fallback=require('express-history-api-fallback');
 
 require("dotenv").config();
+
+const {startWS,listenForEvent} = require("./util/socketio/socketio");
+const { CONTEST_EVENT } = require("./util/socketio/events");
 
 
 const app = express();
@@ -34,16 +38,13 @@ start = async () => {
 
     app.use(fallback('index.html', { root: root }));
 
-    if (process.env.scrapper === "1") {
-      const culturalScrapper = require("./scrapper/cultural-events");
-      culturalScrapper.scrapeEventsCulturalWebpage(
-        culturalScrapper.URL + culturalScrapper.formatDate(new Date()),
-        html => culturalScrapper.parseEventList(html)
-      );
-    }
-
+    let server = http.createServer(app);
     console.log("Trying on port "+PORT);
-    app.listen(PORT,()=>{`Listening on port ${PORT}`});
+    startWS(server);
+    server.listen(PORT,()=>{`Listening on port ${PORT}`});  //listen on port 80
+
+    
+
   } catch (err) {
     console.log(err);
   }

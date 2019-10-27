@@ -1,5 +1,5 @@
+// Libs
 let ObjectId = require("mongodb").ObjectID;
-
 const path = require("path"),
   rootDir = path.dirname(process.mainModule.filename),
   db = require(path.join(rootDir, "util", "db", "mongo")).db(),
@@ -9,6 +9,35 @@ const path = require("path"),
 const  { getUnsplashImages } = require ("../../../util/images/unsplash");
 const { getCloudinaryImages } = require ("../../../util/images/cloudinary");
 
+const { emitEvent } = require("../../../util/socketio/socketio");
+const { CONTEST_EVENT,CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
+// Define change stream
+const changeStream = contests.watch();
+// start listen to changes
+changeStream.on("change", function(event) {
+
+  console.log("Change",JSON.stringify(event));
+  let data={"error":"There was no registered CRUD change"};
+  let id;
+  if(event.fullDocument)
+  {
+    data=event.fullDocument;
+    id=data._id;
+  }
+  else if (event.documentKey)
+  {
+    data=event.documentKey;
+    id=data._id;
+  }
+
+  emitEvent(CONTEST_EVENT,data);
+  if(id)
+    emitEvent(`${CONTEST_DETAIL_EVENT}-${id}`,data);
+});
+
+//------------
+// METHODS
+//------------
 const getImages=async (id,topic,images)=>{
   if(!images || images.length<4)
     return await getUnsplashImages(topic);
