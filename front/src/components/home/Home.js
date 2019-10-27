@@ -28,12 +28,33 @@ function Home() {
         <form className="home__modal">
             <div className="home__modal__row">
                 <div className="home__modal__col">
-                    <input type="text">
-                        <label>Name</label>
-                    </input>
+                    <label>
+                        Name
+                        <input type="text"/>
+                    </label>
+
+                    <label>
+                        Topic
+                        <input type="text"/>
+                    </label>
                 </div>
                 <div className="home__modal__col">
+                    <label>
+                        EndDate
+                        <input type="date"/>
+                    </label>
 
+                    <label>
+                        Images
+                        <label>
+                            <input type="radio" value="option1" checked={true} />
+                            Option 1
+                        </label>
+                        <label>
+                            <input type="radio" value="option1" checked={false} />
+                            Option 2
+                        </label>
+                    </label>
                 </div>
             </div>
             <div className="home__modal__row">
