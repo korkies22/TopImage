@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "../pages/login/Login";
 import Index from "../pages/home/Home";
@@ -11,12 +11,15 @@ function AppRouter() {
   const token = useSelector(state => state.auth.token);
   return (
     <Router>
-      {token?<Nav/>:<Redirect to="/login"/>}
-      <Route path="/" exact render={() => token?  <Index></Index>: <Redirect to="/login"/> } />
-      <Route path="/login" render={() => token? <Redirect to="/"/> : <Login></Login> } />
-      <Route path="/tutorial" component={Tutorial} />
-      <Route path="/search" component={Tutorial} />
-      <Route path="*" render={() => <Redirect to="/"/> } />
+      
+      {token ? <Nav /> : <Redirect to="/login" />}
+      <Switch>
+        <Route path="/" exact render={() => token ? <Index></Index> : <Redirect to="/login" />} />
+        <Route path="/login" render={() => token ? <Redirect to="/" /> : <Login></Login>} />
+        <Route path="/tutorial" component={Tutorial} />
+        <Route path="/search" component={Tutorial} />
+        <Route path="*" render={() => <Redirect to="/" />} />
+      </Switch>
     </Router>
   );
 }
