@@ -6,10 +6,13 @@ export default function reducer(state = initState, action) {
 
   switch (action.type) {
   case "ADD_CONTEST":
-    console.log("Comes here",action.payload,state.contests);
+    index=state.contests.findIndex(el=>el._id===action.payload.id);
     tempArray=[...state.contests];  
-    if(state.contests)
+    if(index!=-1)
+      tempArray[index]=action.payload.contest;
+    else if(state.contests)
       tempArray.push(action.payload.contest);
+      
     return {
       ...state,
       contests: tempArray,

@@ -9,6 +9,7 @@ import "./App.css";
 
 function AppRouter() {
   const token = useSelector(state => state.auth.token);
+  console.log("TOKEN",token);
   return (
     <Router>
       {token?<Nav/>:<Redirect to="/login"/>}
@@ -16,7 +17,7 @@ function AppRouter() {
       <Route path="/login" render={() => token? <Redirect to="/"/> : <Login></Login> } />
       <Route path="/tutorial" component={Tutorial} />
       <Route path="/search" component={Tutorial} />
-      <Route path="*" render={() => <Redirect to="/"/> } />
+      <Route path="*" render={() => <Redirect to="/login"/> } />
     </Router>
   );
 }

@@ -20,10 +20,30 @@ function Home() {
 
     const data=activeContests?activeContests.map(el=><li>{el.name+" "+el.endDate}</li>):["nOTHING"]
     
+    const createContest=()=>{
+
+    }
+
     const modalFormBody=(
-        <div>
-            
-        </div>
+        <form className="home__modal">
+            <div className="home__modal__row">
+                <div className="home__modal__col">
+                    <input type="text">
+                        <label>Name</label>
+                    </input>
+                </div>
+                <div className="home__modal__col">
+
+                </div>
+            </div>
+            <div className="home__modal__row">
+                {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
+                <button className="home__button" onSubmit={()=>createContest()}>
+                    <img className="home__img" src={require("../../assets/icons/logo.svg")}/>
+                    NEW TOP IMAGE
+                </button>
+            </div>
+        </form>
     );
 
     const deactivateModal=()=>{

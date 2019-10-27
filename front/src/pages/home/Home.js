@@ -24,7 +24,7 @@ function Home(props) {
   }, [props.history, dateTimeout,dispatch]);
   return (
     <div className="home__page">
-      <div class="home__bg"></div>
+      <div className="home__bg"></div>
       <HomeComponent/>
     </div>
   );
