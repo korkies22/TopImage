@@ -1,14 +1,16 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Provider } from "react-redux";
 import store from "../store/mainStore";
-import Router from "./Router";
 import "./App.css";
 
+import Main from "./Main";
+
 function AppRouter() {
+
+
   return (
     <Provider store={store}>
-      <Router>
-      </Router>
+      <Main/>
     </Provider>
   );
 }

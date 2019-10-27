@@ -10,7 +10,7 @@ const  { getUnsplashImages } = require ("../../../util/images/unsplash");
 const { getCloudinaryImages } = require ("../../../util/images/cloudinary");
 
 const { emitEvent } = require("../../../util/socketio/socketio");
-const { CONTEST_EVENT,CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
+const { CONTEST_ADD_EVENT, CONTEST_DELETE_EVENT, CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
 // Define change stream
 const changeStream = contests.watch();
 // start listen to changes
@@ -19,18 +19,22 @@ changeStream.on("change", function(event) {
   console.log("Change",JSON.stringify(event));
   let data={"error":"There was no registered CRUD change"};
   let id;
+  let channel;
+
   if(event.fullDocument)
   {
+    channel=CONTEST_ADD_EVENT;
     data=event.fullDocument;
     id=data._id;
   }
   else if (event.documentKey)
   {
+    channel=CONTEST_DELETE_EVENT;
     data=event.documentKey;
     id=data._id;
   }
 
-  emitEvent(CONTEST_EVENT,data);
+  emitEvent(channel,data);
   if(id)
     emitEvent(`${CONTEST_DETAIL_EVENT}-${id}`,data);
 });

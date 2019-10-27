@@ -9,7 +9,7 @@ import {logout} from "../../store/auth";
 import HomeComponent from "../../components/home/Home";
 
 function Home(props) {
-
+  
   const dateTimeout = useSelector(state => state.auth.tokenTimeout);
   const dispatch= useDispatch();
   useEffect(() => {
