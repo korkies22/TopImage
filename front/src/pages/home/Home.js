@@ -9,7 +9,7 @@ import {logout} from "../../store/auth";
 import HomeComponent from "../../components/home/Home";
 
 function Home(props) {
-  
+
   const dateTimeout = useSelector(state => state.auth.tokenTimeout);
   const dispatch= useDispatch();
   useEffect(() => {
@@ -23,7 +23,8 @@ function Home(props) {
     };
   }, [props.history, dateTimeout,dispatch]);
   return (
-    <div className="home">
+    <div className="home__page">
+      <div className="home__bg"></div>
       <HomeComponent/>
     </div>
   );
