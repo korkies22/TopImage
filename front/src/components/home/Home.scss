@@ -1,0 +1,27 @@
+@import "../../css/variables.scss";
+
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    cursor: pointer;
+    background-color: $mainColor;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    font-style: bold;
+    padding: 0 1rem;
+    margin: 2rem;
+    border-radius: 1rem;
+    border: 1px $borderColor solid;
+
+    -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  }
+}
