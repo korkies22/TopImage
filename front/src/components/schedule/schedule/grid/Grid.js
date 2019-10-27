@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import Occurrence from "./occurrence/Occurrence";
 
-import { setCurrentSchedule } from "../../../../store/schedules";
+import { setCurrentSchedule } from "../../../../store/contests";
 
 function Grid(props) {
   // Put op

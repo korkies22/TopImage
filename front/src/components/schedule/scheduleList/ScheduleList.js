@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSchedules, setCurrentSchedule } from "../../../store/schedules/actions";
+import { setSchedules, setCurrentSchedule } from "../../../store/contests/actions";
 import "./ScheduleList.scss";
 
 import ActionModal from "../../actions/actionModal/ActionModal";

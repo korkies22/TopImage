@@ -8,7 +8,7 @@ import "../../../actions/actionModal/ActionModal.scss";
 import axios from "axios";
 
 import {useSelector,useDispatch} from "react-redux";
-import { setCurrentSchedule } from "../../../../store/schedules";
+import { setCurrentSchedule } from "../../../../store/contests";
 import { setMonday } from "../../../../store/week";
 import { getMonday } from "../../../../util/date/date";
 

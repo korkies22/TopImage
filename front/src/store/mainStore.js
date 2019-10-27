@@ -1,16 +1,12 @@
 import { combineReducers, createStore } from "redux";
 import auth from "./auth";
-import events from "./events";
-import schedules from "./schedules";
-import week from "./week";
+import contests from "./contests";
 
 import root from "./root";
 
 const reducers = combineReducers({
-  events,
-  schedules,
+  contests,
   auth,
-  week,
   root
 });
 

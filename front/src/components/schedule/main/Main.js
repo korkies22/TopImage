@@ -6,7 +6,7 @@ import "./Main.scss";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setEvents } from "../../../store/events";
-import { setSchedules} from "../../../store/schedules";
+import { setSchedules} from "../../../store/contests";
 
 function Main() {
   const url = useSelector(state => state.root.url);

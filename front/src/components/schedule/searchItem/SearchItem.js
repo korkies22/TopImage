@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./SearchItem.scss";
-import { setCurrentSchedule, setTempEvent } from "../../../store/schedules";
+import { setCurrentSchedule, setTempEvent } from "../../../store/contests";
 import { setMonday, reselectCurMonday } from "../../../store/week";
 import { getHash } from "../../../util/events/events";
 import { getMonday } from "../../../util/date/date";

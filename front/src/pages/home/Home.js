@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import "./Home.scss";
+
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { logout as deleteUserInfo } from "../../util/state/localStorageUtil";
 import {logout} from "../../store/auth";
-import Nav from "../../components/schedule/nav/Nav";
-import Main from "../../components/schedule/main/Main";
-function Schedule(props) {
+import HomeComponent from "../../components/home/Home";
+
+function Home(props) {
 
   const dateTimeout = useSelector(state => state.auth.tokenTimeout);
   const dispatch= useDispatch();
@@ -21,14 +23,13 @@ function Schedule(props) {
     };
   }, [props.history, dateTimeout,dispatch]);
   return (
-    <div className="indexPage">
-      <Nav></Nav>
-      <Main></Main>
+    <div className="home">
+      <HomeComponent/>
     </div>
   );
 }
 
-Schedule.propTypes = {
+Home.propTypes = {
   history: PropTypes.any,
 };
-export default withRouter(Schedule);
+export default withRouter(Home);
