@@ -31,7 +31,7 @@ function LoginForm(props) {
       const res = await axios.post(`${url}users/login`, { email, password });
       saveAuth(res.data);
       dispatch(setAuth(res.data));
-      props.history.push("/schedule");
+      props.history.push("/");
     } catch (err) {
       console.log(err);
       console.log(err.response);

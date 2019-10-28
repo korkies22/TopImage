@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter, useParams } from "react-router-dom";
 
-import { withRouter,useParams } from "react-router-dom";
-
+console.log('llegaNice')
 function Contest() {
-     let { id } = useParams();
+  let { id } = useParams();
 
   return (
     <div>
-        Contest {id}
+      Contest {id}
     </div>
   );
 }
