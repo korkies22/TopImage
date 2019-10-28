@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Login from "../pages/login/Login";
 import Index from "../pages/home/Home";
