@@ -10,6 +10,7 @@ import axios from "axios";
 
 import "./Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
+import Filter from "../search/filter/Filter";
 
 function Home(props) {
     const [newContest,setNewConstest]=useState({});
@@ -25,8 +26,6 @@ function Home(props) {
       useSelector(state => state.contests.activeContests, []);
     const activeContests=useActiveContests();
 
-    const data=activeContests?activeContests.map(el=><li>{el.name+" "+el.endDate}</li>):["nOTHING"]
-    
     let history = useHistory();
 
     const beforeCurrentTime=(date)=>{
@@ -165,6 +164,8 @@ function Home(props) {
                 <img className="home__img" src={require("../../assets/icons/logo.svg")} alt="Top Image logo. A lightbulb inside an image icon"/>
                 NEW TOP IMAGE
             </button>
+
+            <Filter contests={activeContests}></Filter>
 
 
             <ActionModal ref={newContestModal}

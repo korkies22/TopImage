@@ -14,6 +14,7 @@ export const deleteContest = (id) =>({
 
 export const setContests = (contests) => {
   let compareDate=new Date();
+  console.log("Set contest");
   return{
     type: "SET_CONTESTS",
     payload: {
@@ -21,7 +22,7 @@ export const setContests = (contests) => {
       activeContests:contests.filter(el=>{
         let date=new Date(el.endDate);
         console.log(el.endDate,date.getTime(),compareDate.getTime());
-        return new Date(el.endDate).getTime()>compareDate.getTime()
+        return date.getTime()>compareDate.getTime()
       })
     }
   }

@@ -29,7 +29,7 @@ function Nav(props) {
         <NavLink exact={true} className="nav__link" activeClassName='nav__link--active' to="/search">Search</NavLink>
         
         <div className="nav__user">
-          <a href='/' target="_blank"> <img className="nav__userIcon" src={require("../../assets/icons/help.svg")} alt="help"/></a>
+          <a href='/tutorial' target="_blank"> <img className="nav__userIcon" src={require("../../assets/icons/help.svg")} alt="help"/></a>
           <img
             className="nav__userIcon"
             src={require("../../assets/icons/person.svg")}

@@ -1,26 +1,30 @@
 /* eslint-disable no-undef */
 import React,{useState} from "react";
 import "./Filter.scss";
-import SearchItem from "../searchItem/SearchItem";
+//import SearchItem from "../searchItem/SearchItem";
 import { useSelector } from "react-redux";
 
-function Filter() {
-  const events = useSelector(state => state.events.events);
-  const [eventFilter, setEventFilter] = useState(events);
+function Filter(props) {
+
+  console.log("CONTESTS",props.contests);
+
+  const [contestFilter, setContestFilter] = useState(props.contests);
   const [filtered, setFiltered] = useState(false);
 
   const filter=(event)=>{
     setFiltered(true);
-    let tempFilter=events.filter((ev)=>{
+    let tempFilter=props.contests.filter((c)=>{
       let val=event.target.value;
-      return ev.title.includes(val) || ev.type.includes(val);
+      return c.name.includes(val) || c.topic.includes(val);
     });
-    setEventFilter(tempFilter);
+    setContestFilter(tempFilter);
   };
 
-  const mapEvents=(data)=>(
-    data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
-  );
+  const mapContests=(data)=>{
+    console.log("DATA",data);
+    //data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
+   return data.map(el => <p key={el._id}> {el.name}-{el.topic}-{el.endDate} </p>)
+  };
 
   return (
     <div className="filter">
@@ -35,7 +39,7 @@ function Filter() {
 
 
       <div className="filter__events">
-        {filtered || eventFilter.length>0?mapEvents(eventFilter):mapEvents(events)}
+        {filtered || contestFilter.length>0?mapContests(contestFilter):mapContests(props.contests)}
       </div>
       
     </div>
