@@ -37,7 +37,8 @@ exports.create = async (req, res, next) => {
     let topic=req.body.topic;
     let endDateStr=req.body.endDate;
 
-    console.log(req.body);
+    console.log("BODY",req.body);
+    console.log("FILES",req.file);
 
     if(!name || !topic || !endDateStr)
     {

@@ -20,7 +20,7 @@
     left: 50%;
     position: fixed;
     background-color: white;
-    width: 50%;
+    width: auto;
     height: auto;
     margin: auto;
     z-index: 3;
@@ -135,6 +135,7 @@
       color: red;
       margin-bottom: 0;
       font-size: 1rem;
+      text-align: center;
     }
 
     label {
