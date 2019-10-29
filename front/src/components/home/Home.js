@@ -12,7 +12,7 @@ import "./Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
 import Filter from "../search/filter/Filter";
 
-function Home(props) {
+function Home() {
     const [newContest,setNewConstest]=useState({});
     const [errorMsg,setErrorMsg]=useState("");
     const [isUpload,setIsUpload]=useState(undefined);
@@ -45,8 +45,8 @@ function Home(props) {
             return setErrorMsg("Your contest end date can`t be before now");
         if(isUpload===undefined)
             return setErrorMsg("You need to select a type of image");
-        if(isUpload && (!files || files.length!==4))
-            return setErrorMsg("You must upload 4 images for the contest");
+        if(isUpload && (!files || files.length<2 || files.length>4))
+            return setErrorMsg("You must upload between 2 and 4 images for the contest");
 
         let formData=new FormData();
         formData.append("name",newContest.name);

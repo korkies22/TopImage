@@ -43,10 +43,12 @@ changeStream.on("change", function(event) {
 // METHODS
 //------------
 const getImages=async (id,topic,images)=>{
-  if(!images || images.length<4)
+  if(!images)
     return await getUnsplashImages(topic);
-  
-  return await getCloudinaryImages(id,images);
+  if (images.length>=1 && images.length<=4)
+    return await getCloudinaryImages(id,images);
+
+  return null;
 }
 
 const isLater=(newDate,endDate)=>{

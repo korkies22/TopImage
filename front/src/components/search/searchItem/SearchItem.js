@@ -1,88 +1,55 @@
 import React from "react";
-import axios from "axios";
 import "./SearchItem.scss";
-import { setCurrentSchedule, setTempEvent } from "../../../store/contests";
-import { setMonday, reselectCurMonday } from "../../../store/week";
-import { getHash } from "../../../util/events/events";
-import { getMonday } from "../../../util/date/date";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useHistory } from "react-router-dom";
 
 
 import PropTypes from "prop-types";
 
 
 function SearchItem(props) {
-  const url = useSelector(state => state.root.url);
-  const token = useSelector(state => state.auth.token);
-  const user = useSelector(state => state.auth.user);
-  
-  const dispatch = useDispatch();
-  const useSchedule = () =>
-    useSelector(state => state.schedules.schedule, []);
-  const currentSchedule=useSchedule();
+  let history = useHistory();
 
-  const updateCurrentSchedule = async (events) => {
-    try {
-      const options = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-      const schedule= {...currentSchedule};
-      schedule.collegeEvents=events;
-      await axios.put(`${url}users/${user._id}/schedules/${schedule._id}`,
-        schedule, options);
-      dispatch(setCurrentSchedule(schedule));
-    }
-    catch (error) {
-      console.error(error);
-    }
-  };
+  const topImage=(images)=>{
+    let likes=0;
+    let src=images[0].url;
 
-  const isAdded=()=>{
-    return currentSchedule.collegeEvents.some(el=>el._id && el._id.toString()===props.element._id);
-  };
+    images.forEach(el=>{
+      if (el.likes>likes)
+      {
+        likes=el.likes;
+        src=el.url;
+      }
+    })
 
-  const changeWeek=()=>{
-    const dateStart= props.element.dateStart;
-    const newMonday= getMonday(dateStart);
-    dispatch(setMonday(newMonday));
-  };
+    return src;
+  }
 
-  const addItem= () =>{
-    if(!currentSchedule) return;
-    if(!currentSchedule.collegeEvents)
-    {
-      currentSchedule.collegeEvents=[];
-    }
-    const events= [...currentSchedule.collegeEvents];
-    events.push(props.element);
-    updateCurrentSchedule(events);
-  };
+  const goToDetail=(id)=>{
+    history.push(`contests/${id}`);
+  }
 
-  const addTempItem= () =>{
-    changeWeek();
-    dispatch(setTempEvent({...props.element,isTemp:true}));
-  };
-
-  const removeTempItem= () =>{
-    if(!isAdded())
-      dispatch(reselectCurMonday());
-    dispatch(setTempEvent(null));
-  };
-
-  const colorsLength=6;
   return (
-    <div onClick={addItem} onMouseEnter={addTempItem} onMouseLeave={removeTempItem}
-      className={`search-item search-item--color${Math.abs(getHash(props.element.type)) % colorsLength}`}
-    >
-      <h4 className="search-item__title">{props.element.title}</h4>
-      <h6 className="search-item__type">{props.element.type}</h6>
+    <div className={`search-item`} onClick={()=>{goToDetail(props.element._id)}}>
+      <div className="search-item__container">
+        <span className="search-item__num">X{props.element.images.length}</span>
+      </div>
+      <img className="search-item__img" src={topImage(props.element.images)} alt="Top image of the contest so far">
+      </img>
+      {/*Text*/}
+      <h4 className="search-item__date">{props.element.endDate}</h4>
+      <div className="search-item__group">
+        <p className="search-item__text">
+          {props.element.username} {props.element.name}
+        </p>
+        <p className="search-item__arrow">►</p>
+      </div>
     </div>
   );
 }
 
 SearchItem.propTypes={
-  element:PropTypes.any,
-  eliminateOccurrence:PropTypes.any
+  element:PropTypes.any
 };
 
 export default SearchItem;

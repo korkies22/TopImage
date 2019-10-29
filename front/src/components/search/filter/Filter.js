@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 import React,{useState} from "react";
 import "./Filter.scss";
-//import SearchItem from "../searchItem/SearchItem";
-import { useSelector } from "react-redux";
+import SearchItem from "../searchItem/SearchItem";
 
 function Filter(props) {
 
@@ -22,8 +21,7 @@ function Filter(props) {
 
   const mapContests=(data)=>{
     console.log("DATA",data);
-    //data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
-   return data.map(el => <p key={el._id}> {el.name}-{el.topic}-{el.endDate} </p>)
+    return data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
   };
 
   return (
@@ -37,8 +35,7 @@ function Filter(props) {
         <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
       </div>
 
-
-      <div className="filter__events">
+      <div className="filter__contests">
         {filtered || contestFilter.length>0?mapContests(contestFilter):mapContests(props.contests)}
       </div>
       
