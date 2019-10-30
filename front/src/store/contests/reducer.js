@@ -8,7 +8,7 @@ export default function reducer(state = initState, action) {
     case "ADD_CONTEST":
       index = state.contests.findIndex(el => el._id === action.payload.id);
       tempArray = [...state.contests];
-      if (index != -1)
+      if (index !== -1)
         tempArray[index] = action.payload.contest;
       else if (state.contests)
         tempArray.push(action.payload.contest);
@@ -17,6 +17,22 @@ export default function reducer(state = initState, action) {
         ...state,
         contests: tempArray,
       };
+    case "UPDATE_CONTEST":
+        index = state.contests.findIndex(el => el._id === action.payload.id);
+        tempArray = [...state.contests];
+        let item=tempArray[index];
+        if (index === -1)
+          return;
+        for(key in action.payload)
+        {
+          item[key]=action.payload[key];
+        }
+        
+        tempArray[index]=item;
+        return {
+          ...state,
+          contests: tempArray,
+        };
     case "DELETE_CONTEST":
       index = state.contests.findIndex(el => el._id === action.payload.id);
       tempArray = [...state.contests];

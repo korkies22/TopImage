@@ -33,15 +33,19 @@ function Main() {
     function setupSocket(){
         const socket = socketIOClient("http://localhost:4000");
         console.log("Connected to",url);
-        socket.on(Events.CONTEST_ADD_EVENT, (data) => 
+        socket.on(Events.CONTEST_EVENT, (data) => 
         {
-            console.log("ADD",data);
-            dispatch(addContest(data));
-        });
-        socket.on(Events.CONTEST_DELETE_EVENT, (data) => 
-        {
-            console.log("DELETE",data);
-            dispatch(deleteContest(data._id));
+            switch(data.action){
+              case Events.ACTION_INSERT:
+                return dispatch(addContest(data.payload));
+              case Events.ACTION_DELETE:
+                return dispatch(deleteContest(data.payload));
+              case Events.ACTION_UPDATE:
+                return dispatch(updateContest(data.payload));
+              default :
+                return;
+            }
+            
         });
     }
 

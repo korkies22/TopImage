@@ -1,3 +1,6 @@
-exports.CONTEST_ADD_EVENT="add_contests";
-exports.CONTEST_DELETE_EVENT="delete_contests";
+exports.CONTEST_EVENT="contests";
 exports.CONTEST_DETAIL_EVENT="contest";
+
+exports.ACTION_INSERT="action_insert";
+exports.ACTION_UPDATE="action_update";
+exports.ACTION_DELETE="action_delete";
