@@ -1,8 +1,10 @@
-import React,{useState,useRef} from "react";
+import React,{useState,useRef,useLayoutEffect} from "react";
 import "./Home.scss";
 
 import ActionModal from "../actions/actionModal/ActionModal";
 import "../actions/actionModal/ActionModal.scss";
+import Loader from "../actions/loader/Loader";
+import "../actions/loader/Loader.scss";
 
 import { useHistory } from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -13,12 +15,12 @@ import Flatpickr from "react-flatpickr";
 import Filter from "../search/filter/Filter";
 
 function Home() {
+    const [isModalOpen,setIsModalOpen]=useState(false);
     const [newContest,setNewConstest]=useState({});
     const [errorMsg,setErrorMsg]=useState("");
     const [isUpload,setIsUpload]=useState(undefined);
     const [files,setFiles]=useState([]);
-
-    const newContestModal = useRef(null);
+    const [isLoading,setIsLoading]=useState(false);
     
     const url = useSelector(state => state.root.url);
     const token = useSelector(state => state.auth.token);
@@ -61,6 +63,7 @@ function Home() {
     }
 
     const sendContest=async (data)=>{
+        setIsLoading(true);
         const options = {
             headers: { Authorization: `Bearer ${token}`,'Content-Type':'multipart/form-data' }
           };
@@ -68,6 +71,7 @@ function Home() {
         let ans=await axios.post(`${url}contests`,
             data, options);
 
+        setIsLoading(false);
         console.log(ans.data);
         history.push(`/contests/${ans.data.insertedId}`);  
     }
@@ -85,7 +89,7 @@ function Home() {
         <form className="contestModal" onSubmit={(e)=>createContest(e)}>
             <div className="contestModal__row">
                 <div className="contestModal__col">
-                    <label htmlFor="name">
+                    <label htmlFor="name" className="contestModal__inputLabel">
                         Name
                     </label>
                     <input type="text" 
@@ -94,7 +98,7 @@ function Home() {
 
                 </div>
                 <div className="contestModal__col">
-                    <label htmlFor="date">
+                    <label htmlFor="date" className="contestModal__inputLabel">
                         End Date 
                     </label>
                     <Flatpickr data-enable-time
@@ -109,30 +113,35 @@ function Home() {
             </div>
             <div className="contestModal__row">
                 <div className="contestModal__col">
-                    <label htmlFor="topic">
+                    <label htmlFor="topic" className="contestModal__inputLabel">
                         Topic
                     </label>
                     <input type="text" name="topic"
                             onChange={(e)=>{setErrorMsg(null);setNewConstest({...newContest,topic:e.target.value});}}/>
                 </div>
                 <div className="contestModal__col">
-                    <label htmlFor="images">
+                    <label htmlFor="images" className="contestModal__inputLabel">
                         Images
                     </label>
-                    <div name="images" className="contestModa__row">
-                        <label>
+                    <div name="images" className="contestModal__row">
+                        <label className="contestModal__inputLabel">
                             <input type="radio" value="own" checked={isUpload===true} 
                                 onChange={(e)=>{setIsUpload(true);}}/>
                             Own
                         </label>
-                        <label>
+                        <label className="contestModal__inputLabel">
                             <input type="radio" value="random" checked={isUpload===false}
                                 onChange={(e)=>{setIsUpload(false);setErrorMsg(null);setNewConstest({...newContest,images:[]})}} />
                             Random
                         </label>
                     </div>
                     <br/>
-                    {isUpload?<input type='file' id='multi' accept="image/*" onChange={onChange} multiple />:null}
+                    {isUpload?
+                    <button className="contestModal__fileContainer">
+                        {files && files.length!==0?`${files.length} images waiting to be send`:"Upload your images"}
+                        <input type='file' id='multi' accept="image/*" onChange={onChange} multiple />                    
+                    </button>
+                    :null}
                 </div>
             </div>
             <div className="contestModal__col">
@@ -155,12 +164,14 @@ function Home() {
       
           console.log("Deactivate?");
           setErrorMsg("");
-          newContestModal.current.toggle();
+          setIsModalOpen(false);
     }
 
     return(
         <div className="home">
-            <button className="home__button" onClick={()=>newContestModal.current.toggle()}>
+            {isLoading?<Loader/>:null}
+            
+            <button className="home__button" onClick={()=>setIsModalOpen(true)}>
                 <img className="home__img" src={require("../../assets/icons/logo.svg")} alt="Top Image logo. A lightbulb inside an image icon"/>
                 NEW TOP IMAGE
             </button>
@@ -168,7 +179,9 @@ function Home() {
             <Filter contests={activeContests} hasDate={false}></Filter>
 
 
-            <ActionModal ref={newContestModal}
+            <ActionModal 
+                open={isModalOpen}
+                close={()=>setIsModalOpen(false)}
                 modalHeaderTitle="New Top Image"
                 modalBody={modalFormBody}
                 okCBK={() => {}}

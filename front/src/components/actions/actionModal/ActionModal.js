@@ -1,63 +1,83 @@
-import React from "react";
+import React,{useRef,useLayoutEffect} from "react";
 
 import PropTypes from "prop-types";
 
-class ActionModal extends React.Component{
-  constructor(props)
-  {
-    super(props);
-    this.state={
-      hidden:true
-    };
-  }
+const ActionModal=(props)=>{
 
-    toggle = () => {
-      this.setState({
-        hidden:!this.state.hidden
-      });
-    };
+  const firstButtonRef = useRef(null);
+  const lastButtonRef = useRef(null);
 
-    render()
-    {
-      if(this.state.hidden)
-        return <div></div>;
-      
-      const buttons=[];
-      if(this.props.cancelCBK && this.props.cancelText)
-        buttons.push(
-          <button className="modal__button modal__button--cancel" key={1} 
-            onClick={()=>{this.props.cancelCBK();this.toggle();}}>
-            {this.props.cancelText}
-          </button>
-        );
-      if(this.props.okCBK && this.props.okText)
-        buttons.push(
-          <button className="modal__button modal__button--ok" key={0}
-            onClick={()=>{this.props.okCBK();this.toggle();}}>
-            {this.props.okText}
-          </button>
-        );
-      
+  useLayoutEffect(() => {
+    if (firstButtonRef.current) firstButtonRef.current.focus();
+  }, [
+    (() => {
+      return firstButtonRef.current;
+    })()
+  ]);
 
-      return(
-        <div className="modal">
-          <div className="modal__backdrop" onClick={()=>this.toggle()} />
-          <div className="modal__content">
-            <div className="modal__header">
-              <button className="modal__header__close" onClick={()=>this.toggle()}>&times;</button>
-              <h4 className="modal__header__title">{this.props.modalHeaderTitle}</h4>
-            </div>
-            <div className="modal__body">
-              {this.props.modalBody}
-            </div>
-            <div className="modal__footer">
-              {buttons}
-            </div>
-          </div>
-        </div>
-      );
+  const handleExit = e => {
+    console.log("Event",e.keyCode);
+    if (e.keyCode === 9) {
+      if (e.shiftKey) {
+        if (document.activeElement === firstButtonRef.current) {
+          e.preventDefault();
+          lastButtonRef.current.focus();
+        }
+      } else {
+        if (document.activeElement === lastButtonRef.current) {
+          e.preventDefault();
+          firstButtonRef.current.focus();
+        }
+      }
     }
+    if (e.key === "Escape") {
+      props.closeModal();
+    }
+  };
+  
+  if(!props.open)
+    return <div></div>;
+  
+  const buttons=[];
+  if(props.cancelCBK && props.cancelText)
+    buttons.push(
+      <button className="modal__button modal__button--cancel" key={1} 
+        onClick={()=>{props.cancelCBK();props.close();}}>
+        {props.cancelText}
+      </button>
+    );
+  if(props.okCBK && props.okText)
+    buttons.push(
+      <button className="modal__button modal__button--ok" key={0}
+        onClick={()=>{props.okCBK();props.close();}}>
+        {props.okText}
+      </button>
+    );
+  
+
+  return(
+    <div className="modal">
+      <div className="modal__backdrop" onClick={()=>props.close()} />
+      <div className="modal__content">
+        <div className="modal__header">
+          <button className="modal__header__close" 
+            onClick={()=>props.close()}
+            ref={firstButtonRef}>
+              &times;
+          </button>
+          <h4 className="modal__header__title">{props.modalHeaderTitle}</h4>
+        </div>
+        <div className="modal__body" onKeyPress={handleExit}>
+          {props.modalBody}
+        </div>
+        <div className="modal__footer"  ref={lastButtonRef}>
+          {buttons}
+        </div>
+      </div>
+    </div>
+  );
 }
+
 
 ActionModal.propTypes = {
   okCBK: PropTypes.any,

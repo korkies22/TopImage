@@ -3,11 +3,17 @@
 .filter {
   padding: 0.8rem;
 
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__criteria {
     display: flex;
     align-items: center;
     justify-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   &__searchBar {

@@ -24,20 +24,44 @@ function SearchItem(props) {
 
     return src;
   }
+  const formatDate=(date)=>{
+    if(!date)
+      return date;
+    date=new Date(date);
+    let hours=date.getHours();
+    let mins=date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';  
+    
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours=hours<10?"0"+hours:hours;
+    mins=mins<10?"0"+mins:mins;
+    return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${hours}:${mins} ${ampm}`
+  }
 
   const goToDetail=(id)=>{
     history.push(`contests/${id}`);
   }
 
+  
+  const buildHandleEnterKeyPress = (onClick) => ({ key }) => {
+    if (key === 'Enter') { 
+      onClick(); 
+    }
+  };
+
   return (
-    <div className={`search-item`} onClick={()=>{goToDetail(props.element._id)}}>
+    <div className="search-item" 
+      onClick={()=>{goToDetail(props.element._id)}} 
+      onKeyPress={buildHandleEnterKeyPress(()=>goToDetail(props.element._id))}
+      tabIndex={props.index+1} role="button">
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
       </div>
       <img className="search-item__img" src={topImage(props.element.images)} alt="Top image of the contest so far">
       </img>
       {/*Text*/}
-      <h4 className="search-item__date">{props.element.endDate}</h4>
+      <h4 className="search-item__date">{formatDate(props.element.endDate)}</h4>
       <div className="search-item__group">
         <p className="search-item__text">
           {props.element.username} {props.element.name}

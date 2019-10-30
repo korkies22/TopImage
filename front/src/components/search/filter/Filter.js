@@ -10,27 +10,46 @@ function Filter(props) {
   const [contestFilter, setContestFilter] = useState(props.contests);
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
+  const [filterFinished, setFilterFinished] = useState(false);
 
   const filter=(event,dates)=>{
     setFiltered(true);
+    let val=event && event!==null?event.target.value:"";
     let tempFilter=props.contests.filter((c)=>{
-      let val=event || event===null?event.target.value:"";
       let filterAnswer= c.name.includes(val) || c.topic.includes(val) || c.username.startsWith(val);
-      console.log("Filter dates",dates,props.hasDate);
-      if(props.hasDate && dates.length>=2)
+      let date=new Date(c.endDate);
+      console.log("Filter dates",dates,props.hasDate,filterFinished);
+      if(props.hasDate && dates && dates.length>=2)
       {
-        let date=new Date(c.endDate);
-        console.log("Current Date",c.endDate)
-        filterAnswer=filterAnswer && (new Date(filterDates[0]).getTime()<=date.getTime() && date.getTime()<=new Date(filterDates[1]).getTime());
+        console.log("Current Date",c.endDate);
+        console.log("Filters",new Date(dates[0]).getTime()+":"+date.getTime()+":"+new Date(dates[1]).getTime());
+        filterAnswer=filterAnswer && (new Date(dates[0]).getTime()<=date.getTime() && date.getTime()<=new Date(dates[1]).getTime());
+        setFilterDates(dates);
       }
+
       return filterAnswer;
     });
     setContestFilter(tempFilter);
   };
 
+  const filterFinishedContests=()=>{
+    let filter=!filterFinished;
+    setFilterFinished(filter);
+    let tempFilter=props.contests.filter((c)=>{
+      let date=new Date(c.endDate);
+      if(filter===true)
+      {
+        return (new Date().getTime()<=date.getTime());
+      }
+      return true;
+    });
+
+    setContestFilter(tempFilter);
+  }
+
   const mapContests=(data)=>{
     console.log("DATA",data);
-    return data.map(el => <SearchItem key={el._id} element={el}></SearchItem>)
+    return data.map((el,index) => <SearchItem key={el._id} element={el} index={index}></SearchItem>)
   };
 
   const formatDate=(date)=>{
@@ -49,14 +68,22 @@ function Filter(props) {
           <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
         </div>
 
-        {props.hasDate?<Flatpickr data-enable-time
+        {props.hasDate?
+          <div className="filter__actions">
+            <Flatpickr data-enable-time
               name="date"
               placeholder="Filter dates"
-              options={{minDate:formatDate(new Date()),minuteIncrement:30,mode:'range'}}
+              options={{minDate:formatDate(new Date()),minuteIncrement:10,mode:'range'}}
               value={filterDates}
               onChange={dates => {console.log("Change dates",dates);filter(null,dates); }} 
               className="modal__form__input modal__form__input--calendar"
-          />:null}
+            />
+            <label>
+              Finished
+              <input type="checkbox" checked={filterFinished} onChange={filterFinishedContests}/>
+            </label>
+          </div>
+        :null}
       </div>
       
 
