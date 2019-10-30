@@ -28,6 +28,15 @@ export const setContests = (contests) => {
   }
 };
 
+export const setCurContest = (contest) => {
+  return{
+    type: "SET_CONTEST",
+    payload: {
+      contest
+    }
+  }
+};
+
 export const setInactiveContest = (id) => 
   ({
     type: "SET_INACTIVE_CONTEST",

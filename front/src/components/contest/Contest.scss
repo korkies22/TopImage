@@ -1,0 +1,95 @@
+.contest {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__card {
+    background: white;
+    border-radius: 5px;
+    width: 100%;
+    height: 20vh;
+    margin: 1rem 0;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &--main {
+      height: calc(100% - 5rem);
+      margin: 0;
+      width: 100%;
+      cursor: auto;
+    }
+  }
+
+  &__list {
+    width: 30%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 0 0.5rem;
+  }
+
+  &__like {
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__numLikes{
+    font-size: 1.5rem;
+    margin: 0 0 0 1rem;
+  }
+
+  &__featured {
+    height: 100%;
+    width: 65%;
+  }
+
+  &__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 1rem;
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  &__header{
+      display:flex;
+      justify-content: space-between;
+      width:68%;
+  }
+
+  &__name {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    height: 70%;
+  }
+
+  &__preview{
+      &--likes{
+          text-align: right;
+          margin-top:0;
+      }
+  }
+}

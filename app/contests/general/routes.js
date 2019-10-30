@@ -14,7 +14,10 @@ const handlerExceptions = require(path.join(
 const router = express.Router();
 
 //Get all
-router.get("", handlerExceptions(contestController.getAll));
+router.get("/", handlerExceptions(contestController.getAll));
+
+//Get contest
+router.get("/:id", handlerExceptions(contestController.getContest));
 
 // Create contest (multiform-data)
 router.post("", 

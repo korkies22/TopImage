@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  height: 4rem;
+  height: 3.5rem;
   width: 100%;
 
   -webkit-box-shadow: 0px 9px 10px 0px rgba(0, 0, 0, 0.16);
@@ -17,24 +17,21 @@
   background-color: $mainColor;
 
   &__logo {
-    background-clip: text;
-  }
-
-  &__logo {
     color: white;
-    font-size: 3rem;
+    font-size: 2rem;
     margin-left: 0.5rem;
   }
 
   &__actions {
     display: flex;
-    margin-right: 3rem;
+    align-items: center;
   }
 
   &__link {
     color: white;
     margin-right: 1rem;
     cursor: pointer;
+    font-weight: bold;
     text-decoration: none;
 
     &--active {

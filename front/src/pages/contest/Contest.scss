@@ -1,0 +1,14 @@
+.contestPage {
+  height: calc(100% - 3.5rem);
+  &__background {
+    z-index: -1;
+    position: fixed;
+    top: 3.5rem;
+    left: 0;
+    background: url("../../assets/bgImage/cameraMain.jpg") no-repeat fixed center;
+    background-size: cover;
+    opacity: 0.5;
+    width: 100%;
+    height: calc(100% - 3.5rem);
+  }
+}
