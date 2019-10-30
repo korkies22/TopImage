@@ -1,15 +1,15 @@
 import React from "react";
-import PropTypes from "prop-types";
+import Search from "../../components/search/Search"
 
 import { withRouter } from "react-router-dom";
 
-function Search() {
+function SearchPage() {
   return (
     <div>
-        Search
+        <Search/>
     </div>
   );
 }
 
 
-export default withRouter(Search);
+export default withRouter(SearchPage);

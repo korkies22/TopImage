@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import {useSelector} from "react-redux";
 import axios from "axios";
 
-import "./Flatpickr.scss";
+import "../actions/Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
 import Filter from "../search/filter/Filter";
 
@@ -165,7 +165,7 @@ function Home() {
                 NEW TOP IMAGE
             </button>
 
-            <Filter contests={activeContests}></Filter>
+            <Filter contests={activeContests} hasDate={false}></Filter>
 
 
             <ActionModal ref={newContestModal}

@@ -3,9 +3,16 @@
 .filter {
   padding: 0.8rem;
 
+  &__criteria {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+  }
+
   &__searchBar {
     background-color: white;
-    margin: 0 0.5rem 2rem;
+    margin: 0 0.5rem 0rem;
     border: 1px $borderColor solid;
     border-radius: 44px;
 
@@ -21,8 +28,8 @@
       color: $textColor;
       font-size: 1rem;
       padding: 0rem 2rem;
-      width: 95vw;
       border-color: transparent;
+      width: 70vw;
       background-color: transparent;
       outline: none;
     }
