@@ -20,6 +20,19 @@ exports.getAll = async (req, res, next) => {
   }
 }
 
+exports.getContest = async (req, res, next) => {
+  try {
+    const result=await querys.findContest(req.params.id)
+    console.log(result)
+    res.json(result)
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500
+    }
+    next(err)
+  }
+}
+
 exports.create = async (req, res, next) => {
   try {
     let auth = req.auth.split(" ")[1];

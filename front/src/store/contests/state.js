@@ -1,4 +1,5 @@
 export default {
   contests: [],
-  activeContests:[]
+  curContest: null,
+  activeContests: []
 };

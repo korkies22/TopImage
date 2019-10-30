@@ -4,7 +4,8 @@ exports.startWS=(server)=>{
     io=require("socket.io")(server);
 
     io.on("connection", (socket)=>{
-        console.log("New user connection",socket);
+        console.log("New user connection")
+        //,socket);
     })
 }
 
