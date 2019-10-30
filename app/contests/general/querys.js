@@ -110,7 +110,7 @@ const setupImage=(image,email,isDislike)=>{
 }
 
 exports.findAll = async () => {
-  return await contests.find().toArray();
+  return await contests.find().sort( { endDate: 1 } ).toArray();
 };
 
 exports.findContest = async (id) => {
