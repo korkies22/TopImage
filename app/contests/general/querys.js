@@ -10,7 +10,8 @@ const { getUnsplashImages } = require("../../../util/images/unsplash");
 const { getCloudinaryImages } = require("../../../util/images/cloudinary");
 
 const { emitEvent } = require("../../../util/socketio/socketio");
-const { CONTEST_ADD_EVENT, CONTEST_DELETE_EVENT, CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
+const { CONTEST_EVENT, CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
+const { ACTION_INSERT, ACTION_DELETE, ACTION_UPDATE } = require("../../../util/socketio/events");
 // Define change stream
 const changeStream = contests.watch();
 // start listen to changes
@@ -19,20 +20,38 @@ changeStream.on("change", function (event) {
   console.log("Change", JSON.stringify(event));
   let data = { "error": "There was no registered CRUD change" };
   let id;
-  let channel;
 
-  if (event.fullDocument) {
-    channel = CONTEST_ADD_EVENT;
-    data = event.fullDocument;
-    id = data._id;
-  }
-  else if (event.documentKey) {
-    channel = CONTEST_DELETE_EVENT;
-    data = event.documentKey;
-    id = data._id;
+  switch(event.operationType)
+  {
+    case "delete":
+      data={
+        action:ACTION_DELETE,
+        payload:event.documentKey
+      };
+      id=data._id;
+      break;
+    case "insert":
+      data={
+        action:ACTION_INSERT,
+        payload:event.fullDocument
+      }
+      id=data._id;
+      break;
+    case "update":
+      data={
+        action:ACTION_UPDATE,
+        payload:{
+          _id:event.documentKey._id,
+          updatedFields:event.updateDescription.updatedFields  
+        }
+      };
+      id=data._id;
+      break;
+    default:
+      break;
   }
 
-  emitEvent(channel, data);
+  emitEvent(CONTEST_EVENT, data);
   if (id)
     emitEvent(`${CONTEST_DETAIL_EVENT}-${id}`, data);
 });
@@ -40,21 +59,28 @@ changeStream.on("change", function (event) {
 //------------
 // METHODS
 //------------
-<<<<<<< HEAD
 const getImages=async (id,topic,images)=>{
-  if(!images)
+  console.log("IMG",images);
+  if(!images || images.length===0)
     return await getUnsplashImages(topic);
   if (images.length>=1 && images.length<=4)
     return await getCloudinaryImages(id,images);
 
   return null;
-=======
-const getImages = async (id, topic, images) => {
-  if (!images || images.length < 4)
-    return await getUnsplashImages(topic);
+}
 
-  return await getCloudinaryImages(id, images);
->>>>>>> 1e765959e4002480b855f1c502452a778ee99c55
+const addUserToAction=(action,email)=>{
+  action=action ? action : [];
+  let index=image.findIndex(el=>el===email);
+  if(index!==-1)
+  {
+    action.splice(index,1);
+  }
+  else
+  {
+    action.push(email);
+  }
+  return action;
 }
 
 const isLater = (newDate, endDate) => {
@@ -97,7 +123,7 @@ exports.newContest = async (userId, contest) => {
   return await contests.insertOne(contest);
 };
 
-exports.likeContest = async (userId, contestId, index) => {
+exports.likeContest = async (userId, contestId, index, isDislike) => {
   let mongoId = 0;
   console.log("USER ID", userId);
   try {
@@ -125,22 +151,16 @@ exports.likeContest = async (userId, contestId, index) => {
   }
 
   let image = contest.images[index];
-
-  image.likes = image.likes ? image.likes + 1 : 1;
-  image.likedBy = image.likedBy ? image.likedBy : [];
-  console.log(image.likedBy);
-
-  let el = {};
-  for (let i = 0; i < image.likedBy.length; i++) {
-    el = image.likedBy[i];
-    if (el === user.email) {
-      return null;
-    }
+  if(isDislike)
+  {
+    image.dislikes = image.dislikes ? image.dislikes + 1 : 1;
+    image.dislikedBy = addUserToAction(image.dislikedBy,user.email);  
   }
-
-  image.likedBy.push(user.email);
-
-  console.log(contest.images, image);
+  else
+  {
+    image.likes = image.likes ? image.likes + 1 : 1;
+    image.likedBy = addUserToAction(image.likedBy,user.email);   
+  }
 
   return await contests.findOneAndUpdate({ _id: mongoId }, {
     $set: {

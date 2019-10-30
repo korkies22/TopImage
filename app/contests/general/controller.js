@@ -1,4 +1,4 @@
-const querys= require('./querys'),
+const querys=require('./querys'),
   path = require('path'),
   rootDir = path.dirname(process.mainModule.filename),
   { validationResult } = require("express-validator"),
@@ -106,8 +106,9 @@ exports.likeImage = async(req,res,next)=>{
       throw error;
     }
 
-    console.log(decodedToken);
-    let answer = await querys.likeContest(decodedToken.id, req.params.id,req.params.imageIndex);
+    let isDislike=req.body.isDislike;
+    console.log(isDislike);
+    let answer = await querys.likeContest(decodedToken.id, req.params.id,req.params.imageIndex,isDislike);
     if (answer !== null) {
       res.status(200).json(answer);
       return;
