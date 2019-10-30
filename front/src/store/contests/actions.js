@@ -5,11 +5,13 @@ export const addContest = (contest) =>({
     }
 })
 
-export const updateContest = (data) =>({
-  type: "UPDATE_CONTEST",
-    payload: data.updatedFields  
-    
-})
+export const updateContest = (data) =>{
+  console.log("Received data",data);
+  return {
+    type: "UPDATE_CONTEST",
+    payload: data  
+  }
+}
 
 export const deleteContest = (id) =>({
   type: "DELETE_CONTEST",

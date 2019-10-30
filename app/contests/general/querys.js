@@ -41,8 +41,8 @@ changeStream.on("change", function (event) {
       data={
         action:ACTION_UPDATE,
         payload:{
-          _id:event.documentKey._id,
-          updatedFields:event.updateDescription.updatedFields  
+          id:event.documentKey._id,
+          ...event.updateDescription.updatedFields  
         }
       };
       id=data._id;
@@ -69,9 +69,7 @@ const getImages=async (id,topic,images)=>{
   return null;
 }
 
-const addUserToAction=(action,email)=>{
-  action=action ? action : [];
-  let index=image.findIndex(el=>el===email);
+const addUserToAction=(action,index,email)=>{
   if(index!==-1)
   {
     action.splice(index,1);
@@ -83,8 +81,29 @@ const addUserToAction=(action,email)=>{
   return action;
 }
 
-const isLater = (newDate, endDate) => {
-  return newDate.getTime() <= endDate.getTime();
+const isLater = (endDate) => {
+  let newDate=new Date();
+  return endDate.getTime() <= newDate.getTime();
+}
+
+const setupImage=(image,email,isDislike)=>{
+  let index;
+  if(isDislike)
+  {
+    index=image.dislikedBy.findIndex(el=>el===email)
+    if(!image.dislikes) image.dislikes=0;
+    image.dislikes = index!==-1 ? image.dislikes - 1 : image.dislikes + 1;
+    image.dislikedBy = addUserToAction(image.dislikedBy,index,email);  
+  }
+  else
+  {
+    index=image.likedBy.findIndex(el=>el===email)
+    if(!image.likes) image.likes=0;
+    image.likes = index!==-1 ? image.likes - 1 : image.likes + 1;
+    image.likedBy = addUserToAction(image.likedBy,index,email);   
+  }
+
+  return image;
 }
 
 exports.findAll = async () => {
@@ -145,22 +164,12 @@ exports.likeContest = async (userId, contestId, index, isDislike) => {
   }
 
   let contest = await contests.findOne({ _id: mongoId });
-  if (!contest.endDate || isLater(new Date(), contest.endDate)) {
-    console.log("The given date happened after the endDate");
+  if (!contest.endDate || isLater(contest.endDate)) {
+    console.log("Se está intentando darle like/dislike a una imagen después de que el concurso se acabara");
     return null;
   }
 
-  let image = contest.images[index];
-  if(isDislike)
-  {
-    image.dislikes = image.dislikes ? image.dislikes + 1 : 1;
-    image.dislikedBy = addUserToAction(image.dislikedBy,user.email);  
-  }
-  else
-  {
-    image.likes = image.likes ? image.likes + 1 : 1;
-    image.likedBy = addUserToAction(image.likedBy,user.email);   
-  }
+  contest.images[index] = setupImage(contest.images[index],user.email,isDislike);
 
   return await contests.findOneAndUpdate({ _id: mongoId }, {
     $set: {

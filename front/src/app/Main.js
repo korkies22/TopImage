@@ -7,7 +7,7 @@ import "./App.css";
 import axios from "axios";
 
 import {useSelector,useDispatch} from "react-redux";
-import { setContests, addContest,deleteContest } from "../store/contests";
+import { setContests, addContest,deleteContest,updateContest } from "../store/contests";
 
 import socketIOClient from "socket.io-client";
 import * as Events from "../util/socketio/events";
@@ -15,6 +15,7 @@ import * as Events from "../util/socketio/events";
 function Main() {
 
   const url = useSelector(state => state.root.url);
+  const socketUrl = useSelector(state => state.root.socketUrl);
   const token=useSelector(state=>state.auth.token);
   const user=useSelector(state=>state.auth.user);
   const dispatch = useDispatch();
@@ -31,10 +32,11 @@ function Main() {
     }
 
     function setupSocket(){
-        const socket = socketIOClient("http://localhost:4000");
-        console.log("Connected to",url);
+        const socket = socketIOClient(socketUrl);
+        console.log("Connected to",socketUrl);
         socket.on(Events.CONTEST_EVENT, (data) => 
         {
+          console.log("DATA",data);
             switch(data.action){
               case Events.ACTION_INSERT:
                 return dispatch(addContest(data.payload));

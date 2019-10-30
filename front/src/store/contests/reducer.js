@@ -19,11 +19,12 @@ export default function reducer(state = initState, action) {
       };
     case "UPDATE_CONTEST":
         index = state.contests.findIndex(el => el._id === action.payload.id);
-        tempArray = [...state.contests];
-        let item=tempArray[index];
+        tempArray = [...state.contests];        
         if (index === -1)
-          return;
-        for(key in action.payload)
+          return state;
+
+        let item=tempArray[index];
+        for(let key in action.payload)
         {
           item[key]=action.payload[key];
         }
