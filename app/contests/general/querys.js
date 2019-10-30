@@ -60,7 +60,6 @@ changeStream.on("change", function (event) {
 // METHODS
 //------------
 const getImages=async (id,topic,images)=>{
-  console.log("IMG",images);
   if(!images || images.length===0)
     return await getUnsplashImages(topic);
   if (images.length>=1 && images.length<=4)
@@ -90,15 +89,19 @@ const setupImage=(image,email,isDislike)=>{
   let index;
   if(isDislike)
   {
-    index=image.dislikedBy.findIndex(el=>el===email)
+    if(!image.dislikedBy) image.dislikedBy=[];
     if(!image.dislikes) image.dislikes=0;
+
+    index=image.dislikedBy.findIndex(el=>el===email)
     image.dislikes = index!==-1 ? image.dislikes - 1 : image.dislikes + 1;
     image.dislikedBy = addUserToAction(image.dislikedBy,index,email);  
   }
   else
   {
-    index=image.likedBy.findIndex(el=>el===email)
+    if(!image.likedBy) image.likedBy=[];
     if(!image.likes) image.likes=0;
+
+    index=image.likedBy.findIndex(el=>el===email)
     image.likes = index!==-1 ? image.likes - 1 : image.likes + 1;
     image.likedBy = addUserToAction(image.likedBy,index,email);   
   }
