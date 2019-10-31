@@ -23,7 +23,7 @@ exports.getAll = async (req, res, next) => {
 exports.getContest = async (req, res, next) => {
   try {
     const result=await querys.findContest(req.params.id)
-    console.log(result)
+    console.log('llamada',result)
     res.json(result)
   } catch (err) {
     if (!err.statusCode) {

@@ -84,6 +84,8 @@ const isLater = (endDate) => {
 
 const setupImage = (image, email, isDislike) => {
   let index;
+  console.log('IMAGE',image)
+  console.log('EMAIL',email)
   if (isDislike) {
     if (!image.dislikedBy) image.dislikedBy = [];
     if (!image.dislikes) image.dislikes = 0;

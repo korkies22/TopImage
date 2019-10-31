@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import './Contest.scss'
 import axios from 'axios'
@@ -8,15 +8,19 @@ function Contest(props) {
     const token = useSelector(state => state.auth.token);
     const email = useSelector(state => state.auth.user.email);
     const url = useSelector(state => state.root.url);
-    console.log(contest)
 
-    const [curImageIndex, setCurImageIndex] = useState(0);
-    const [curImage, setCurImage] = useState(contest.images[0]);
-    console.log('holis', curImage)
-    console.log('holis2', contest)
+    const sortedImages = useMemo(() => {
+        const compareImagesByLikes = (item1, item2) => {
+            return (item2.likes || 0) + (item1.dislikes || 0) - (item1.likes || 0) - (item2.dislikes || 0)
+        }
+        return [...contest.images].sort(compareImagesByLikes)
+    })
+
+    const [curImage, setCurImage] = useState(sortedImages[0]);
+
 
     useEffect(() => {
-        curImageSet(curImageIndex)
+        curImageSet(curImage.url)
     }, [contest])
 
     const parseDate = (dateP) => {
@@ -31,24 +35,22 @@ function Contest(props) {
     }
 
     const likePost = async (isDislike) => {
-        console.log('ajam ajam')
         const options = {
             headers: { Authorization: `Bearer ${token}` }
         };
         const body = { isDislike: isDislike }
         try {
-            const res = await axios.post(`${url}contests/${props.contestId}/images/${getImageIndex()}/likes`,
+            await axios.post(`${url}contests/${props.contestId}/images/${getImageIndex()}/likes`,
                 body, options);
-            console.log('llega like', res)
         }
         catch (err) {
             console.log(err)
         }
     }
 
-    const curImageSet = (index) => {
+    const curImageSet = (url) => {
+        const index = contest.images.findIndex((item) => item.url === url)
         setCurImage(contest.images[index])
-        setCurImageIndex(index)
     }
 
     const hasLiked = () => {
@@ -68,10 +70,10 @@ function Contest(props) {
             </div>
             <div className="contest__main">
                 <div className="contest__list">
-                    {contest.images.map((el, index) =>
+                    {sortedImages.map((el) =>
                         <div className="contest__preview" key={el.url}>
-                            <button className="contest__card" style={{ 'backgroundImage': 'url(' + el.url + ')' }} onClick={() => curImageSet(index)}></button>
-                            <p className="contest__preview--likes">Likes: {el.likes-el.dislikes}</p>
+                            <button className="contest__card" style={{ 'backgroundImage': 'url(' + el.url + ')' }} onClick={() => curImageSet(el.url)}></button>
+                            <p className="contest__preview--likes">Likes: {el.likes - el.dislikes}</p>
                         </div>
                     )}
                 </div>
@@ -80,7 +82,7 @@ function Contest(props) {
                     <div className="contest__like">
                         <img className="contest__icon" src={require(`../../assets/icons/like${hasLiked() ? '' : 'U'}.svg`)} onClick={() => likePost(false)}></img>
                         <img className="contest__icon" src={require(`../../assets/icons/dislike${hasDisliked() ? '' : 'U'}.svg`)} onClick={() => likePost(true)}></img>
-                        <p className="contest__numLikes">{curImage.likes-curImage.dislikes}</p>
+                        <p className="contest__numLikes">{curImage.likes - curImage.dislikes}</p>
                     </div>
                 </div>
 
