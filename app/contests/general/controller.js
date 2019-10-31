@@ -107,7 +107,7 @@ exports.likeImage = async(req,res,next)=>{
     }
 
     let isDislike=req.body.isDislike;
-    console.log(isDislike);
+    console.log('ñam',isDislike);
     let answer = await querys.likeContest(decodedToken.id, req.params.id,req.params.imageIndex,isDislike);
     if (answer !== null) {
       res.status(200).json(answer);

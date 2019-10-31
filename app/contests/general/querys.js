@@ -21,31 +21,30 @@ changeStream.on("change", function (event) {
   let data = { "error": "There was no registered CRUD change" };
   let id;
 
-  switch(event.operationType)
-  {
+  switch (event.operationType) {
     case "delete":
-      data={
-        action:ACTION_DELETE,
-        payload:event.documentKey
+      data = {
+        action: ACTION_DELETE,
+        payload: event.documentKey
       };
-      id=data._id;
+      id = data._id;
       break;
     case "insert":
-      data={
-        action:ACTION_INSERT,
-        payload:event.fullDocument
+      data = {
+        action: ACTION_INSERT,
+        payload: event.fullDocument
       }
-      id=data._id;
+      id = data._id;
       break;
     case "update":
-      data={
-        action:ACTION_UPDATE,
-        payload:{
-          id:event.documentKey._id,
-          ...event.updateDescription.updatedFields  
+      data = {
+        action: ACTION_UPDATE,
+        payload: {
+          id: event.documentKey._id,
+          ...event.updateDescription.updatedFields
         }
       };
-      id=data._id;
+      id = data._id;
       break;
     default:
       break;
@@ -59,58 +58,66 @@ changeStream.on("change", function (event) {
 //------------
 // METHODS
 //------------
-const getImages=async (id,topic,images)=>{
-  if(!images || images.length===0)
+const getImages = async (id, topic, images) => {
+  if (!images || images.length === 0)
     return await getUnsplashImages(topic);
-  if (images.length>=1 && images.length<=4)
-    return await getCloudinaryImages(id,images);
+  if (images.length >= 1 && images.length <= 4)
+    return await getCloudinaryImages(id, images);
 
   return null;
 }
 
-const addUserToAction=(action,index,email)=>{
-  if(index!==-1)
-  {
-    action.splice(index,1);
+const addUserToAction = (action, index, email) => {
+  if (index !== -1) {
+    action.splice(index, 1);
   }
-  else
-  {
+  else {
     action.push(email);
   }
   return action;
 }
 
 const isLater = (endDate) => {
-  let newDate=new Date();
+  let newDate = new Date();
   return endDate.getTime() <= newDate.getTime();
 }
 
-const setupImage=(image,email,isDislike)=>{
+const setupImage = (image, email, isDislike) => {
   let index;
-  if(isDislike)
-  {
-    if(!image.dislikedBy) image.dislikedBy=[];
-    if(!image.dislikes) image.dislikes=0;
+  if (isDislike) {
+    if (!image.dislikedBy) image.dislikedBy = [];
+    if (!image.dislikes) image.dislikes = 0;
 
-    index=image.dislikedBy.findIndex(el=>el===email)
-    image.dislikes = index!==-1 ? image.dislikes - 1 : image.dislikes + 1;
-    image.dislikedBy = addUserToAction(image.dislikedBy,index,email);  
+    index = image.dislikedBy.findIndex(el => el === email)
+    image.dislikes = index !== -1 ? image.dislikes - 1 : image.dislikes + 1;
+    image.dislikedBy = addUserToAction(image.dislikedBy, index, email);
+
+    const index2 = (image.likedBy || []).findIndex(el => el === email)
+    if (index2 !== -1) {
+      image.likes--;
+      image.likedBy.splice(index, 1);
+    }
   }
-  else
-  {
-    if(!image.likedBy) image.likedBy=[];
-    if(!image.likes) image.likes=0;
+  else {
+    if (!image.likedBy) image.likedBy = [];
+    if (!image.likes) image.likes = 0;
 
-    index=image.likedBy.findIndex(el=>el===email)
-    image.likes = index!==-1 ? image.likes - 1 : image.likes + 1;
-    image.likedBy = addUserToAction(image.likedBy,index,email);   
+    index = image.likedBy.findIndex(el => el === email)
+    image.likes = index !== -1 ? image.likes - 1 : image.likes + 1;
+    image.likedBy = addUserToAction(image.likedBy, index, email);
+
+    const index2 = (image.dislikedBy || []).findIndex(el => el === email)
+    if (index2 !== -1) {
+      image.dislikes--;
+      image.dislikedBy.splice(index, 1);
+    }
   }
 
   return image;
 }
 
 exports.findAll = async () => {
-  return await contests.find().sort( { endDate: 1 } ).toArray();
+  return await contests.find().sort({ endDate: 1 }).toArray();
 };
 
 exports.findContest = async (id) => {
@@ -172,7 +179,7 @@ exports.likeContest = async (userId, contestId, index, isDislike) => {
     return null;
   }
 
-  contest.images[index] = setupImage(contest.images[index],user.email,isDislike);
+  contest.images[index] = setupImage(contest.images[index], user.email, isDislike);
 
   return await contests.findOneAndUpdate({ _id: mongoId }, {
     $set: {

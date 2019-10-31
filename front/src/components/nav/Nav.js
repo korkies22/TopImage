@@ -29,7 +29,7 @@ function Nav() {
         <Link className="nav__logo" to="/">
           TOP IMAGE
         </Link>
-        <button class="nav__toggle" onClick={()=>{setIsMobile(!isMobile)}}>
+        <button className="nav__toggle" onClick={()=>{setIsMobile(!isMobile)}}>
               <img src={require("../../assets/icons/menu.svg")} alt="Toggler for menu when on mobile"></img>
           </button>
       </div>

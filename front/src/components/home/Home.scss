@@ -23,6 +23,8 @@
   &__inputLabel {
     color: $mainColor;
     font-size: 2rem;
+    display: flex;
+    align-items: center;
   }
 
   input {
@@ -33,6 +35,8 @@
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 0.5rem;
+    outline:none;
+    border: 1px solid $textColor;
   }
 
   &__fileContainer {

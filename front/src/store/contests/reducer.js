@@ -18,6 +18,10 @@ export default function reducer(state = initState, action) {
         contests: tempArray,
       };
     case "UPDATE_CONTEST":
+        let curContestTemp={...state.curContest}
+        if(curContestTemp['_id']===action.payload.id){
+          curContestTemp.images=action.payload.images
+        }
         index = state.contests.findIndex(el => el._id === action.payload.id);
         tempArray = [...state.contests];        
         if (index === -1)
@@ -33,6 +37,7 @@ export default function reducer(state = initState, action) {
         return {
           ...state,
           contests: tempArray,
+          curContest:curContestTemp
         };
     case "DELETE_CONTEST":
       index = state.contests.findIndex(el => el._id === action.payload.id);
