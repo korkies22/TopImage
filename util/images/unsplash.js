@@ -21,7 +21,9 @@ exports.getUnsplashImages=async (topic)=>{
                 return {
                     url:img.urls.regular,
                     likes:0,
-                    likedBy:[]
+                    likedBy:[],
+                    dislikes:0,
+                    dislikedBy:[]
                 }   
             }
             

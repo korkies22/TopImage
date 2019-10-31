@@ -86,7 +86,9 @@ exports.getCloudinaryImages=async (id,images)=>{
         ans.push({
             url:url,
             likes:0,
-            likedBy:[]
+            likedBy:[],
+            dislikes:0,
+            dislikedBy:[]
         });
     }
 

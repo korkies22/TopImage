@@ -64,7 +64,7 @@ function Contest(props) {
             <h2 className="contest__name">{contest ? contest.name : null}</h2>
             <div className="contest__header">
                 <p>Topic: {contest.topic}</p>
-                <p>Fecha de fin: {parseDate(contest.endDate)}</p>
+                <p>End Date: {parseDate(contest.endDate)}</p>
             </div>
             <div className="contest__main">
                 <div className="contest__list">

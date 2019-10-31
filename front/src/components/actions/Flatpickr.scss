@@ -238,6 +238,7 @@
 .numInputWrapper input,
 .numInputWrapper span {
   display: inline-block;
+  color: white;
 }
 .numInputWrapper input {
   width: 100%;
@@ -348,7 +349,6 @@
   background: transparent;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  color: inherit;
   cursor: text;
   padding: 0 0 0 0.5ch;
   margin: 0;
