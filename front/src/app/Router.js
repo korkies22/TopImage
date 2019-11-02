@@ -14,13 +14,13 @@ function AppRouter() {
   console.log("TOKEN", token);
   return (
     <Router>
-      {token ? <Nav /> : <Redirect to="/login" />}
+      {token ? <Nav /> : null}
       <Switch>
+      <Route path="/tutorial" component={Tutorial} />
         <Route path="/" exact render={() => token ? <Index></Index> : <Redirect to="/login" />} />
         <Route path="/login" render={() => token ? <Redirect to="/" /> : <Login></Login>} />
         <Route path="/contests/:id" component={Contest} />
         <Route path="/search" component={Search} />
-        <Route path="/tutorial" component={Tutorial} />
         <Route path="*" render={() => <Redirect to="/login" />} />
       </Switch>
     </Router>

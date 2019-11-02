@@ -6,38 +6,38 @@ import "./tutorial.scss";
 
 const tutorialItems = [
   {
-    title: "Regístrate",
+    title: "Sign up",
     description:
-      "Regístrate en academical reborn para estar al día con la oferta de eventos de la Universidad",
+      "Sign up to TopImage to create contests or see previous contests created by others",
   },
   {
-    title: "Crea un horario",
+    title: "Create a contest",
     description:
-      "En el panel de horarios puedes crear todos los horarios que desees en caso de que busques distintas alternativas. Aquí también seleccionas cuál es el horario que estás manejando actualmente",
+      "Click on the New Top Image button to create your own contest",
   },
   {
-    title: "Busca",
+    title: "Choose contest options",
     description:
-      "Usa el campo de texto de búsqueda para filtrar eventos por su nombre, o mira la lista completa y entérate de lo que hay",
+      "Choose a name and topic for your contest. Select also an end date for it. Finally, you can add your own images or let the app choose their own's based on the topic",
   },
   {
-    title: "Preview",
+    title: "View contests",
     description:
-      "Pon el mouse encima del evento y déjanos mostrarte cuando sucederá. Mira como cambia la semana actual arriba. Si tiene un fondo rojo significa que se cruza con otro que ya tienes agregado",
+      "See all the current running contests in the grid below",
   },
   {
-    title: "Añade eventos",
-    description: "Haz click en el evento para añadirlo a tu horario",
+    title: "Search",
+    description:
+      "Go to the search section by clicking on the link above. There you can filter by name and whether the contest has finished or not",
   },
   {
-    title: "Navega",
-    description:
-      "Usa la barra de navegación superior para observar tu horario semana a semana",
+    title: "Go into a contest",
+    description: "Click on a contest preview to go into its details",
   },
   {
-    title: "Elimina eventos",
+    title: "Rate a photo",
     description:
-      "¿Cambio de planes? No te preocupes. En tu calendario haz click en la X arriba a la derecha del evento que desees eliminar y este saldrá de tu calendario",
+      "Select a photo you like or dislike and then select whether you like o dislike it. The photos will be ordered by likes-dislikes",
   },
 ];
 function Tutorial(props) {
@@ -46,9 +46,9 @@ function Tutorial(props) {
       <h1 className="tutorial__title">Tutorial</h1>
       <button
         className="tutorial__button"
-        onClick={() => props.history.push("/login")}
+        onClick={() => props.history.push("/")}
       >
-        Ir a login
+        Go to main
       </button>
 
       <div className="tutorial__list">

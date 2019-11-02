@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './login.scss';
 import LoginForm from '../../components/login/loginForm/loginForm';
 import SignUpForm from '../../components/login/signUpForm/signUpForm';
@@ -26,7 +27,7 @@ function Login() {
         </p>
         <p>
           Lost? Check out the tutorial{' '}
-          <a href="/" target="_blank" className="loginPage__butSwitch">
+          <a href="/tutorial" target="_blank" className="loginPage__butSwitch">
             Tutorial
           </a>
         </p>

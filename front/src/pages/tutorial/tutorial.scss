@@ -1,3 +1,4 @@
+@import '../../css/variables.scss';
 .tutorial{
     width:50%;
     margin:1rem auto;
@@ -16,7 +17,7 @@
         border:none;
         font-weight: bold;
         border-radius: 10px;
-        background:linear-gradient(to right, #6DB5ED, #6ACAB1);
+        background: $mainColor;
         cursor: pointer;
     }
 

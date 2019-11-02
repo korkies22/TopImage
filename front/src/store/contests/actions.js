@@ -13,6 +13,15 @@ export const updateContest = (data) =>{
   }
 }
 
+
+export const updateCurContest = (data) =>{
+  console.log("Received data cur",data);
+  return {
+    type: "UPDATE_CUR_CONTEST",
+    payload: data  
+  }
+}
+
 export const deleteContest = (id) =>({
   type: "DELETE_CONTEST",
     payload: {

@@ -49,10 +49,13 @@ function Main() {
             }
             
         });
+        return socket;
     }
 
     getData();
-    setupSocket();
+    const socket=setupSocket();
+
+    return ()=> socket.disconnect()
   },[]);
 
 
