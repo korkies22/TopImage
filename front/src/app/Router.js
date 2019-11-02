@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import Login from "../pages/login/Login";
 import Index from "../pages/home/Home";
 import Contest from "../pages/contest/Contest";
-import Search from "../pages/search/Search";
 import Tutorial from "../pages/tutorial/Tutorial";
 import Nav from "../components/nav/Nav";
 import "./App.css";
@@ -20,7 +19,6 @@ function AppRouter() {
         <Route path="/" exact render={() => token ? <Index></Index> : <Redirect to="/login" />} />
         <Route path="/login" render={() => token ? <Redirect to="/" /> : <Login></Login>} />
         <Route path="/contests/:id" component={Contest} />
-        <Route path="/search" component={Search} />
         <Route path="*" render={() => <Redirect to="/login" />} />
       </Switch>
     </Router>

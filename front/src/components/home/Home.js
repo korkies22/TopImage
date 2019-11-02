@@ -24,9 +24,9 @@ function Home() {
     
     const url = useSelector(state => state.root.url);
     const token = useSelector(state => state.auth.token);
-    const useActiveContests = () =>
-      useSelector(state => state.contests.activeContests, []);
-    const activeContests=useActiveContests();
+    const useContests = () =>
+      useSelector(state => state.contests.contests, []);
+    const contests=useContests();
 
     let history = useHistory();
 
@@ -176,7 +176,7 @@ function Home() {
                 NEW TOP IMAGE
             </button>
 
-            <Filter contests={activeContests} hasDate={false}></Filter>
+            <Filter contests={contests} hasDate={true}></Filter>
 
 
             <ActionModal 
