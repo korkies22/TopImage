@@ -1,72 +1,67 @@
 /* eslint-disable no-undef */
 
-import React, { useState, useEffect } from 'react';
-import './Filter.scss';
-import SearchItem from '../searchItem/SearchItem';
+import React, { useState, useEffect } from "react";
+import "./Filter.scss";
+import SearchItem from "../searchItem/SearchItem";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import '../../actions/Flatpickr.scss';
-import Flatpickr from 'react-flatpickr';
+import "../../actions/Flatpickr.scss";
+import Flatpickr from "react-flatpickr";
 
 function Filter(props) {
   const [contestFilter, setContestFilter] = useState(props.contests);
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
   const [filterActive, setfilterActive] = useState(true);
+  const [filterString, setFilterString] = useState("");
 
-  const filter = (event, dates) => {
+  const filter = (event, isActive, dates) => {
     setFiltered(true);
-    let val = event && event !== null ? event.target.value : '';
+    let val = event && event !== null ? event.target.value : filterString;
+    dates=dates?dates:filterDates;
+    isActive=isActive!==undefined && isActive!==null?isActive:filterActive;
 
     let tempFilter = props.contests.filter(c => {
       let filterAnswer =
         c.name.includes(val) ||
         c.topic.includes(val) ||
         c.username.startsWith(val);
+
       let date = new Date(c.endDate);
-      console.log('Filter dates', dates, props.hasDate, filterActive);
+      console.log("Filter dates", dates, props.hasDate, filterActive);
       if (props.hasDate && dates && dates.length >= 2) {
-        console.log('Current Date', c.endDate);
+        console.log("Current Date", c.endDate);
         console.log(
-          'Filters',
+          "Filters",
           new Date(dates[0]).getTime() +
-            ':' +
+            ":" +
             date.getTime() +
-            ':' +
+            ":" +
             new Date(dates[1]).getTime()
         );
         filterAnswer =
           filterAnswer &&
           (new Date(dates[0]).getTime() <= date.getTime() &&
             date.getTime() <= new Date(dates[1]).getTime());
-        setFilterDates(dates);
       }
-      if (filterActive) {
+
+      if (isActive) {
         filterAnswer = filterAnswer && new Date().getTime() <= date.getTime();
       }
 
       return filterAnswer;
     });
-    setContestFilter(tempFilter);
-  };
 
-  const filterActiveContests = () => {
-    let filter = !filterActive;
-    setfilterActive(filter);
-    let tempFilter = props.contests.filter(c => {
-      let date = new Date(c.endDate);
-      if (filter === true) {
-        return new Date().getTime() <= date.getTime();
-      }
-      return true;
-    });
+    setfilterActive(isActive);
+    setFilterDates(dates);
+    setFilterString(val);
 
     setContestFilter(tempFilter);
   };
 
   const mapContests = data => {
-    console.log('DATA', data);
+    console.log("DATA", data);
     return data.map((el, index) => (
       <SearchItem key={el._id} element={el} index={index}></SearchItem>
     ));
@@ -77,8 +72,7 @@ function Filter(props) {
   };
 
   useEffect(() => {
-    filterActiveContests();
-    console.log('FILTER', filterActive);
+    filter(null,true,null);
   }, [props.contests]);
 
   return (
@@ -87,7 +81,7 @@ function Filter(props) {
         <div className="filter__searchBar">
           <img
             className="filter__searchBar__searchIcon"
-            src={require('../../../assets/icons/magnifying-glass.svg')}
+            src={require("../../../assets/icons/magnifying-glass.svg")}
             alt="search-icon"
           />
           <input
@@ -109,12 +103,12 @@ function Filter(props) {
               options={{
                 minDate: formatDate(new Date()),
                 minuteIncrement: 10,
-                mode: 'range',
+                mode: "range",
               }}
               value={filterDates}
               onChange={dates => {
-                console.log('Change dates', dates);
-                filter(null, dates);
+                console.log("Change dates", dates);
+                filter(null, null, dates);
               }}
               className="modal__form__input modal__form__input--calendar"
             />
@@ -123,7 +117,7 @@ function Filter(props) {
               <input
                 type="checkbox"
                 checked={filterActive}
-                onChange={filterActiveContests}
+                onChange={()=>{filter(null,!filterActive,null);}}
               />
             </label>
           </div>

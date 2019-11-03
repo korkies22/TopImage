@@ -23,7 +23,7 @@ function ContestPage() {
       }
     }
     fetchData();
-  }, [id]);
+  }, [id,url,dispatch]);
 
   return (
     <div className="contestPage">

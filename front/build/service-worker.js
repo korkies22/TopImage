@@ -17,8 +17,8 @@ importScripts(
   "/precache-manifest.d5de0abb675ec38436f812b139676bbe.js"
 );
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });

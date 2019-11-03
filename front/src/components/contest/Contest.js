@@ -26,7 +26,7 @@ function Contest(props) {
 
   useEffect(() => {
     setCurImage(sortedImages[0]);
-  }, [contest]);
+  }, [contest,sortedImages]);
 
   const parseDate = (dateP) => {
     const date = new Date(dateP);
@@ -83,15 +83,15 @@ function Contest(props) {
           )}
         </div>
         {curImage?
-        <div className="contest__featured">
-          <div className="contest__card contest__card--main" style={{ "backgroundImage": "url(" + curImage.url + ")" }}></div>
-          <div className="contest__like">
-            <img className="contest__icon" alt="likes for item" src={require(`../../assets/icons/like${hasLiked() ? "" : "U"}.svg`)} onClick={() => likePost(false)}></img>
-            <img className="contest__icon" alt="dislikes for item" src={require(`../../assets/icons/dislike${hasDisliked() ? "" : "U"}.svg`)} onClick={() => likePost(true)}></img>
-            <p className="contest__numLikes">{curImage.likes - curImage.dislikes}</p>
+          <div className="contest__featured">
+            <div className="contest__card contest__card--main" style={{ "backgroundImage": "url(" + curImage.url + ")" }}></div>
+            <div className="contest__like">
+              <img className="contest__icon" alt="likes for item" src={require(`../../assets/icons/like${hasLiked() ? "" : "U"}.svg`)} onClick={() => likePost(false)}></img>
+              <img className="contest__icon" alt="dislikes for item" src={require(`../../assets/icons/dislike${hasDisliked() ? "" : "U"}.svg`)} onClick={() => likePost(true)}></img>
+              <p className="contest__numLikes">{curImage.likes - curImage.dislikes}</p>
+            </div>
           </div>
-        </div>
-        :null}
+          :null}
       </div>
     </div>
   );

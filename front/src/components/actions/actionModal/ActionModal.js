@@ -1,6 +1,6 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect } from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const ActionModal = props => {
   const firstButtonRef = useRef(null);
@@ -15,7 +15,7 @@ const ActionModal = props => {
   ]);
 
   const handleExit = e => {
-    console.log('Event', e.keyCode);
+    console.log("Event", e.keyCode);
     if (e.keyCode === 9) {
       if (e.shiftKey) {
         if (document.activeElement === firstButtonRef.current) {
@@ -29,7 +29,7 @@ const ActionModal = props => {
         }
       }
     }
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       props.close();
     }
   };

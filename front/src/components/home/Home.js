@@ -1,26 +1,26 @@
 /*global require*/
 /*eslint no-undef: "error"*/
 
-import React, { useState, useRef } from 'react';
-import './Home.scss';
+import React, { useState, useRef } from "react";
+import "./Home.scss";
 
-import ActionModal from '../actions/actionModal/ActionModal';
-import '../actions/actionModal/ActionModal.scss';
-import Loader from '../actions/loader/Loader';
-import '../actions/loader/Loader.scss';
+import ActionModal from "../actions/actionModal/ActionModal";
+import "../actions/actionModal/ActionModal.scss";
+import Loader from "../actions/loader/Loader";
+import "../actions/loader/Loader.scss";
 
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-import '../actions/Flatpickr.scss';
-import Flatpickr from 'react-flatpickr';
-import Filter from '../search/filter/Filter';
+import "../actions/Flatpickr.scss";
+import Flatpickr from "react-flatpickr";
+import Filter from "../search/filter/Filter";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newContest, setNewConstest] = useState({});
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
   const [isUpload, setIsUpload] = useState(undefined);
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,29 +41,29 @@ function Home() {
   const createContest = async e => {
     e.preventDefault();
 
-    if (!newContest.name || newContest.name.trim() === '')
-      return setErrorMsg('You must specify the name of your contest');
-    if (!newContest.topic || newContest.topic.trim() === '')
-      return setErrorMsg('You must specify the topic of your contest');
+    if (!newContest.name || newContest.name.trim() === "")
+      return setErrorMsg("You must specify the name of your contest");
+    if (!newContest.topic || newContest.topic.trim() === "")
+      return setErrorMsg("You must specify the topic of your contest");
     if (!newContest.endDate)
-      return setErrorMsg('Your contest needs an end date');
+      return setErrorMsg("Your contest needs an end date");
     if (beforeCurrentTime(newContest.endDate))
-      return setErrorMsg('Your contest end date can`t be before now');
+      return setErrorMsg("Your contest end date can`t be before now");
     if (isUpload === undefined)
-      return setErrorMsg('You need to select a type of image');
+      return setErrorMsg("You need to select a type of image");
     if (isUpload && (!files || files.length < 2 || files.length > 4))
       return setErrorMsg(
-        'You must upload between 2 and 4 images for the contest'
+        "You must upload between 2 and 4 images for the contest"
       );
 
     let formData = new FormData();
-    formData.append('name', newContest.name);
-    formData.append('topic', newContest.topic);
-    formData.append('endDate', newContest.endDate);
+    formData.append("name", newContest.name);
+    formData.append("topic", newContest.topic);
+    formData.append("endDate", newContest.endDate);
     files.forEach((el, index) => {
       formData.append(`img_${index}`, el);
     });
-    console.log('FORM', formData);
+    console.log("FORM", formData);
 
     await sendContest(formData);
   };
@@ -73,7 +73,7 @@ function Home() {
     const options = {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     };
 
@@ -179,7 +179,7 @@ function Home() {
             <button className="contestModal__fileContainer">
               {files && files.length !== 0
                 ? `${files.length} images waiting to be send`
-                : 'Upload your images'}
+                : "Upload your images"}
               <input
                 type="file"
                 id="multi"
@@ -196,7 +196,7 @@ function Home() {
         <button className="home__button" type="submit">
           <img
             className="home__img"
-            src={require('../../assets/icons/logo.svg')}
+            src={require("../../assets/icons/logo.svg")}
             alt="App logo. A lightbulb inside an icon"
           />
           NEW TOP IMAGE
@@ -207,14 +207,14 @@ function Home() {
 
   const deactivateModal = () => {
     setNewConstest({
-      name: '',
-      type: '',
+      name: "",
+      type: "",
       endDate: null,
       images: [],
     });
 
-    console.log('Deactivate?');
-    setErrorMsg('');
+    console.log("Deactivate?");
+    setErrorMsg("");
     setIsModalOpen(false);
   };
 
@@ -225,7 +225,7 @@ function Home() {
       <button className="home__button" onClick={() => setIsModalOpen(true)} ref={buttonModal}>
         <img
           className="home__img"
-          src={require('../../assets/icons/logo.svg')}
+          src={require("../../assets/icons/logo.svg")}
           alt="App logo. A lightbulb inside an icon"
         />
         NEW TOP IMAGE
@@ -235,7 +235,7 @@ function Home() {
 
       {isModalOpen ? (
         <ActionModal
-          close={() =>{ setIsModalOpen(false);buttonModal.current.focus()}}
+          close={() =>{ setIsModalOpen(false);buttonModal.current.focus();}}
           modalHeaderTitle="New Top Image"
           modalBody={modalFormBody}
           okCBK={() => {}}

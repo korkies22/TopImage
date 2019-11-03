@@ -1,13 +1,13 @@
 /* eslint-disable no-undef */
-import React, { useState } from 'react';
-import './Nav.scss';
-import { useDispatch } from 'react-redux';
-import { logout as logoutAction } from '../../store/auth';
-import { logout as deleteUserInfo } from '../../util/state/localStorageUtil';
+import React, { useState } from "react";
+import "./Nav.scss";
+import { useDispatch } from "react-redux";
+import { logout as logoutAction } from "../../store/auth";
+import { logout as deleteUserInfo } from "../../util/state/localStorageUtil";
 
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from "react-router-dom";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function Nav() {
   const [isUserModalOpen, setUserModalOpen] = useState(false);
@@ -20,7 +20,7 @@ function Nav() {
   };
 
   return (
-    <nav className={`nav ${isMobile ? 'nav--active' : ''}`}>
+    <nav className={`nav ${isMobile ? "nav--active" : ""}`}>
       <div className="nav__header">
         <h1>
           <Link className="nav__logo" to="/">
@@ -34,12 +34,12 @@ function Nav() {
           }}
         >
           <img
-            src={require('../../assets/icons/menu.svg')}
+            src={require("../../assets/icons/menu.svg")}
             alt="Toggler for menu when on mobile"
           ></img>
         </button>
       </div>
-      <div className={`${isMobile ? 'nav__actions--active' : 'nav__actions'}`}>
+      <div className={`${isMobile ? "nav__actions--active" : "nav__actions"}`}>
         <NavLink
           exact={true}
           className="nav__link"
@@ -50,16 +50,16 @@ function Nav() {
         </NavLink>
         <div className="nav__user">
           <a href="/tutorial" target="_blank">
-            {' '}
+            {" "}
             <img
               className="nav__userIcon"
-              src={require('../../assets/icons/help.svg')}
+              src={require("../../assets/icons/help.svg")}
               alt="help"
             />
           </a>
           <img
             className="nav__userIcon"
-            src={require('../../assets/icons/person.svg')}
+            src={require("../../assets/icons/person.svg")}
             alt="user"
             onClick={() => setUserModalOpen(!isUserModalOpen)}
           />
