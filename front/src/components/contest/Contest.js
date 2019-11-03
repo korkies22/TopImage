@@ -97,7 +97,7 @@ function Contest(props) {
 }
 
 Contest.propTypes = {
-  contestId: PropTypes.number
+  contestId: PropTypes.string
 };
 
 export default Contest;

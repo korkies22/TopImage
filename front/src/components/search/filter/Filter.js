@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 
@@ -14,15 +14,17 @@ function Filter(props) {
   const [contestFilter, setContestFilter] = useState(props.contests);
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
-  const [filterFinished, setFilterFinished] = useState(false);
+  const [filterString, setFilterString] = useState([]);
+  const [filterActive, setfilterActive] = useState(true);
 
   const filter=(event,dates)=>{
     setFiltered(true);
     let val=event && event!==null?event.target.value:"";
+    
     let tempFilter=props.contests.filter((c)=>{
       let filterAnswer= c.name.includes(val) || c.topic.includes(val) || c.username.startsWith(val);
       let date=new Date(c.endDate);
-      console.log("Filter dates",dates,props.hasDate,filterFinished);
+      console.log("Filter dates",dates,props.hasDate,filterActive);
       if(props.hasDate && dates && dates.length>=2)
       {
         console.log("Current Date",c.endDate);
@@ -30,15 +32,19 @@ function Filter(props) {
         filterAnswer=filterAnswer && (new Date(dates[0]).getTime()<=date.getTime() && date.getTime()<=new Date(dates[1]).getTime());
         setFilterDates(dates);
       }
+      if(filterActive)
+      {
+        filterAnswer=filterAnswer && new Date().getTime()<=date.getTime();
+      }
 
       return filterAnswer;
     });
     setContestFilter(tempFilter);
   };
 
-  const filterFinishedContests=()=>{
-    let filter=!filterFinished;
-    setFilterFinished(filter);
+  const filterActiveContests=()=>{
+    let filter=!filterActive;
+    setfilterActive(filter);
     let tempFilter=props.contests.filter((c)=>{
       let date=new Date(c.endDate);
       if(filter===true)
@@ -60,6 +66,11 @@ function Filter(props) {
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
   };
 
+  useEffect(()=>{
+    filterActiveContests();
+    console.log("FILTER",filterActive);
+  },[props.contests])
+
   return (
     <div className="filter">
       <div className="filter__criteria">
@@ -69,7 +80,9 @@ function Filter(props) {
             src={require("../../../assets/icons/magnifying-glass.svg")}
             alt="search-icon"
           />
-          <input className="filter__searchBar__searchInput" type="text" placeholder="Buscar..." onChange={filter}/>
+          <input className="filter__searchBar__searchInput" 
+            type="text" placeholder="Buscar..." 
+            onChange={filter}/>
         </div>
 
         {props.hasDate?
@@ -83,8 +96,8 @@ function Filter(props) {
               className="modal__form__input modal__form__input--calendar"
             />
             <label>
-              Finished
-              <input type="checkbox" checked={filterFinished} onChange={filterFinishedContests}/>
+              Ongoing
+              <input type="checkbox" checked={filterActive} onChange={filterActiveContests}/>
             </label>
           </div>
           :null}
