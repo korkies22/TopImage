@@ -82,6 +82,7 @@ function Contest(props) {
             </div>
           )}
         </div>
+        {curImage?
         <div className="contest__featured">
           <div className="contest__card contest__card--main" style={{ "backgroundImage": "url(" + curImage.url + ")" }}></div>
           <div className="contest__like">
@@ -90,7 +91,7 @@ function Contest(props) {
             <p className="contest__numLikes">{curImage.likes - curImage.dislikes}</p>
           </div>
         </div>
-
+        :null}
       </div>
     </div>
   );
