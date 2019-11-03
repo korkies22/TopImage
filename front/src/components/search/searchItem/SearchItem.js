@@ -54,14 +54,14 @@ function SearchItem(props) {
     <div className="search-item" 
       onClick={()=>{goToDetail(props.element._id);}} 
       onKeyPress={buildHandleEnterKeyPress(()=>goToDetail(props.element._id))}
-      tabIndex={props.index+1} role="button">
+      role="button">
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
       </div>
       <img className="search-item__img" src={topImage(props.element.images)} alt="Best item of the contest so far">
       </img>
       {/*Text*/}
-      <h4 className="search-item__date">{formatDate(props.element.endDate)}</h4>
+      <h2 className="search-item__date">{formatDate(props.element.endDate)}</h2>
       <div className="search-item__group">
         <p className="search-item__text">
           {props.element.username} {props.element.name}

@@ -77,7 +77,7 @@ function Contest(props) {
         <div className="contest__list">
           {sortedImages.map((el) =>
             <div className="contest__preview" key={el.url}>
-              <button className="contest__card" style={{ "backgroundImage": "url(" + el.url + ")" }} onClick={() => curImageSet(el.url)}></button>
+              <button className="contest__card" style={{ "backgroundImage": "url(" + el.url + ")" }} aria-label="button" onClick={() => curImageSet(el.url)}></button>
               <p className="contest__preview--likes">Score: {el.likes - el.dislikes}</p>
             </div>
           )}
