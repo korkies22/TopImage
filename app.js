@@ -7,8 +7,7 @@ const fallback=require('express-history-api-fallback');
 
 require("dotenv").config();
 
-const {startWS,listenForEvent} = require("./util/socketio/socketio");
-const { CONTEST_EVENT } = require("./util/socketio/events");
+const {startWS} = require("./util/socketio/socketio");
 
 
 const app = express();
