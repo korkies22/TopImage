@@ -27,6 +27,7 @@ export default function reducer(state = initState, action) {
     if (index === -1) return state;
 
     let item = tempArray[index];
+    // eslint-disable-next-line no-unused-vars
     for (let key in action.payload) {
       item[key] = action.payload[key];
     }

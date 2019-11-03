@@ -14,7 +14,6 @@ function Filter(props) {
   const [contestFilter, setContestFilter] = useState(props.contests);
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
-  const [filterString, setFilterString] = useState([]);
   const [filterActive, setfilterActive] = useState(true);
 
   const filter=(event,dates)=>{
@@ -69,7 +68,7 @@ function Filter(props) {
   useEffect(()=>{
     filterActiveContests();
     console.log("FILTER",filterActive);
-  },[props.contests])
+  },[props.contests]);
 
   return (
     <div className="filter">
