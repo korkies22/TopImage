@@ -20,45 +20,45 @@ function SearchItem(props) {
         likes=el.likes;
         src=el.url;
       }
-    })
+    });
 
     return src;
-  }
+  };
   const formatDate=(date)=>{
     if(!date)
       return date;
     date=new Date(date);
     let hours=date.getHours();
     let mins=date.getMinutes();
-    let ampm = hours >= 12 ? 'pm' : 'am';  
+    let ampm = hours >= 12 ? "pm" : "am";  
     
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     hours=hours<10?"0"+hours:hours;
     mins=mins<10?"0"+mins:mins;
-    return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${hours}:${mins} ${ampm}`
-  }
+    return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${hours}:${mins} ${ampm}`;
+  };
 
   const goToDetail=(id)=>{
     history.push(`contests/${id}`);
-  }
+  };
 
   
   const buildHandleEnterKeyPress = (onClick) => ({ key }) => {
-    if (key === 'Enter') { 
+    if (key === "Enter") { 
       onClick(); 
     }
   };
 
   return (
     <div className="search-item" 
-      onClick={()=>{goToDetail(props.element._id)}} 
+      onClick={()=>{goToDetail(props.element._id);}} 
       onKeyPress={buildHandleEnterKeyPress(()=>goToDetail(props.element._id))}
       tabIndex={props.index+1} role="button">
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
       </div>
-      <img className="search-item__img" src={topImage(props.element.images)} alt="Top image of the contest so far">
+      <img className="search-item__img" src={topImage(props.element.images)} alt="Best item of the contest so far">
       </img>
       {/*Text*/}
       <h4 className="search-item__date">{formatDate(props.element.endDate)}</h4>
@@ -73,7 +73,8 @@ function SearchItem(props) {
 }
 
 SearchItem.propTypes={
-  element:PropTypes.any
+  element:PropTypes.object,
+  index: PropTypes.number
 };
 
 export default SearchItem;

@@ -1,7 +1,11 @@
 /* eslint-disable no-undef */
+
+
 import React,{useState} from "react";
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
+
+import PropTypes from "prop-types";
 
 import "../../actions/Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
@@ -45,11 +49,11 @@ function Filter(props) {
     });
 
     setContestFilter(tempFilter);
-  }
+  };
 
   const mapContests=(data)=>{
     console.log("DATA",data);
-    return data.map((el,index) => <SearchItem key={el._id} element={el} index={index}></SearchItem>)
+    return data.map((el,index) => <SearchItem key={el._id} element={el} index={index}></SearchItem>);
   };
 
   const formatDate=(date)=>{
@@ -73,7 +77,7 @@ function Filter(props) {
             <Flatpickr data-enable-time
               name="date"
               placeholder="Filter dates"
-              options={{minDate:formatDate(new Date()),minuteIncrement:10,mode:'range'}}
+              options={{minDate:formatDate(new Date()),minuteIncrement:10,mode:"range"}}
               value={filterDates}
               onChange={dates => {console.log("Change dates",dates);filter(null,dates); }} 
               className="modal__form__input modal__form__input--calendar"
@@ -83,7 +87,7 @@ function Filter(props) {
               <input type="checkbox" checked={filterFinished} onChange={filterFinishedContests}/>
             </label>
           </div>
-        :null}
+          :null}
       </div>
       
 
@@ -94,5 +98,10 @@ function Filter(props) {
     </div>
   );
 }
+
+Filter.propTypes = {
+  contests: PropTypes.array,
+  hasDate:PropTypes.bool
+};
 
 export default Filter;

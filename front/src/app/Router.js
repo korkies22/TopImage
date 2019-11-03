@@ -15,7 +15,7 @@ function AppRouter() {
     <Router>
       {token ? <Nav /> : null}
       <Switch>
-      <Route path="/tutorial" component={Tutorial} />
+        <Route path="/tutorial" component={Tutorial} />
         <Route path="/" exact render={() => token ? <Index></Index> : <Redirect to="/login" />} />
         <Route path="/login" render={() => token ? <Redirect to="/" /> : <Login></Login>} />
         <Route path="/contests/:id" component={Contest} />

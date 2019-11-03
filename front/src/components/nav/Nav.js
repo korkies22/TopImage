@@ -24,16 +24,16 @@ function Nav() {
   };
 
   return (
-    <nav className={`nav ${isMobile?'nav--active':''}`}>
+    <nav className={`nav ${isMobile?"nav--active":""}`}>
       <div className="nav__header">
         <Link className="nav__logo" to="/">
           TOP IMAGE
         </Link>
-        <button className="nav__toggle" onClick={()=>{setIsMobile(!isMobile)}}>
-              <img src={require("../../assets/icons/menu.svg")} alt="Toggler for menu when on mobile"></img>
-          </button>
+        <button className="nav__toggle" onClick={()=>{setIsMobile(!isMobile);}}>
+          <img src={require("../../assets/icons/menu.svg")} alt="Toggler for menu when on mobile"></img>
+        </button>
       </div>
-      <div className={`${isMobile?'nav__actions--active':'nav__actions'}`}>
+      <div className={`${isMobile?"nav__actions--active":"nav__actions"}`}>
         <NavLink exact={true} className="nav__link" activeClassName='nav__link--active' to="/">Home</NavLink>
         <div className="nav__user">
           <a href='/tutorial' target="_blank"> <img className="nav__userIcon" src={require("../../assets/icons/help.svg")} alt="help"/></a>

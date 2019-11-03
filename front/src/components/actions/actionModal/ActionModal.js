@@ -76,7 +76,7 @@ const ActionModal=(props)=>{
       </div>
     </div>
   );
-}
+};
 
 
 ActionModal.propTypes = {
@@ -84,10 +84,11 @@ ActionModal.propTypes = {
   cancelCBK:PropTypes.any,
   okText:PropTypes.any,
   cancelText:PropTypes.any,
-  modalHeaderBg:PropTypes.any,
-  modalHeaderColor:PropTypes.any,
   modalHeaderTitle:PropTypes.any,
-  modalBody:PropTypes.any
+  modalBody:PropTypes.any,
+  closeModal: PropTypes.func,
+  close: PropTypes.func,
+  open: PropTypes.bool
 };
 
 export default ActionModal;

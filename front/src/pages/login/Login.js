@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './login.scss';
-import LoginForm from '../../components/login/loginForm/loginForm';
-import SignUpForm from '../../components/login/signUpForm/signUpForm';
+import React, { useState } from "react";
+import "./login.scss";
+import LoginForm from "../../components/login/loginForm/loginForm";
+import SignUpForm from "../../components/login/signUpForm/signUpForm";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,16 +16,16 @@ function Login() {
         <h1 className="loginPage__title">Top</h1>
         {isLogin ? <LoginForm></LoginForm> : <SignUpForm></SignUpForm>}
         <p>
-          {isLogin ? 'Are you new?' : 'Have you joined?'}{' '}
+          {isLogin ? "Are you new?" : "Have you joined?"}{" "}
           <span
             className="loginPage__butSwitch"
             onClick={toggleIsLogin.bind(null)}
           >
-            {isLogin ? 'Sign up' : 'Login'}
+            {isLogin ? "Sign up" : "Login"}
           </span>
         </p>
         <p>
-          Lost? Check out the tutorial{' '}
+          Lost? Check out the tutorial{" "}
           <a href="/tutorial" target="_blank" className="loginPage__butSwitch">
             Tutorial
           </a>

@@ -1,17 +1,17 @@
 export const addContest = (contest) =>({
   type: "ADD_CONTEST",
-    payload: {
-      contest:contest
-    }
-})
+  payload: {
+    contest:contest
+  }
+});
 
 export const updateContest = (data) =>{
   console.log("Received data",data);
   return {
     type: "UPDATE_CONTEST",
     payload: data  
-  }
-}
+  };
+};
 
 
 export const updateCurContest = (data) =>{
@@ -19,15 +19,15 @@ export const updateCurContest = (data) =>{
   return {
     type: "UPDATE_CUR_CONTEST",
     payload: data  
-  }
-}
+  };
+};
 
 export const deleteContest = (id) =>({
   type: "DELETE_CONTEST",
-    payload: {
-      id:id
-    }
-})
+  payload: {
+    id:id
+  }
+});
 
 export const setContests = (contests) => {
   let compareDate=new Date();
@@ -39,10 +39,10 @@ export const setContests = (contests) => {
       activeContests:contests.filter(el=>{
         let date=new Date(el.endDate);
         console.log(el.endDate,date.getTime(),compareDate.getTime());
-        return date.getTime()>compareDate.getTime()
+        return date.getTime()>compareDate.getTime();
       })
     }
-  }
+  };
 };
 
 export const setCurContest = (contest) => {
@@ -51,7 +51,7 @@ export const setCurContest = (contest) => {
     payload: {
       contest
     }
-  }
+  };
 };
 
 export const setInactiveContest = (id) => 
