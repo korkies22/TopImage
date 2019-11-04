@@ -2,7 +2,7 @@ const axios= require("axios"),
     crypto = require('crypto');
 
 const cloudName=process.env.cloudinaryCloudName;
-const authKey=process.env.cloudinaryApiKey;
+const authKey=process.env.cloudinaryAPIKey;
 
 const BASE_URL=`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
@@ -18,7 +18,7 @@ const calculateHash=(params)=>{
             msg+="&"
     });
 
-    msg+=process.env.cloudinaryApiSecret;
+    msg+=process.env.cloudinaryAPISecret;
 
     const shasum = crypto.createHash('sha1')
     shasum.update(msg);

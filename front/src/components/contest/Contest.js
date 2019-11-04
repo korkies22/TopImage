@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 function Contest(props) {
   const contest = useSelector(state => state.contests.curContest);
   const token = useSelector(state => state.auth.token);
-  const email = useSelector(state => state.auth.user.email);
+  const email = useSelector(state => state.auth.user? state.auth.user.email:"");
   const url = useSelector(state => state.root.url);
 
   const sortedImages = useMemo(() => {

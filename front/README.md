@@ -1,4 +1,4 @@
-# Academical-reborn backend
+# Top Image backend
 
 This is the frontend for the "Academical-reborn" web app.
 
@@ -40,7 +40,11 @@ When libs are installed, run the next command for making the frontend run in dev
 npm start
 ```
 
-The app should be running at port 3000, this is made for developing. Once the app is ready for production run:
+The app should be running at port 3000, this is made for developing.
+
+In order to ensure the app is ready for production, modify the proxy property in package.json, scripts attribute to point to a fallback address in case that the app requests a resource outside its current routes.
+
+Once this is done, run:
 
 ```
 npm run build
@@ -57,6 +61,6 @@ This will generate a dist folder with the production ready version of the fronte
   - css: Contains global sass file for the page
   - pages: Components which store the main file template setup of each page. Currently: login, schedule and tutorial.
   - store: Folder to configure everything about the store: reducers, actions, state, etc. Currently auth, events, schedules and current week are managed in the store
-  - util: common JS functions used throughout the app are stored here. It includes auth and localStorage related functions, week related functions, hash from string to number for types of events function and constants for the grid
+  - util: common JS functions used throughout the app are stored here. It includes auth and localStorage related functions, event constants and socketio related functionalities.
   - index.js: Main file needed for react to build the SPA
 - public: Where the production ready app is located in order to be copied to the backend
