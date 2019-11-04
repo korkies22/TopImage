@@ -113,6 +113,7 @@ function Contest(props) {
               <button
                 className="contest__icon"
                 alt="likes for item"
+                aria-label="like"
                 tabIndex="0"
                 style={{'backgroundImage':'url('+require(`../../assets/icons/like${
                   hasLiked() ? '' : 'U'
@@ -121,6 +122,7 @@ function Contest(props) {
               ></button>
               <button
                 className="contest__icon"
+                aria-label="dislike"
                 alt="dislikes for item"
                 style={{'backgroundImage':'url('+require(`../../assets/icons/dislike${
                   hasDisliked() ? '' : 'U'
