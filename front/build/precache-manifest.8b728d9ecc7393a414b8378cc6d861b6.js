@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "88f05a7b44ae9b5307af289024d08e81",
+    "revision": "cc75afb1293401d9e1d9638fbbb3fb60",
     "url": "/index.html"
   },
   {
-    "revision": "751bd36382ef3794c7a9",
-    "url": "/static/css/main.bb5b263c.chunk.css"
+    "revision": "946f56875140e28a027c",
+    "url": "/static/css/main.d9fc3189.chunk.css"
   },
   {
-    "revision": "5cba9c5fa2755c883e4a",
-    "url": "/static/js/2.5e525644.chunk.js"
+    "revision": "b16a80c60604854f8639",
+    "url": "/static/js/2.315254d3.chunk.js"
   },
   {
-    "revision": "751bd36382ef3794c7a9",
-    "url": "/static/js/main.a0618cfe.chunk.js"
+    "revision": "946f56875140e28a027c",
+    "url": "/static/js/main.b9aa24e6.chunk.js"
   },
   {
     "revision": "2490115a9c4ae43e4644",
@@ -62,5 +62,37 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0c32117b17dc8c49b53f338a3e6af326",
     "url": "/static/media/person.0c32117b.svg"
+  },
+  {
+    "revision": "d1ae3bc791cf3411ff0d5aacdf9b3157",
+    "url": "/static/media/tuto1.d1ae3bc7.png"
+  },
+  {
+    "revision": "1e3ed9428ea0a2b99f7a1a30deb765ea",
+    "url": "/static/media/tuto2.1e3ed942.png"
+  },
+  {
+    "revision": "b105dcc443f17c032b8ee210c509ba52",
+    "url": "/static/media/tuto3.b105dcc4.png"
+  },
+  {
+    "revision": "e2c8a7aa403d31b8e1589b2c87a9164c",
+    "url": "/static/media/tuto4.e2c8a7aa.png"
+  },
+  {
+    "revision": "4d22a315a522d0b6203ee414705ec52a",
+    "url": "/static/media/tuto5.4d22a315.png"
+  },
+  {
+    "revision": "45d73162f3dccc1b24e3db5d720583ce",
+    "url": "/static/media/tuto6.45d73162.png"
+  },
+  {
+    "revision": "d8cace180216be5f663dd9bbfc88591e",
+    "url": "/static/media/tuto7.d8cace18.png"
+  },
+  {
+    "revision": "aeb9cc606c608d9b8c08163bdb0c87a5",
+    "url": "/static/media/tuto8.aeb9cc60.png"
   }
 ]);

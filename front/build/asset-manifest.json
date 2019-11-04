@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.bb5b263c.chunk.css",
-    "main.js": "/static/js/main.a0618cfe.chunk.js",
-    "main.js.map": "/static/js/main.a0618cfe.chunk.js.map",
+    "main.css": "/static/css/main.d9fc3189.chunk.css",
+    "main.js": "/static/js/main.b9aa24e6.chunk.js",
+    "main.js.map": "/static/js/main.b9aa24e6.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.e774a519.js",
     "runtime~main.js.map": "/static/js/runtime~main.e774a519.js.map",
-    "static/js/2.5e525644.chunk.js": "/static/js/2.5e525644.chunk.js",
-    "static/js/2.5e525644.chunk.js.map": "/static/js/2.5e525644.chunk.js.map",
+    "static/js/2.315254d3.chunk.js": "/static/js/2.315254d3.chunk.js",
+    "static/js/2.315254d3.chunk.js.map": "/static/js/2.315254d3.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.f52b18c0e56441ce72dd3c58d6de48ed.js": "/precache-manifest.f52b18c0e56441ce72dd3c58d6de48ed.js",
+    "precache-manifest.8b728d9ecc7393a414b8378cc6d861b6.js": "/precache-manifest.8b728d9ecc7393a414b8378cc6d861b6.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.bb5b263c.chunk.css.map": "/static/css/main.bb5b263c.chunk.css.map",
+    "static/css/main.d9fc3189.chunk.css.map": "/static/css/main.d9fc3189.chunk.css.map",
     "static/media/login.scss": "/static/media/cameraLogin.ade877c3.jpg",
     "static/media/Contest.scss": "/static/media/cameraMain.666dca49.jpg",
     "static/media/dislike.svg": "/static/media/dislike.3f1544fc.svg",
@@ -21,6 +21,14 @@
     "static/media/logo.svg": "/static/media/logo.5cc607db.svg",
     "static/media/magnifying-glass.svg": "/static/media/magnifying-glass.adf7b08c.svg",
     "static/media/menu.svg": "/static/media/menu.aa9d6fc1.svg",
-    "static/media/person.svg": "/static/media/person.0c32117b.svg"
+    "static/media/person.svg": "/static/media/person.0c32117b.svg",
+    "static/media/tuto1.png": "/static/media/tuto1.d1ae3bc7.png",
+    "static/media/tuto2.png": "/static/media/tuto2.1e3ed942.png",
+    "static/media/tuto3.png": "/static/media/tuto3.b105dcc4.png",
+    "static/media/tuto4.png": "/static/media/tuto4.e2c8a7aa.png",
+    "static/media/tuto5.png": "/static/media/tuto5.4d22a315.png",
+    "static/media/tuto6.png": "/static/media/tuto6.45d73162.png",
+    "static/media/tuto7.png": "/static/media/tuto7.d8cace18.png",
+    "static/media/tuto8.png": "/static/media/tuto8.aeb9cc60.png"
   }
 }
