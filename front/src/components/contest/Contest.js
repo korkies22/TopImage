@@ -26,7 +26,7 @@ function Contest(props) {
 
   useEffect(() => {
     setCurImage(sortedImages[0]);
-  }, [contest,sortedImages]);
+  }, [contest]);
 
   const parseDate = (dateP) => {
     const date = new Date(dateP);
@@ -56,7 +56,7 @@ function Contest(props) {
   const curImageSet = (url) => {
     const index = contest.images.findIndex((item) => item.url === url);
     setCurImage(contest.images[index]);
-    
+    console.log("Cur image",contest.images[index]);
   };
 
   const hasLiked = () => {
