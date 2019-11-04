@@ -10,7 +10,6 @@ import "./App.css";
 
 function AppRouter() {
   const token = useSelector(state => state.auth.token);
-  console.log("TOKEN", token);
   return (
     <Router>
       {token ? <Nav /> : null}

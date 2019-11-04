@@ -9,13 +9,10 @@ const ActionModal = props => {
   useLayoutEffect(() => {
     if (firstButtonRef.current) firstButtonRef.current.focus();
   }, [
-    (() => {
-      return firstButtonRef.current;
-    })(),
+    firstButtonRef
   ]);
 
   const handleExit = e => {
-    console.log("Event", e.keyCode);
     if (e.keyCode === 9) {
       if (e.shiftKey) {
         if (document.activeElement === firstButtonRef.current) {

@@ -16,10 +16,8 @@ export default function reducer(state = initState, action) {
       contests: tempArray,
     };
   case "UPDATE_CONTEST":{
-    console.log("llega reducer update",action.payload.id);
     let curContestTemp = { ...state.curContest };
     if (curContestTemp["_id"] === action.payload.id) {
-      console.log("llega reducer update 2");
       curContestTemp.images = action.payload.images;
     }
     index = state.contests.findIndex(el => el._id === action.payload.id);

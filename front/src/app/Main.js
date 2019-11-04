@@ -30,10 +30,8 @@ function Main() {
 
     function setupSocket(){
       const socket = socketIOClient(socketUrl);
-      console.log("Connected to",socketUrl);
       socket.on(Events.CONTEST_EVENT, (data) => 
       {
-        console.log("DATA",data);
         switch(data.action){
         case Events.ACTION_INSERT:
           return dispatch(addContest(data.payload));
@@ -53,7 +51,7 @@ function Main() {
     const socket=setupSocket();
 
     return ()=> socket.disconnect();
-  },[]);
+  },[dispatch,socketUrl,token,url]);
 
 
   return (

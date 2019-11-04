@@ -39,7 +39,6 @@ export const loadAuthFromLS = () => {
 };
 
 export const logout = () => {
-  console.log("mueche");
   // eslint-disable-next-line no-unused-vars
   for (const index in auth) {
     localStorage.removeItem(index);

@@ -28,16 +28,21 @@ const tutorialItems = [
   {
     title: "Search",
     description:
-      "Go to the search section by clicking on the link above. There you can filter by name and whether the contest has finished or not",
+      "Use the search bar to filter contests by name. You can also choose a range of dates and whether the contest has finished or not",
   },
   {
     title: "Go into a contest",
     description: "Click on a contest preview to go into its details",
   },
   {
-    title: "Rate a photo",
+    title: "Select an image",
     description:
-      "Select a photo you like or dislike and then select whether you like o dislike it. The photos will be ordered by likes-dislikes",
+      "Select an image you like from the list on the left to see it bigger and be able to rate it",
+  },
+  {
+    title: "Rate an image",
+    description:
+      "Use the like and dislike options below to rate the image",
   },
 ];
 function Tutorial(props) {

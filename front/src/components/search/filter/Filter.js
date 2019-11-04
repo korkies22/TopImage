@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 
@@ -16,7 +16,7 @@ function Filter(props) {
   const [filterActive, setfilterActive] = useState(true);
   const [filterString, setFilterString] = useState("");
 
-  const filter = (event, isActive, dates) => {
+  const filter = useCallback((event, isActive, dates) => {
     setFiltered(true);
     let val = event && event !== null ? event.target.value : filterString;
     dates=dates?dates:filterDates;
@@ -29,17 +29,7 @@ function Filter(props) {
         c.username.startsWith(val);
 
       let date = new Date(c.endDate);
-      console.log("Filter dates", dates, props.hasDate, filterActive);
       if (props.hasDate && dates && dates.length >= 2) {
-        console.log("Current Date", c.endDate);
-        console.log(
-          "Filters",
-          new Date(dates[0]).getTime() +
-            ":" +
-            date.getTime() +
-            ":" +
-            new Date(dates[1]).getTime()
-        );
         filterAnswer =
           filterAnswer &&
           (new Date(dates[0]).getTime() <= date.getTime() &&
@@ -58,10 +48,9 @@ function Filter(props) {
     setFilterString(val);
 
     setContestFilter(tempFilter);
-  };
+  },[filterActive, filterDates, filterString, props.contests, props.hasDate]);
 
   const mapContests = data => {
-    console.log("DATA", data);
     return data.map((el, index) => (
       <SearchItem key={el._id} element={el} index={index}></SearchItem>
     ));
@@ -73,7 +62,7 @@ function Filter(props) {
 
   useEffect(() => {
     filter(null,true,null);
-  }, [props.contests]);
+  }, [props.contests,filter]);
 
   return (
     <div className="filter">
@@ -107,7 +96,6 @@ function Filter(props) {
               }}
               value={filterDates}
               onChange={dates => {
-                console.log("Change dates", dates);
                 filter(null, null, dates);
               }}
               className="modal__form__input modal__form__input--calendar"
