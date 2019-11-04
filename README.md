@@ -112,7 +112,7 @@ This project is public under the MIT license, found [here](https://github.com/ko
 - morgan: Beautiful logging of REST actions.
 - multer: For form data requests.
 - nodemon: Hot-reloading of the backend server.
-- node-schedule: Chrono tasks for the scrapper.
+- react-flatpickr: Callendar used to selecting dates and date ranges
 - socket-io: Creation of web sockets.
 - socket-io-client: Client of socket io connections on frontend.
 
