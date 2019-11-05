@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken"),
   crypto = require("crypto");
 
+// Tal vez 12 horas sea demasiado tiempo
 exports.signToken = params => {
   return jwt.sign(params, process.env.privateKey, { expiresIn: "12h" });
 };
