@@ -24,6 +24,8 @@ function LoginForm(props) {
     if (!password || password.length < 5) {
       return setErrorMsg("The password must have at least 5 characters");
     }
+    
+    // Al parecer envian la contraseña en texto plano, cuidado
 
     try {
       const res = await axios.post(`${url}users/login`, { email, password });
