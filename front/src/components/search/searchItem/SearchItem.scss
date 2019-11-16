@@ -44,9 +44,12 @@
   }
 
   &__img {
-    width: 1fr;
+    width: 90%;
     height: 10rem;
-    margin: 1rem 0rem;
+    margin: 1rem auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 
   &__date,
