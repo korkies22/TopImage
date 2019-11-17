@@ -4,13 +4,13 @@
   padding: 0.5rem;
   background: $mainColor;
   color: white;
-  width: 100%;
+  width: 18rem;
   position: relative;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   overflow: hidden;
 
   margin: 0.5rem auto;
@@ -22,6 +22,10 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
+
+  @media (max-width: 992px) {
+    width:16rem;
+  }
 
   &__container {
     display: flex;
@@ -44,9 +48,16 @@
   }
 
   &__img {
-    width: 1fr;
+    width: 16rem;
     height: 10rem;
-    margin: 1rem 0rem;
+    margin: 1rem auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @media (max-width: 992px) {
+      width:14rem;
+    }
   }
 
   &__date,
