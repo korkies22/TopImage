@@ -53,7 +53,6 @@ function SearchItem(props) {
         goToDetail(props.element._id);
       }}
       onKeyPress={buildHandleEnterKeyPress(() => goToDetail(props.element._id))}
-      role="button"
     >
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
