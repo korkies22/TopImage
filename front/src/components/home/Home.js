@@ -16,6 +16,7 @@ import axios from "axios";
 import "../actions/Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
 import Filter from "../search/filter/Filter";
+import FilePreviewList from '../util/filePreviewList/FilePreviewList'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -178,12 +179,12 @@ function Home() {
           {isUpload ? (
             <button className="contestModal__fileContainer">
               {files && files.length !== 0
-                ? `${files.length} images waiting to be send`
-                : "Upload your images"}
+                ? `${files.length} files waiting to be send`
+                : "Upload your multimedia"}
               <input
                 type="file"
                 id="multi"
-                accept="image/*"
+                accept="image/*,video/mp4,video/x-m4v,video/*"
                 onChange={onChange}
                 multiple
               />
@@ -191,6 +192,7 @@ function Home() {
           ) : null}
         </div>
       </div>
+      <FilePreviewList files={files}></FilePreviewList>
       <div className="contestModal__col">
         {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
         <button className="home__button" type="submit">
