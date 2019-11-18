@@ -4,7 +4,15 @@ const axios= require("axios"),
 const cloudName=process.env.cloudinaryCloudName;
 const authKey=process.env.cloudinaryAPIKey;
 
-const BASE_URL=`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+const BASE_PATH=`https://api.cloudinary.com/v1_1/${cloudName}/`;
+
+const getUrl=(type)=>{
+    if(type.includes("image"))
+        return BASE_PATH+"image/upload";
+    if(type.includes("video"))
+        return BASE_PATH+"video/upload";
+    return BASE_PATH+"image/upload";
+}
 
 const calculateHash=(params)=>{
     params=params.sort((a,b)=>a.key>b.key);
@@ -25,14 +33,15 @@ const calculateHash=(params)=>{
     return (shasum.digest('hex'));
 }
 
-const postImage= async (data,timestamp,publicId,signature)=>{
+const postImage= async (type,data,timestamp,publicId,signature)=>{
+    console.log("T",type);
     try
     {        
         let ans=await axios.post(
-            `${BASE_URL}`,
+            getUrl(type),
             {
                 api_key: authKey,
-                file:`data:image/jpeg;base64,${data}`,
+                file:`data:${type};base64,${data}`,
                 timestamp:timestamp,
                 public_id:publicId,
                 signature:signature
@@ -46,7 +55,7 @@ const postImage= async (data,timestamp,publicId,signature)=>{
     }
     catch(e)
     {
-        console.log("ERROR",e.response);
+        console.error(e);
         return null;
     }
     
@@ -77,7 +86,7 @@ exports.getCloudinaryImages=async (id,images)=>{
         ]
         signature=calculateHash(params);
 
-        let url= await postImage(imageData[i],params[1].value,params[0].value,signature);
+        let url= await postImage(images[i].mimetype,imageData[i],params[1].value,params[0].value,signature);
         if(url==null)
         {
             return null;
