@@ -58,13 +58,19 @@ changeStream.on("change", function (event) {
 //------------
 // METHODS
 //------------
-const getImages = async (id, topic, images) => {
-  if (!images || images.length === 0)
-    return await getUnsplashImages(topic);
-  if (images.length >= 1 && images.length <= 4)
-    return await getCloudinaryImages(id, images);
+const getImages = async (id, topic,limit, images) => {
+  let list=[];
+  if (images.length >= 1)
+  {
+    list=list.concat(await getCloudinaryImages(id,images));
+  }
 
-  return null;
+  if(limit && topic && !isNaN(limit))
+  {
+    list=list.concat(await getUnsplashImages(limit,topic));
+  }
+
+  return list;
 }
 
 const addUserToAction = (action, index, email) => {
@@ -142,7 +148,7 @@ exports.newContest = async (userId, contest) => {
     return null;
 
 
-  let images = await getImages(userId + Date.now(), contest.topic, contest.images);
+  let images = await getImages(userId + Date.now(), contest.topic, contest.limit, contest.images);
   if (images == null)
     return null;
 

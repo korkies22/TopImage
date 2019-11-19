@@ -25,7 +25,7 @@ function Filter(props) {
     let tempFilter = props.contests.filter(c => {
       let filterAnswer =
         c.name.includes(val) ||
-        c.topic.includes(val) ||
+        (c.topic && c.topic.includes(val)) ||
         c.username.startsWith(val);
 
       let date = new Date(c.endDate);

@@ -1,16 +1,17 @@
 const axios= require("axios");
 
 const BASE_URL="https://api.unsplash.com/photos/random";
-const MAX_IMAGES=4;
+const IMAGE_TYPE="image/png";
 
 const authKey=process.env.unsplashKey;
 
-exports.getUnsplashImages=async (topic)=>{
+
+exports.getUnsplashImages=async (limit, topic)=>{
     const AuthStr=`Client-ID ${authKey}`;
     try
     {
         let ans=await axios.get(
-            `${BASE_URL}?query=${topic}&count=${MAX_IMAGES}`,
+            `${BASE_URL}?query=${topic}&count=${limit}`,
             { headers: { Authorization: AuthStr } });
         
         if(!ans.data)
@@ -20,6 +21,7 @@ exports.getUnsplashImages=async (topic)=>{
             {
                 return {
                     url:img.urls.regular,
+                    type:IMAGE_TYPE,
                     likes:0,
                     likedBy:[],
                     dislikes:0,

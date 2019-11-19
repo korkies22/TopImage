@@ -21,8 +21,8 @@ import FilePreviewList from '../util/filePreviewList/FilePreviewList'
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newContest, setNewConstest] = useState({});
+  const [useRandom,setUseRandom] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [isUpload, setIsUpload] = useState(undefined);
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,22 +44,25 @@ function Home() {
 
     if (!newContest.name || newContest.name.trim() === "")
       return setErrorMsg("You must specify the name of your contest");
-    if (!newContest.topic || newContest.topic.trim() === "")
-      return setErrorMsg("You must specify the topic of your contest");
     if (!newContest.endDate)
       return setErrorMsg("Your contest needs an end date");
     if (beforeCurrentTime(newContest.endDate))
       return setErrorMsg("Your contest end date can`t be before now");
-    if (isUpload === undefined)
+    if(!useRandom && (!files || files.length===0))
+      return setErrorMsg("You must upload something for contest.... I mean anything");
+    if (useRandom && newContest.limit === undefined)
       return setErrorMsg("You need to select a type of image");
-    if (isUpload && (!files || files.length < 2 || files.length > 4))
-      return setErrorMsg(
-        "You must upload between 2 and 4 images for the contest"
-      );
+    if (useRandom && (!newContest.topic || newContest.topic.trim() === ""))
+      return setErrorMsg("You must specify the topic of your contest");
 
     let formData = new FormData();
     formData.append("name", newContest.name);
-    formData.append("topic", newContest.topic);
+    
+    if(newContest.topic)
+      formData.append("topic", newContest.topic);
+    if(newContest.limit)
+      formData.append("limit", newContest.limit);
+
     formData.append("endDate", newContest.endDate);
     files.forEach((el, index) => {
       formData.append(`img_${index}`, el);
@@ -86,8 +89,11 @@ function Home() {
   };
 
   const onChange = e => {
-    const files = Array.from(e.target.files);
-    setFiles(files);
+    console.log("Files",Array.from(e.target.files));
+
+    let tempFiles = files.concat(Array.from(e.target.files));
+    console.log("Temp Files",tempFiles);
+    setFiles(tempFiles);
   };
 
   const formatDate = date => {
@@ -132,67 +138,68 @@ function Home() {
       </div>
       <div className="contestModal__row">
         <div className="contestModal__col">
-          <label htmlFor="topic" className="contestModal__inputLabel">
-            Topic
-          </label>
-          <input
-            type="text"
-            name="topic"
-            aria-label="topic"
-            onChange={e => {
-              setErrorMsg(null);
-              setNewConstest({ ...newContest, topic: e.target.value });
-            }}
-          />
-        </div>
-        <div className="contestModal__col">
           <label htmlFor="images" className="contestModal__inputLabel">
-            Images
+            Images 
           </label>
-          <div name="images" className="contestModal__row">
-            <label className="contestModal__inputLabel contestModal__inputLabel--option">
-              <input
-                type="radio"
-                value="own"
-                checked={isUpload === true}
-                onChange={() => {
-                  setIsUpload(true);
-                }}
-              />
-              Own
-            </label>
-            <label className="contestModal__inputLabel contestModal__inputLabel--option">
-              <input
-                type="radio"
-                value="random"
-                checked={isUpload === false}
-                onChange={() => {
-                  setIsUpload(false);
+          
+          <FilePreviewList files={files}></FilePreviewList>
+
+          <button className="contestModal__fileContainer">
+            {files && files.length !== 0
+              ? `${files.length} files waiting to be send`
+              : "Add your multimedia"}
+            <input
+              type="file"
+              id="multi"
+              accept="image/*,video/mp4,video/x-m4v,video/*"
+              onChange={onChange}
+              multiple
+            />
+          </button>
+
+          <label htmlFor="useRandomImg" className="contestModal__inputLabel">
+            <input
+                name="useRandomImg"
+                type="checkbox"
+                checked={useRandom}
+                onChange={e=>setUseRandom(!useRandom)} />
+            Wanna complete with random images?
+          </label>
+          {
+            useRandom?
+            <div>
+              <label htmlFor="topic" className="contestModal__inputLabel">
+                Topic 
+                <input
+                  type="text"
+                  name="topic"
+                  aria-label="topic"
+                  onChange={e => {
+                    setErrorMsg(null);
+                    setNewConstest({ ...newContest, topic: e.target.value });
+                  }}
+                />
+              </label>
+
+              <label htmlFor="limit" className="contestModal__inputLabel">
+                Limit 
+                <input
+                type="number"
+                name="limit"
+                aria-label="limit"
+                onChange={e => {
                   setErrorMsg(null);
-                  setNewConstest({ ...newContest, images: [] });
+                  setNewConstest({ ...newContest, limit: e.target.value });
                 }}
               />
-              Random
-            </label>
-          </div>
-          <br />
-          {isUpload ? (
-            <button className="contestModal__fileContainer">
-              {files && files.length !== 0
-                ? `${files.length} files waiting to be send`
-                : "Upload your multimedia"}
-              <input
-                type="file"
-                id="multi"
-                accept="image/*,video/mp4,video/x-m4v,video/*"
-                onChange={onChange}
-                multiple
-              />
-            </button>
-          ) : null}
+              </label>
+            </div>
+            :null
+          }
+          
+          
         </div>
       </div>
-      <FilePreviewList files={files}></FilePreviewList>
       <div className="contestModal__col">
         {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
         <button className="home__button" type="submit">

@@ -66,13 +66,11 @@ exports.getCloudinaryImages=async (id,images)=>{
     let params=[];
     let signature="";
 
-    let size=images.length<4?images.length:4;
-
     let imageData=images.map((el)=>
         el.buffer.toString('base64')
     );
 
-    for(let i=0;i<size;i++)
+    for(let i=0;i<images.length;i++)
     {
         params=[
             {
@@ -94,6 +92,7 @@ exports.getCloudinaryImages=async (id,images)=>{
 
         ans.push({
             url:url,
+            type:images[i].mimetype,
             likes:0,
             likedBy:[],
             dislikes:0,

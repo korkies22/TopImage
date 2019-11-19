@@ -49,11 +49,9 @@ exports.create = async (req, res, next) => {
     let name=req.body.name;
     let topic=req.body.topic;
     let endDateStr=req.body.endDate;
+    let limit = req.body.limit;
 
-    console.log("BODY",req.body);
-    console.log("FILES",req.file);
-
-    if(!name || !topic || !endDateStr)
+    if(!name  || !endDateStr || !limit)
     {
       const error = new Error("Formato incorrecto de concurso.");
       error.statusCode = 400;
@@ -61,9 +59,27 @@ exports.create = async (req, res, next) => {
       throw error;
     }
 
+    if(req.files)
+    {
+      if(req.files.length>limit){
+        const error = new Error("Se enviaron más archivos que el límite especificado.");
+        error.statusCode = 400;
+        error.data = "No se han enviado bien los archivos del concurso, por favor revísalo e intenta de nuevo :)";
+        throw error;
+      }
+
+      if(!topic){
+        const error = new Error("No se dió el tema para completar las imágenes.");
+        error.statusCode = 400;
+        error.data = "No se ha enviado toda el tema para consultar tus imágenes aleatorias, por favor revísalo e intenta de nuevo :)";
+        throw error;
+      }
+    }
+
     let body={
       name:name,
       topic:topic,
+      limit: limit,
       endDate:new Date(endDateStr),
       images:req.files
     }
