@@ -8,6 +8,7 @@ const path = require("path"),
 
 const { getUnsplashImages } = require("../../../util/images/unsplash");
 const { getCloudinaryImages } = require("../../../util/images/cloudinary");
+const uuidv1 = require('uuid/v1');
 
 const { emitEvent } = require("../../../util/socketio/socketio");
 const { CONTEST_EVENT, CONTEST_DETAIL_EVENT } = require("../../../util/socketio/events");
@@ -88,6 +89,13 @@ const isLater = (endDate) => {
   return endDate.getTime() <= newDate.getTime();
 }
 
+const createaccessKey=(private)=>{
+  if(private){
+    return uuidv1();
+  }
+  return undefined;
+}
+
 const setupImage = (image, email, isDislike) => {
   let index;
   console.log('IMAGE',image)
@@ -125,11 +133,23 @@ const setupImage = (image, email, isDislike) => {
 }
 
 exports.findAll = async () => {
-  return await contests.find().sort({ endDate: 1 }).toArray();
+  return await contests.find()
+    .sort({ endDate: 1 })
+    .project({ accessKey: 0 })
+    .toArray();
 };
 
-exports.findContest = async (id) => {
-  return await contests.findOne({ "_id": new ObjectId(id) });
+exports.findContest = async (id,accessKey) => {
+  let contest= await contests.findOne({ "_id": new ObjectId(id) })
+  .project({ accessKey: 0 })
+  .toArray();;
+
+  if(contest.private && accessKey && contest.accessKey===accessKey){
+    return contest;
+  }
+  
+  return null;
+
 };
 
 exports.newContest = async (userId, contest) => {
@@ -156,9 +176,48 @@ exports.newContest = async (userId, contest) => {
   contest.username = user.email;
   contest.images = images;
   contest.endDate = new Date(contest.endDate);
+  contest.accessKey=createaccessKey(private);
 
   return await contests.insertOne(contest);
 };
+
+exports.changeAccessKey = async (userId, contestId) => {
+  let mongoId = 0;
+  console.log("USER ID", userId);
+  try {
+    mongoId = ObjectId(userId);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+  let user = await users.findOne({ _id: mongoId });
+  console.log("USER", user);
+  if (user == null)
+    return null;
+
+  try {
+    mongoId = ObjectId(contestId);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+
+  let contest = await contests.findOne({ _id: mongoId });
+
+  let accessKey = createaccessKey(contest.private);
+  if (accessKey===null) {
+    console.log("Se está cambiar la clave a una sala pública");
+    return null;
+  }
+
+  return await contests.findOneAndUpdate({ _id: mongoId }, {
+    $set: {
+      accessKey: accessKey
+    }
+  }, { returnOriginal: false });
+
+}
+
 
 exports.likeContest = async (userId, contestId, index, isDislike) => {
   let mongoId = 0;

@@ -24,8 +24,8 @@ router.post("",
   upload.any(),
   handlerExceptions(contestController.create));
 
-router.put("/:id", handlerExceptions(contestController.getAll));
 router.delete("/:id", handlerExceptions(contestController.delete));
+router.put("/:id/accessKey", handlerExceptions(contestController.changeAccessKey));
 
 router.post("/:id/images/:imageIndex/likes", handlerExceptions(contestController.likeImage));
 

@@ -20,7 +20,7 @@ import FilePreviewList from '../util/filePreviewList/FilePreviewList'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newContest, setNewConstest] = useState({limit:"1"});
+  const [newContest, setNewConstest] = useState({limit:"1",private:false});
   const [useRandom,setUseRandom] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [files, setFiles] = useState([]);
@@ -168,8 +168,17 @@ function Home() {
                 name="useRandomImg"
                 type="checkbox"
                 checked={useRandom}
-                onChange={e=>setUseRandom(!useRandom)} />
+                onChange={e=>setUseRandom(!useRandom)}/>
             Wanna complete with random images?
+          </label>
+
+          <label htmlFor="private" className="contestModal__inputLabel">
+            <input
+                name="private"
+                type="checkbox"
+                checked={newContest.private}
+                onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
+            Wanna make your room private?
           </label>
           {
             useRandom?

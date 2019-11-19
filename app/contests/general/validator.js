@@ -18,7 +18,11 @@ exports.validate = method => {
           .not()
           .isEmpty()
           .withMessage("Se esperaba una fecha"),
-        body("images", "Su concurso debe tener un tema definido")
+        body("private", "Su concurso debe tener una definición de si es privado o no")
+          .exists()
+          .isBoolean()
+          .withMessage("Se esperaba una definición de la privacidad"),
+        body("images", "Su concurso debe tener imágenes definidas")
           .custom(images => {
             let errMsg = validateImages(images);
             if (errMsg) {

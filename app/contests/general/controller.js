@@ -22,12 +22,19 @@ exports.getAll = async (req, res, next) => {
 
 exports.getContest = async (req, res, next) => {
   try {
-    const result=await querys.findContest(req.params.id)
+    const result=await querys.findContest(req.params.id,req.header.accessKey);
+    if(result===null){
+      const error = new Error("Error de autenticación.");
+      error.statusCode = 403;
+      error.data = "No tienes la clave de la sala";
+      throw error;
+    }
+
     console.log('llamada',result)
     res.json(result)
   } catch (err) {
     if (!err.statusCode) {
-      err.statusCode = 500
+      err.statusCode = 500;
     }
     next(err)
   }
@@ -50,8 +57,9 @@ exports.create = async (req, res, next) => {
     let topic=req.body.topic;
     let endDateStr=req.body.endDate;
     let limit = req.body.limit;
+    let private = req.body.private;
 
-    if(!name  || !endDateStr || !limit)
+    if(!name  || !endDateStr || !limit || private===undefined)
     {
       const error = new Error("Formato incorrecto de concurso.");
       error.statusCode = 400;
@@ -80,6 +88,7 @@ exports.create = async (req, res, next) => {
       name:name,
       topic:topic,
       limit: limit,
+      private: private,
       endDate:new Date(endDateStr),
       images:req.files
     }
@@ -92,6 +101,36 @@ exports.create = async (req, res, next) => {
 
     const error = new Error("El concurso no tiene el formato esperado");
     error.statusCode = 400;
+    throw error;
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+}
+
+exports.changeAccessKey = async (req,res,next)=>{
+  try {
+    let auth = req.auth.split(" ")[1];
+    let decodedToken = await tokenManager.decodeToken(auth);
+
+    let ver = verifyToken(decodedToken);
+    if (!ver) {
+      const error = new Error("Error de autenticación.");
+      error.statusCode = 402;
+      error.data = "El recurso al que estás accediendo no es tuyo";
+      throw error;
+    }
+
+    let answer = await querys.changeAccessKey(decodedToken.id, req.params.id);
+    if (answer !== null) {
+      res.status(200).json(answer);
+      return;
+    }
+
+    const error = new Error("No estás autorizado a cambiar la clave del concurso");
+    error.statusCode = 403;
     throw error;
   } catch (err) {
     if (!err.statusCode) {
