@@ -3,6 +3,7 @@ import initState from "./state";
 export default function reducer(state = initState, action) {
   let index;
   let tempArray;
+  let data;
 
   switch (action.type) {
   case "ADD_CONTEST":
@@ -17,8 +18,9 @@ export default function reducer(state = initState, action) {
     };
   case "UPDATE_CONTEST":{
     let curContestTemp = { ...state.curContest };
-    if (curContestTemp["_id"] === action.payload.id) {
-      curContestTemp.images = action.payload.images;
+    data=action.payload;
+    if (curContestTemp["_id"] === data.id ) {
+      curContestTemp={...curContestTemp, ...data}
     }
     index = state.contests.findIndex(el => el._id === action.payload.id);
     tempArray = [...state.contests];
