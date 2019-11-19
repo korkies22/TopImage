@@ -16,17 +16,19 @@ const router = express.Router();
 //Get all
 router.get("/", handlerExceptions(contestController.getAll));
 
-//Get contest
-router.get("/:id", handlerExceptions(contestController.getContest));
-
 // Create contest (multiform-data)
 router.post("", 
   upload.any(),
   handlerExceptions(contestController.create));
 
-router.delete("/:id", handlerExceptions(contestController.delete));
-router.put("/:id/accessKey", handlerExceptions(contestController.changeAccessKey));
+//Get contest
+router.get("/:id", handlerExceptions(contestController.getContest));
 
+// Delete one contest
+router.delete("/:id", handlerExceptions(contestController.delete));
+// Renew access key
+router.put("/:id/accessKey", handlerExceptions(contestController.changeAccessKey));
+// Like or dislike
 router.post("/:id/images/:imageIndex/likes", handlerExceptions(contestController.likeImage));
 
 module.exports = router;

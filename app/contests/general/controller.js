@@ -116,6 +116,7 @@ exports.create = async (req, res, next) => {
 
 exports.changeAccessKey = async (req,res,next)=>{
   try {
+    console.log(req.auth);
     let auth = req.auth.split(" ")[1];
     let decodedToken = await tokenManager.decodeToken(auth);
 

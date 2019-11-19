@@ -1,7 +1,7 @@
 /*global require*/
 /*eslint no-undef: "error"*/
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo,useRef } from 'react';
 import { useSelector } from 'react-redux';
 import './Contest.scss';
 import axios from 'axios';
@@ -15,6 +15,8 @@ function Contest(props) {
     state.auth.user ? state.auth.user.email : ''
   );
   const url = useSelector(state => state.root.url);
+
+  const accessKeyText= useRef(null);
 
   const sortedImages = useMemo(() => {
     const compareImagesByLikes = (item1, item2) => {
@@ -80,8 +82,45 @@ function Contest(props) {
   const hasDisliked = () => {
     return (curImage.dislikedBy || []).findIndex(item => item === email) !== -1;
   };
+
+  const copyAccessKey = ()=>{
+    accessKeyText.current.select();
+    document.execCommand("copy");
+
+    accessKeyText.current.setSelectionRange(0, 0);
+    accessKeyText.current.blur(); 
+  };
+
+  const renewAccessKey = async ()=>{
+    const options = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    try {
+      await axios.put(
+        `${url}contests/${props.contestId}/accessKey`,{},
+        options
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="contest">
+      <div className="contest__actions">
+        <textarea
+          readOnly 
+          ref={accessKeyText}
+          value={contest && contest.private?contest.accessKey:null}
+        />
+        
+        <button className="contest__button" onClick={()=>copyAccessKey()}>
+          <img src={require("../../assets/icons/link.svg")} alt="Copy AccessKey button"/>
+        </button>
+        <button className="contest__button" onClick={()=>renewAccessKey()}>
+          <img src={require("../../assets/icons/autorenew.svg")} alt="Renew AccessKey button"/>
+        </button>
+      </div>
       <h2 className="contest__name">{contest ? contest.name : null}</h2>
       <div className="contest__header">
         <p>Topic: {contest.topic}</p>
