@@ -139,16 +139,32 @@ exports.findAll = async () => {
     .toArray();
 };
 
-exports.findContest = async (id,accessKey) => {
-  let contest= await contests.findOne({ "_id": new ObjectId(id) })
-  .project({ accessKey: 0 })
-  .toArray();;
+exports.findContest = async (userId,id,accessKey) => {
+  let mongoId = 0;
+  console.log("USER ID", userId);
+  try {
+    mongoId = ObjectId(userId);
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 
-  if(contest.private && accessKey && contest.accessKey===accessKey){
+  let user = await users.findOne({ _id: mongoId });
+  console.log("USER", user);
+  if (user == null)
+    return null;
+
+  let contest= await contests.findOne({ "_id": new ObjectId(id) });
+
+  if(contest.username===user.email){ // If owner, do not request access key
     return contest;
   }
+
+  if(contest.private && accessKey && contest.accessKey!==accessKey){ // If private contest request access key
+    return null;
+  }
   
-  return null;
+  return contest; // Return contest if no issues
 
 };
 
@@ -176,7 +192,7 @@ exports.newContest = async (userId, contest) => {
   contest.username = user.email;
   contest.images = images;
   contest.endDate = new Date(contest.endDate);
-  contest.accessKey=createaccessKey(private);
+  contest.accessKey=createaccessKey(contest.private);
 
   return await contests.insertOne(contest);
 };

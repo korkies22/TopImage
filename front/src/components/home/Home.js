@@ -62,6 +62,8 @@ function Home() {
       formData.append("topic", newContest.topic);
     if(newContest.limit)
       formData.append("limit", newContest.limit);
+    if(newContest.private!==undefined)
+      formData.append("private",newContest.private);
 
     formData.append("endDate", newContest.endDate);
     files.forEach((el, index) => {
@@ -163,6 +165,7 @@ function Home() {
             />
           </button>
 
+          {/*Use random images*/}
           <label htmlFor="useRandomImg" className="contestModal__inputLabel">
             <input
                 name="useRandomImg"
@@ -172,14 +175,6 @@ function Home() {
             Wanna complete with random images?
           </label>
 
-          <label htmlFor="private" className="contestModal__inputLabel">
-            <input
-                name="private"
-                type="checkbox"
-                checked={newContest.private}
-                onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
-            Wanna make your room private?
-          </label>
           {
             useRandom?
             <div>
@@ -214,8 +209,16 @@ function Home() {
             </div>
             :null
           }
-          
-          
+
+          {/* Private rooms*/}
+          <label htmlFor="private" className="contestModal__inputLabel">
+            <input
+                name="private"
+                type="checkbox"
+                checked={newContest.private}
+                onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
+            Wanna make your room private?
+          </label>
         </div>
       </div>
       <div className="contestModal__col">

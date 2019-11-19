@@ -22,7 +22,18 @@ exports.getAll = async (req, res, next) => {
 
 exports.getContest = async (req, res, next) => {
   try {
-    const result=await querys.findContest(req.params.id,req.header.accessKey);
+    let auth = req.auth.split(" ")[1];
+    let decodedToken = await tokenManager.decodeToken(auth);
+
+    let ver = verifyToken(decodedToken);
+    if (!ver) {
+      const error = new Error("Error de autenticación.");
+      error.statusCode = 402;
+      error.data = "El recurso al que estás accediendo no es tuyo";
+      throw error;
+    }
+
+    const result=await querys.findContest(decodedToken.id,req.params.id,req.header.accessKey);
     if(result===null){
       const error = new Error("Error de autenticación.");
       error.statusCode = 403;
@@ -59,7 +70,9 @@ exports.create = async (req, res, next) => {
     let limit = req.body.limit;
     let private = req.body.private;
 
-    if(!name  || !endDateStr || !limit || private===undefined)
+    console.log("PRIVATE",private);
+
+    if(!name  || !endDateStr || private===undefined)
     {
       const error = new Error("Formato incorrecto de concurso.");
       error.statusCode = 400;
@@ -67,21 +80,12 @@ exports.create = async (req, res, next) => {
       throw error;
     }
 
-    if(req.files)
+    if(limit && !topic)
     {
-      if(req.files.length>limit){
-        const error = new Error("Se enviaron más archivos que el límite especificado.");
-        error.statusCode = 400;
-        error.data = "No se han enviado bien los archivos del concurso, por favor revísalo e intenta de nuevo :)";
-        throw error;
-      }
-
-      if(!topic){
-        const error = new Error("No se dió el tema para completar las imágenes.");
-        error.statusCode = 400;
-        error.data = "No se ha enviado toda el tema para consultar tus imágenes aleatorias, por favor revísalo e intenta de nuevo :)";
-        throw error;
-      }
+      const error = new Error("No se dió el tema para completar las imágenes.");
+      error.statusCode = 400;
+      error.data = "No se ha enviado toda el tema para consultar tus imágenes aleatorias, por favor revísalo e intenta de nuevo :)";
+      throw error;
     }
 
     let body={

@@ -9,6 +9,8 @@ import axios from "axios";
 function ContestPage() {
   const url = useSelector(state => state.root.url);
   const contest = useSelector(state => state.contests.curContest);
+  const token = useSelector(state => state.auth.token);
+
   let { id } = useParams();
 
   const dispatch = useDispatch();
@@ -16,7 +18,14 @@ function ContestPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get(`${url}contests/${id}`);
+        const options = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        };
+    
+        const res = await axios.get(`${url}contests/${id}`,options);
         dispatch(setCurContest(res.data));
       } catch (err) {
         console.log(err);
