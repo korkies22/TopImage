@@ -10,45 +10,38 @@ import "../../actions/Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
 
 function Filter(props) {
-  const [contestFilter, setContestFilter] = useState(props.contests);
+  const [contestFilter, setContestFilter] = useState(
+    props.contests);
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
-  const [filterActive, setfilterActive] = useState(true);
+  const [filterActive, setFilterActive] = useState(true);
   const [filterString, setFilterString] = useState("");
 
-  const filter = useCallback((event, isActive, dates) => {
+  const filter = useCallback(()=> {
     setFiltered(true);
-    let val = event && event !== null ? event.target.value : filterString;
-    dates=dates?dates:filterDates;
-    isActive=isActive!==undefined && isActive!==null?isActive:filterActive;
-
     let tempFilter = props.contests.filter(c => {
       let filterAnswer =
-        c.name.includes(val) ||
-        (c.topic && c.topic.includes(val)) ||
-        c.username.startsWith(val);
+        c.name.includes(filterString) ||
+        (c.topic && c.topic.includes(filterString)) ||
+        c.username.startsWith(filterString);
 
       let date = new Date(c.endDate);
-      if (props.hasDate && dates && dates.length >= 2) {
+      if (props.hasDate && filterDates && filterDates.length >= 2) {
         filterAnswer =
           filterAnswer &&
-          (new Date(dates[0]).getTime() <= date.getTime() &&
-            date.getTime() <= new Date(dates[1]).getTime());
+          (new Date(filterDates[0]).getTime() <= date.getTime() &&
+            date.getTime() <= new Date(filterDates[1]).getTime());
       }
 
-      if (isActive) {
+      if (filterActive) {
         filterAnswer = filterAnswer && new Date().getTime() <= date.getTime();
       }
 
       return filterAnswer;
     });
 
-    setfilterActive(isActive);
-    setFilterDates(dates);
-    setFilterString(val);
-
     setContestFilter(tempFilter);
-  },[filterActive, filterDates, filterString, props.contests, props.hasDate]);
+  },[filterActive, filterDates, filterString,props.contests,props.hasDate]);
 
   const mapContests = data => {
     return data.map((el, index) => (
@@ -78,7 +71,7 @@ function Filter(props) {
             aria-label="Search"
             type="text"
             placeholder="Search..."
-            onChange={filter}
+            onChange={(e)=>setFilterString(e.target.value)}
           />
         </div>
 
@@ -96,7 +89,7 @@ function Filter(props) {
               }}
               value={filterDates}
               onChange={dates => {
-                filter(null, null, dates);
+                setFilterDates(dates);
               }}
               className="modal__form__input modal__form__input--calendar"
             />
@@ -105,7 +98,7 @@ function Filter(props) {
               <input
                 type="checkbox"
                 checked={filterActive}
-                onChange={()=>{filter(null,!filterActive,null);}}
+                onChange={()=>setFilterActive(!filterActive)}
               />
             </label>
           </div>
