@@ -20,9 +20,9 @@ import FilePreviewList from '../util/filePreviewList/FilePreviewList'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newContest, setNewConstest] = useState({});
+  const [newContest, setNewConstest] = useState({limit:"1"});
   const [useRandom,setUseRandom] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -100,6 +100,12 @@ function Home() {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   };
 
+  const removeFile=(index)=>{
+    const newFiles=[...files]
+    newFiles.splice(index,1)
+    setFiles(newFiles)
+  }
+
   const modalFormBody = (
     <form className="contestModal" onSubmit={e => createContest(e)}>
       <div className="contestModal__row">
@@ -139,14 +145,14 @@ function Home() {
       <div className="contestModal__row">
         <div className="contestModal__col">
           <label htmlFor="images" className="contestModal__inputLabel">
-            Images 
+            Your multimedia 
           </label>
           
-          <FilePreviewList files={files}></FilePreviewList>
+          <FilePreviewList files={files} removeFile={(index)=>removeFile(index)}></FilePreviewList>
 
           <button className="contestModal__fileContainer">
             {files && files.length !== 0
-              ? `${files.length} files waiting to be send`
+              ? `${files.length} files waiting to be send (add more)`
               : "Add your multimedia"}
             <input
               type="file"
@@ -186,6 +192,9 @@ function Home() {
                 <input
                 type="number"
                 name="limit"
+                value={parseInt(newContest.limit)}
+                min="1"
+                step="1"
                 aria-label="limit"
                 onChange={e => {
                   setErrorMsg(null);
