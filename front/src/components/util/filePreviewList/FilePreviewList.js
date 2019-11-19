@@ -9,10 +9,11 @@ function FilePreviewList(props) {
 
   return (
     <div className="filePreviewList">
-      {props.files.map(item => (
+      {props.files.map((item,index) => (
         <FilePreview
           file={item}
           key={item.name + item.lastModified}
+          removeFile={()=>props.removeFile(index)}
         ></FilePreview>
       ))}
     </div>

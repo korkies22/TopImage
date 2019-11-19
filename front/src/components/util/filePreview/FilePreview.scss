@@ -1,6 +1,11 @@
 .filePreview {
   margin-top: 1rem;
   max-width: 90%;
+
+  &__content{
+    display:flex;
+    align-items: center;
+  }
   &__image {
     width: 100%;
   }
@@ -9,6 +14,12 @@
     font-size: 1rem;
     text-align: center;
     margin-top: 0;
+  }
+
+  &__remove{
+    cursor: pointer;
+    margin-left: 1rem;
+    font-size: 1.5rem;
   }
 
   &__video {

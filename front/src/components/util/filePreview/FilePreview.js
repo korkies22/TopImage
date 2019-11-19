@@ -24,7 +24,7 @@ function FilePreview(props) {
       getFileType().match('video.*') &&
       /\.(webm|ogg|mp4)$/i.test(props.file.name)
     ) {
-      const video=window.URL.createObjectURL(props.file);
+      const video = window.URL.createObjectURL(props.file);
       setVideo(video);
     } else if (isImage()) {
       const reader = new FileReader();
@@ -38,9 +38,24 @@ function FilePreview(props) {
   const render = () => {
     let item;
     if (imagePreview) {
-      item = <img src={imagePreview} className="filePreview__image" alt={props.file.name}/>;
+      item = (
+        <img
+          src={imagePreview}
+          className="filePreview__image"
+          alt={props.file.name}
+        />
+      );
     } else if (video) {
-      item = <video controls className="filePreview__video" src={video+'#t=0.1'} preload="metadata" disablePictureInPicture controlslist="nodownload"></video>;
+      item = (
+        <video
+          controls
+          className="filePreview__video"
+          src={video + '#t=0.1'}
+          preload="metadata"
+          disablePictureInPicture
+          controlsList="nodownload"
+        ></video>
+      );
     } else {
       item = <p>Incompatible file type</p>;
     }
@@ -49,7 +64,10 @@ function FilePreview(props) {
 
   return (
     <div className="filePreview">
-      {render()}
+      <div className="filePreview__content">
+        <div className="filePreview__file">{render()}</div>
+        <p className="filePreview__remove" onClick={()=>props.removeFile()}>X</p>
+      </div>
       <p className="filePreview__name">{props.file.name}</p>
     </div>
   );
