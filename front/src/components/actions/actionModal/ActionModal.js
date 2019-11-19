@@ -52,7 +52,8 @@ const ActionModal = props => {
         key={0}
         onClick={() => {
           props.okCBK();
-          props.close();
+          if(props.close)
+            props.close();
         }}
       >
         {props.okText}
@@ -61,16 +62,20 @@ const ActionModal = props => {
 
   return (
     <div className="modal">
-      <div className="modal__backdrop" onClick={() => props.close()} />
+      <div className="modal__backdrop" onClick={() => props.close?props.close():null} />
       <div className="modal__content" onKeyDown={handleExit} tabIndex="0">
         <div className="modal__header">
-          <button
-            className="modal__header__close"
-            onClick={() => props.close()}
-            ref={firstButtonRef}
-          >
-            &times;
-          </button>
+          {
+            props.close?
+              <button
+                className="modal__header__close"
+                onClick={() => props.close()}
+                ref={firstButtonRef}
+              >
+                &times;
+              </button>
+            :null
+          }
           <h4 className="modal__header__title">{props.modalHeaderTitle}</h4>
         </div>
         <div className="modal__body">{props.modalBody}</div>

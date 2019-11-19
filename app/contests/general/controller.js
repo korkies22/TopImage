@@ -33,7 +33,9 @@ exports.getContest = async (req, res, next) => {
       throw error;
     }
 
-    const result=await querys.findContest(decodedToken.id,req.params.id,req.header.accessKey);
+    console.log("HEADERS",req.headers);
+    console.log(req.header('access-key'));
+    const result=await querys.findContest(decodedToken.id,req.params.id,req.header('access-key'));
     if(result===null){
       const error = new Error("Error de autenticación.");
       error.statusCode = 403;

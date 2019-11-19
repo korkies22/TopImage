@@ -7,7 +7,6 @@ import "./Home.scss";
 import ActionModal from "../actions/actionModal/ActionModal";
 import "../actions/actionModal/ActionModal.scss";
 import Loader from "../actions/loader/Loader";
-import "../actions/loader/Loader.scss";
 
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";

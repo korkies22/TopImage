@@ -160,7 +160,7 @@ exports.findContest = async (userId,id,accessKey) => {
     return contest;
   }
 
-  if(contest.private && accessKey && contest.accessKey!==accessKey){ // If private contest request access key
+  if(contest.private && contest.accessKey!==accessKey){ // If private contest request access key
     return null;
   }
   
