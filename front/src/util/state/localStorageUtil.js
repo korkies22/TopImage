@@ -5,6 +5,20 @@ const auth = {
   refreshToken: null
 };
 
+const ACCESS_KEY="accessKey";
+
+export const saveAccessKey = (accessKey)=>{
+  localStorage.setItem(ACCESS_KEY,accessKey)
+}
+
+export const loadAccessKey = () => {
+  let accessKey = localStorage.getItem(ACCESS_KEY);
+  return {
+    accessKey: accessKey
+  };
+};
+
+
 export const saveAuth = authT => {
   const timeout = authT.tokenTimeout;
   const dateEnd = new Date(new Date().getTime() + timeout * 60 * 60 * 1000);

@@ -39,7 +39,8 @@ const ActionModal = props => {
         key={1}
         onClick={() => {
           props.cancelCBK();
-          props.close();
+          if(props.close)
+            props.close();
         }}
       >
         {props.cancelText}

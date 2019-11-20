@@ -1,7 +1,11 @@
 import React, { useState,useEffect } from "react";
 import { setCurContest } from "../../store/contests";
+import { storeAccessKey } from "../../store/accessKey";
+import { saveAccessKey } from "../../util/state/localStorageUtil";
+
+
 import { useSelector, useDispatch } from "react-redux";
-import { withRouter, useParams } from "react-router-dom";
+import { withRouter, useParams, useHistory } from "react-router-dom";
 
 import Contest from "../../components/contest/Contest";
 import ActionModal from "../../components/actions/actionModal/ActionModal";
@@ -14,11 +18,14 @@ function ContestPage() {
   const url = useSelector(state => state.root.url);
   const contest = useSelector(state => state.contests.curContest);
   const token = useSelector(state => state.auth.token);
-
+  const storedAccessKey = useSelector(state => state.accessKey.accessKey)
 
   let { id } = useParams();
+  let history=useHistory();
+
+
   const [privateValidation,setPrivateValidation] = useState(false); // FIXME: How can we make rooms private without querying the access key first?
-  const [accessKey, setAccessKey] = useState("");
+  const [accessKey, setAccessKey] = useState();
   const [isLoading,setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -27,10 +34,12 @@ function ContestPage() {
     async function fetchData() {
       try {
       
+        console.log("Access Key",storedAccessKey);
         setIsLoading(true);
         const options = {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "access-key":storedAccessKey
           },
         };
     
@@ -59,6 +68,12 @@ function ContestPage() {
   
       const res = await axios.get(`${url}contests/${id}`,options);
       setPrivateValidation(false);
+
+      console.log("Access Key",accessKey);
+      saveAccessKey(accessKey);
+      dispatch(storeAccessKey(accessKey));
+
+
       dispatch(setCurContest(res.data));
     } catch (err) {
       console.log(err);
@@ -90,15 +105,17 @@ function ContestPage() {
       {
         privateValidation ? 
         <ActionModal
-          modalHeaderTitle="Please Enter your access key"
+          modalHeaderTitle="Please enter your access key"
           modalBody={modalFormBody}
           okCBK={getData}
           okText ="OK"
+          cancelCBK={()=>{history.goBack()}}
+          cancelText="Go Back"
         />:null  
       }
       <div className="contestPage__background"></div>
-      {contest ? <Contest contestId={id}></Contest> : null}
-    </div>
+        {contest && !privateValidation ? <Contest contestId={id}></Contest> : null}
+      </div>
   );
 }
 

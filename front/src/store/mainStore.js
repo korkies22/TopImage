@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from "redux";
+import accessKey from "./accessKey";
 import auth from "./auth";
 import contests from "./contests";
 
@@ -7,6 +8,7 @@ import root from "./root";
 const reducers = combineReducers({
   contests,
   auth,
+  accessKey,
   root
 });
 
