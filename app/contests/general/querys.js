@@ -210,6 +210,7 @@ exports.changeAccessKey = async (userId, contestId) => {
   console.log("USER", user);
   if (user == null)
     return null;
+ 
 
   try {
     mongoId = ObjectId(contestId);
@@ -219,6 +220,11 @@ exports.changeAccessKey = async (userId, contestId) => {
   }
 
   let contest = await contests.findOne({ _id: mongoId });
+
+  if (user.email !== contest.username)
+  {
+    return null;
+  }
 
   let accessKey = createaccessKey(contest.private);
   if (accessKey===null) {

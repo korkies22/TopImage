@@ -107,20 +107,26 @@ function Contest(props) {
 
   return (
     <div className="contest">
-      <div className="contest__actions">
-        <textarea
-          readOnly 
-          ref={accessKeyText}
-          value={contest && contest.private?contest.accessKey:null}
-        />
-        
-        <button className="contest__button" onClick={()=>copyAccessKey()}>
-          <img src={require("../../assets/icons/link.svg")} alt="Copy AccessKey button"/>
-        </button>
-        <button className="contest__button" onClick={()=>renewAccessKey()}>
-          <img src={require("../../assets/icons/autorenew.svg")} alt="Renew AccessKey button"/>
-        </button>
-      </div>
+      {
+        // Action buttons for creator
+        email === contest.username? 
+        <div className="contest__actions">
+          <textarea
+            readOnly 
+            ref={accessKeyText}
+            value={contest && contest.private?contest.accessKey:null}
+          />
+          
+          <button className="contest__button" onClick={()=>copyAccessKey()}>
+            <img src={require("../../assets/icons/link.svg")} alt="Copy AccessKey button"/>
+          </button>
+          <button className="contest__button" onClick={()=>renewAccessKey()}>
+            <img src={require("../../assets/icons/autorenew.svg")} alt="Renew AccessKey button"/>
+          </button>
+        </div> : null
+      }
+      
+      {/* COntent */}
       <h2 className="contest__name">{contest ? contest.name : null}</h2>
       <div className="contest__header">
         <p>Topic: {contest.topic}</p>
