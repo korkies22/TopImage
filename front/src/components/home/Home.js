@@ -19,7 +19,7 @@ import FilePreviewList from '../util/filePreviewList/FilePreviewList'
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newContest, setNewConstest] = useState({limit:"1",private:false});
+  const [newContest, setNewConstest] = useState({private:false});
   const [useRandom,setUseRandom] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [files, setFiles] = useState([]);
@@ -170,7 +170,12 @@ function Home() {
                 name="useRandomImg"
                 type="checkbox"
                 checked={useRandom}
-                onChange={e=>setUseRandom(!useRandom)}/>
+                onChange={e=>{ 
+                  setNewConstest({ ...newContest, 
+                    limit:!useRandom && !newContest.limit?"1":undefined 
+                  });
+                  setUseRandom(!useRandom);
+                }}/>
             Wanna complete with random images?
           </label>
 
@@ -195,7 +200,7 @@ function Home() {
                 <input
                 type="number"
                 name="limit"
-                value={parseInt(newContest.limit)}
+                value={newContest.limit?parseInt(newContest.limit):""}
                 min="1"
                 step="1"
                 aria-label="limit"
