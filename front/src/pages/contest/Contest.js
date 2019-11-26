@@ -49,7 +49,7 @@ function ContestPage() {
         console.log(err);
         console.log("Contest",contest);
 
-        if(contest && (!contest.private || contest.private==="false") && contest._id===id)
+        if(contest && (contest.private==="0") && contest._id===id)
         {
           setIsLoading(false);
           return;

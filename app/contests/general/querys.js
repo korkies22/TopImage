@@ -90,10 +90,10 @@ const isLater = (endDate) => {
 }
 
 const createaccessKey=(private)=>{
-  if(private){
+  if(private==="1"){
     return uuidv1();
   }
-  return undefined;
+  return null;
 }
 
 const setupImage = (image, email, isDislike) => {
@@ -160,7 +160,7 @@ exports.findContest = async (userId,id,accessKey) => {
     return contest;
   }
 
-  if(contest.private && contest.accessKey!==accessKey){ // If private contest request access key
+  if(contest.private==="1" && contest.accessKey!==accessKey){ // If private contest request access key
     return null;
   }
   
@@ -188,7 +188,7 @@ exports.newContest = async (userId, contest) => {
   if (images == null)
     return null;
 
-  console.log("IMG");
+  console.log("Contest",contest);
   contest.username = user.email;
   contest.images = images;
   contest.endDate = new Date(contest.endDate);

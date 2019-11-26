@@ -54,7 +54,15 @@ exports.getContest = async (req, res, next) => {
 }
 
 exports.create = async (req, res, next) => {
+  const errors = validationResult(req);
   try {
+    if (!errors.isEmpty()) {
+      const error = new Error("Error de validación.");
+      error.statusCode = 422;
+      error.data = errors.array();
+      throw error;
+    }
+
     let auth = req.auth.split(" ")[1];
     let decodedToken = await tokenManager.decodeToken(auth);
 
@@ -72,7 +80,7 @@ exports.create = async (req, res, next) => {
     let limit = req.body.limit;
     let private = req.body.private;
 
-    console.log("PRIVATE",private);
+    console.log("BODY",req.body);
 
     if(!name  || !endDateStr || private===undefined)
     {

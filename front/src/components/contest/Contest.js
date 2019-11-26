@@ -109,12 +109,12 @@ function Contest(props) {
     <div className="contest">
       {
         // Action buttons for creator
-        email === contest.username? 
+        contest && contest.private==="1" && email === contest.username? 
         <div className="contest__actions">
           <textarea
             readOnly 
             ref={accessKeyText}
-            value={contest && contest.private?contest.accessKey:null}
+            value={contest.accessKey}
           />
           
           <button className="contest__button" onClick={()=>copyAccessKey()}>

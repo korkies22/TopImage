@@ -62,7 +62,7 @@ function Home() {
     if(newContest.limit)
       formData.append("limit", newContest.limit);
     if(newContest.private!==undefined)
-      formData.append("private",newContest.private);
+      formData.append("private",newContest.private?"1":"0");
 
     formData.append("endDate", newContest.endDate);
     files.forEach((el, index) => {

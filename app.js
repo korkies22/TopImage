@@ -1,9 +1,12 @@
 const express = require("express");
+const bodyParser = require('body-parser');
+
 const http = require("http");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fallback=require('express-history-api-fallback');
+
 
 require("dotenv").config();
 
@@ -14,9 +17,14 @@ const app = express();
 let root = path.join(__dirname,'front/build');
 
 
+app.use(bodyParser.json({
+  parameterLimit: 100000,
+  limit: '50mb',
+  extended: true
+}));
+
 app.use(require("cors")());
 app.use(logger("dev"));
-app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(root));
