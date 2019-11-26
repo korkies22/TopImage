@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 
 import React, { useState, useEffect,useCallback } from "react";
+import { useSelector } from 'react-redux';
+
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
 
@@ -12,9 +14,14 @@ import Flatpickr from "react-flatpickr";
 function Filter(props) {
   const [contestFilter, setContestFilter] = useState(
     props.contests);
+    const email = useSelector(state =>
+      state.auth.user ? state.auth.user.email : ''
+    );
+
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
   const [filterActive, setFilterActive] = useState(true);
+  const [filterOwn, setFilterOwn] = useState(false);
   const [filterString, setFilterString] = useState("");
 
   const filter = useCallback(()=> {
@@ -37,11 +44,15 @@ function Filter(props) {
         filterAnswer = filterAnswer && new Date().getTime() <= date.getTime();
       }
 
+      if (filterOwn) {
+        filterAnswer = filterAnswer && c.username ===  email;
+      }
+
       return filterAnswer;
     });
 
     setContestFilter(tempFilter);
-  },[filterActive, filterDates, filterString,props.contests,props.hasDate]);
+  },[filterActive, filterDates, filterString,props.contests,filterOwn,props.hasDate]);
 
   const mapContests = data => {
     return data.map((el, index) => (
@@ -103,6 +114,17 @@ function Filter(props) {
             </label>
           </div>
         ) : null}
+      </div>
+
+      <div className="filter__tabs">
+        <button 
+          className={`filter__tab filter__tab--left
+           ${filterOwn?'':'filter__tab--active'}`}
+           onClick={()=>setFilterOwn(false)}>All rooms</button>
+        <button 
+          className={`filter__tab filter__tab--right
+          ${filterOwn?'filter__tab--active':''}`}
+          onClick={()=>setFilterOwn(true)}>My rooms</button>
       </div>
 
       <div className="filter__contests">

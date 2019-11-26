@@ -41,6 +41,44 @@
     }
   }
 
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__tab {
+    margin: 0;
+    padding: 0.2rem;
+    font-size: 2rem;
+
+    background-color: $mainColor;
+    color: white;
+    border: white solid 1px;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: white;
+      border-color: $mainColor;
+      color: $mainColor;
+    }
+
+    &--active {
+      background-color: white;
+      border-color: $mainColor;
+      color: $mainColor;
+    }
+
+    &--left {
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+
+    &--right {
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+  }
+
   &__contests {
     margin: 2rem;
     display: grid;
