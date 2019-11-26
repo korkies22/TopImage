@@ -1,12 +1,17 @@
 import React from 'react';
 import './SearchItem.scss';
 
+import { setCurContest } from "../../../store/contests";
+import { useDispatch } from "react-redux";
+
 import { useHistory } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
 function SearchItem(props) {
   let history = useHistory();
+
+  const dispatch = useDispatch();
 
   const topImage = images => {
     let likes = 0;
@@ -36,8 +41,10 @@ function SearchItem(props) {
       1}/${date.getFullYear()} ${hours}:${mins} ${ampm}`;
   };
 
-  const goToDetail = id => {
-    history.push(`contests/${id}`);
+  const goToDetail = contest => {
+    if(!contest.private)
+      dispatch(setCurContest(contest));
+    history.push(`contests/${contest._id}`);
   };
 
   const buildHandleEnterKeyPress = onClick => ({ key }) => {
@@ -50,7 +57,7 @@ function SearchItem(props) {
     <button
       className="search-item"
       onClick={() => {
-        goToDetail(props.element._id);
+        goToDetail(props.element);
       }}
       onKeyPress={buildHandleEnterKeyPress(() => goToDetail(props.element._id))}
     >

@@ -24,7 +24,8 @@ function ContestPage() {
   let history=useHistory();
 
 
-  const [privateValidation,setPrivateValidation] = useState(false); // FIXME: How can we make rooms private without querying the access key first?
+  const [privateValidation,setPrivateValidation] = useState(false);
+  const [offlineMode,setOfflineMode] = useState(false);
   const [accessKey, setAccessKey] = useState();
   const [isLoading,setIsLoading] = useState(false);
 
@@ -33,7 +34,6 @@ function ContestPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-      
         console.log("Access Key",storedAccessKey);
         setIsLoading(true);
         const options = {
@@ -47,7 +47,19 @@ function ContestPage() {
         dispatch(setCurContest(res.data));
       } catch (err) {
         console.log(err);
+        console.log("Contest",contest);
+
+        if(contest && (!contest.private || contest.private==="false") && contest._id===id)
+        {
+          setIsLoading(false);
+          return;
+        }
+        
+        if(err.status !== 403)
+          setOfflineMode(true);
+
         setPrivateValidation(true);
+
       } finally{
         setIsLoading(false);
       }
@@ -105,9 +117,11 @@ function ContestPage() {
       {
         privateValidation ? 
         <ActionModal
-          modalHeaderTitle="Please enter your access key"
-          modalBody={modalFormBody}
-          okCBK={getData}
+          modalHeaderTitle={offlineMode?
+            `You can´t access private rooms offline :(`:
+            `Please enter your access key`}
+          modalBody={offlineMode?null:modalFormBody}
+          okCBK={offlineMode?null:getData}
           okText ="OK"
           cancelCBK={()=>{history.goBack()}}
           cancelText="Go Back"
