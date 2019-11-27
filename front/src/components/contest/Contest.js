@@ -1,7 +1,7 @@
 /*global require*/
 /*eslint no-undef: "error"*/
 
-import React, { useEffect, useState, useMemo,useRef } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import './Contest.scss';
 import axios from 'axios';
@@ -16,8 +16,8 @@ function Contest(props) {
   );
   const url = useSelector(state => state.root.url);
 
-  const accessKeyText= useRef(null);
-  const featuredRef= useRef(null);
+  const accessKeyText = useRef(null);
+  const featuredRef = useRef(null);
 
   const sortedImages = useMemo(() => {
     const compareImagesByLikes = (item1, item2) => {
@@ -42,7 +42,7 @@ function Contest(props) {
     } else {
       setCurImage(sortedImages[0]);
     }
-  }, [sortedImages,curImage]);
+  }, [sortedImages, curImage]);
 
   const parseDate = dateP => {
     const date = new Date(dateP);
@@ -85,21 +85,22 @@ function Contest(props) {
     return (curImage.dislikedBy || []).findIndex(item => item === email) !== -1;
   };
 
-  const copyAccessKey = ()=>{
+  const copyAccessKey = () => {
     accessKeyText.current.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
 
     accessKeyText.current.setSelectionRange(0, 0);
-    accessKeyText.current.blur(); 
+    accessKeyText.current.blur();
   };
 
-  const renewAccessKey = async ()=>{
+  const renewAccessKey = async () => {
     const options = {
       headers: { Authorization: `Bearer ${token}` },
     };
     try {
       await axios.put(
-        `${url}contests/${props.contestId}/accessKey`,{},
+        `${url}contests/${props.contestId}/accessKey`,
+        {},
         options
       );
     } catch (err) {
@@ -107,29 +108,34 @@ function Contest(props) {
     }
   };
 
-  const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop-100) 
+  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100);
+
+  const isVideo = url => {
+    return /\.(webm|ogg|mp4)$/i.test(url);
+  };
 
   return (
     <div className="contest">
-      {
-        // Action buttons for creator
-        contest && contest.private==="1" && email === contest.username? 
+      {// Action buttons for creator
+      contest && contest.private === '1' && email === contest.username ? (
         <div className="contest__actions">
-          <textarea
-            readOnly 
-            ref={accessKeyText}
-            value={contest.accessKey}
-          />
-          
-          <button className="contest__button" onClick={()=>copyAccessKey()}>
-            <img src={require("../../assets/icons/link.svg")} alt="Copy AccessKey button"/>
+          <textarea readOnly ref={accessKeyText} value={contest.accessKey} />
+
+          <button className="contest__button" onClick={() => copyAccessKey()}>
+            <img
+              src={require('../../assets/icons/link.svg')}
+              alt="Copy AccessKey button"
+            />
           </button>
-          <button className="contest__button" onClick={()=>renewAccessKey()}>
-            <img src={require("../../assets/icons/autorenew.svg")} alt="Renew AccessKey button"/>
+          <button className="contest__button" onClick={() => renewAccessKey()}>
+            <img
+              src={require('../../assets/icons/autorenew.svg')}
+              alt="Renew AccessKey button"
+            />
           </button>
-        </div> : null
-      }
-      
+        </div>
+      ) : null}
+
       {/* COntent */}
       <h2 className="contest__name">{contest ? contest.name : null}</h2>
       <div className="contest__header">
@@ -141,12 +147,27 @@ function Contest(props) {
           <h2 className="contest__listName">Contest images</h2>
           {sortedImages.map(el => (
             <div className="contest__preview" key={el.url}>
-              <button
-                className="contest__card"
-                style={{ backgroundImage: 'url(' + el.url + ')' }}
-                aria-label="button"
-                onClick={() => curImageSet(el.url)}
-              ></button>
+              {isVideo(el.url) ? (
+                <video
+                  src={el.url}
+                  className="contest__card"
+                  preload="metadata"
+                  disablePictureInPicture
+                  controlsList="nodownload"
+                  onClick={e => {
+                    e.preventDefault();
+                    curImageSet(el.url);
+                  }}
+                ></video>
+              ) : (
+                <button
+                  className="contest__card"
+                  style={{ backgroundImage: 'url(' + el.url + ')' }}
+                  aria-label="button"
+                  onClick={() => curImageSet(el.url)}
+                ></button>
+              )}
+
               <p className="contest__preview--likes">
                 Score: {el.likes - el.dislikes}
               </p>
@@ -155,28 +176,50 @@ function Contest(props) {
         </div>
         {curImage ? (
           <div className="contest__featured" ref={featuredRef}>
-            <div
-              className="contest__card contest__card--main"
-              style={{ backgroundImage: 'url(' + curImage.url + ')' }}
-            ></div>
+            {isVideo(curImage.url) ? (
+              <video
+                src={curImage.url}
+                className="contest__card contest__card--main"
+                preload="metadata"
+                disablePictureInPicture
+                controlsList="nodownload"
+                controls
+              ></video>
+            ) : (
+              <div
+                className="contest__card contest__card--main"
+                style={{ backgroundImage: 'url(' + curImage.url + ')' }}
+              ></div>
+            )}
+
             <div className="contest__like">
               <button
                 className="contest__icon"
                 alt="likes for item"
                 aria-label="like"
                 tabIndex="0"
-                style={{'backgroundImage':'url('+require(`../../assets/icons/like${
-                  hasLiked() ? '' : 'U'
-                }.svg`)+')'}}
+                style={{
+                  backgroundImage:
+                    'url(' +
+                    require(`../../assets/icons/like${
+                      hasLiked() ? '' : 'U'
+                    }.svg`) +
+                    ')',
+                }}
                 onClick={() => likePost(false)}
               ></button>
               <button
                 className="contest__icon"
                 aria-label="dislike"
                 alt="dislikes for item"
-                style={{'backgroundImage':'url('+require(`../../assets/icons/dislike${
-                  hasDisliked() ? '' : 'U'
-                }.svg`)+')'}}
+                style={{
+                  backgroundImage:
+                    'url(' +
+                    require(`../../assets/icons/dislike${
+                      hasDisliked() ? '' : 'U'
+                    }.svg`) +
+                    ')',
+                }}
                 onClick={() => likePost(true)}
               ></button>
               <p className="contest__numLikes">

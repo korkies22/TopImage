@@ -14,8 +14,7 @@ function SearchItem(props) {
   const dispatch = useDispatch();
 
   const topImage = images => {
-    if(!images || !images[0] )
-      return "";
+    if (!images || !images[0]) return '';
     let likes = 0;
     let src = images[0].url;
 
@@ -54,9 +53,13 @@ function SearchItem(props) {
     }
   };
 
-  const isPrivate= ()=>{
-    return  props.element.private === '1' || props.element.private === 1
-  }
+  const isPrivate = () => {
+    return props.element.private === '1' || props.element.private === 1;
+  };
+
+  const isVideo = url => {
+    return /\.(webm|ogg|mp4)$/i.test(url);
+  };
 
   return (
     <button
@@ -66,21 +69,31 @@ function SearchItem(props) {
       }}
       onKeyPress={buildHandleEnterKeyPress(() => goToDetail(props.element._id))}
       style={{
-        opacity: isPrivate() ?0.7:1
+        opacity: isPrivate() ? 0.7 : 1,
       }}
     >
-      {isPrivate() ? (
-        <div className="search-item__privateImg"></div>
-      ) : null}
+      {isPrivate() ? <div className="search-item__privateImg"></div> : null}
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
       </div>
-      <div
-        className="search-item__img"
-        style={{
-          backgroundImage: 'url(' + topImage(props.element.images) + ')',
-        }}
-      ></div>
+      {isVideo(topImage(props.element.images)) ? (
+        <video
+          src={topImage(props.element.images)}
+          className="search-item__img"
+          preload="metadata"
+          disablePictureInPicture
+          controlsList="nodownload"
+          onClick={(e)=>e.preventDefault()}
+        ></video>
+      ) : (
+        <div
+          className="search-item__img"
+          style={{
+            backgroundImage: 'url(' + topImage(props.element.images) + ')',
+          }}
+        ></div>
+      )}
+
       {/*Text*/}
       <h2 className="search-item__date">{formatDate(props.element.endDate)}</h2>
       <div className="search-item__group">
