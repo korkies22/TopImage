@@ -117,9 +117,9 @@ function Contest(props) {
   return (
     <div className="contest">
       {// Action buttons for creator
-      contest && contest.private === '1' && email === contest.username ? (
+      contest && contest.private === 1 && email === contest.username ? (
         <div className="contest__actions">
-          <textarea readOnly ref={accessKeyText} value={contest.accessKey} />
+          <textarea readOnly ref={accessKeyText} value={contest.accessKey?contest.accessKey:""} />
 
           <button className="contest__button" onClick={() => copyAccessKey()}>
             <img

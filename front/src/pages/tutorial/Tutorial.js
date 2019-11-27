@@ -16,19 +16,26 @@ const tutorialItems = [
       "Click on the New Top Image button to create your own contest",
   },
   {
-    title: "Choose contest options",
+    title: "Mandatory contest setup",
     description:
-      "Choose a name and topic for your contest. Select also an end date for it. Finally, you can add your own images or let the app choose their own's based on the topic",
+      "Choose a name and end date for your contest.",
+  },
+  {
+    title: "Contest options",
+    description: 
+      "You then have three more options: Upload your own multimedia with the 'Add multimedia button', complete your contest"+ 
+      " with random images based on a topic and quantity, and make your contest private (only you can give access) or public."+
+      " Finally click on the 'Top Image' button to start the contest"
   },
   {
     title: "View contests",
     description:
-      "See all the current running contests in the grid below",
+      "See all the current running contests in the grid below. Also go back and forth between all the contests and the ones you created with the purple tabs on top.",
   },
   {
     title: "Search",
     description:
-      "Use the search bar to filter contests by name. You can also choose a range of dates and whether the contest has finished or not",
+      "Use the search bar to filter contests by name. You can also choose a range of dates and whether the contest has ended or not",
   },
   {
     title: "Go into a contest",
@@ -44,6 +51,12 @@ const tutorialItems = [
     description:
       "Use the like and dislike options below to rate the image",
   },
+  {
+    title: "Share your private contest",
+    description: 
+      "If your contest is private, you can copy the unique code on the top right corner to send it "
+      +"to your friends so that they can rate it (first button) or create a new code (second button)"
+  }
 ];
 function Tutorial(props) {
   return (

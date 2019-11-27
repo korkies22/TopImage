@@ -90,7 +90,7 @@ const isLater = (endDate) => {
 }
 
 const createaccessKey=(private)=>{
-  if(private==="1"){
+  if(private===1){
     return uuidv1();
   }
   return null;
@@ -155,6 +155,8 @@ exports.findContest = async (userId,id,accessKey) => {
     return null;
 
   let contest= await contests.findOne({ "_id": new ObjectId(id) });
+
+  console.log("Retrieved contest");
 
   if(contest.username===user.email){ // If owner, do not request access key
     return contest;

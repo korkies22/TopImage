@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1e4ba4f3b20375d4633732952d63f022",
+    "revision": "8a6aed12ceab0abd49eef567bbdbcbdb",
     "url": "/index.html"
   },
   {
-    "revision": "b49ec62bc00d18f25fd9",
-    "url": "/static/css/main.5af6486e.chunk.css"
+    "revision": "f7d3e415a8b9da0c38ac",
+    "url": "/static/css/main.f0444fc1.chunk.css"
   },
   {
-    "revision": "6a154b605f40c3115c30",
-    "url": "/static/js/2.7b28d652.chunk.js"
+    "revision": "89aeef2b9b3fdd90ab42",
+    "url": "/static/js/2.d4f658dd.chunk.js"
   },
   {
-    "revision": "b49ec62bc00d18f25fd9",
-    "url": "/static/js/main.9bb48e25.chunk.js"
+    "revision": "f7d3e415a8b9da0c38ac",
+    "url": "/static/js/main.ad6fb39f.chunk.js"
   },
   {
     "revision": "2490115a9c4ae43e4644",
@@ -80,31 +80,43 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/tuto1.d1ae3bc7.png"
   },
   {
+    "revision": "1d2cd4ef7ce4409d5a968b71c2d0d570",
+    "url": "/static/media/tuto10.1d2cd4ef.png"
+  },
+  {
     "revision": "1e3ed9428ea0a2b99f7a1a30deb765ea",
     "url": "/static/media/tuto2.1e3ed942.png"
   },
   {
-    "revision": "b105dcc443f17c032b8ee210c509ba52",
-    "url": "/static/media/tuto3.b105dcc4.png"
+    "revision": "933486e32877ad250be5a457e3aaca54",
+    "url": "/static/media/tuto3.933486e3.png"
+  },
+  {
+    "revision": "01d93e73d49bcb839999bfb8d9ac63b1",
+    "url": "/static/media/tuto4.01d93e73.png"
   },
   {
     "revision": "e2c8a7aa403d31b8e1589b2c87a9164c",
-    "url": "/static/media/tuto4.e2c8a7aa.png"
+    "url": "/static/media/tuto5-backup.e2c8a7aa.png"
+  },
+  {
+    "revision": "42414e7ec1fb806430b6b7cd46aad965",
+    "url": "/static/media/tuto5.42414e7e.png"
   },
   {
     "revision": "4d22a315a522d0b6203ee414705ec52a",
-    "url": "/static/media/tuto5.4d22a315.png"
+    "url": "/static/media/tuto6.4d22a315.png"
   },
   {
     "revision": "45d73162f3dccc1b24e3db5d720583ce",
-    "url": "/static/media/tuto6.45d73162.png"
+    "url": "/static/media/tuto7.45d73162.png"
   },
   {
     "revision": "d8cace180216be5f663dd9bbfc88591e",
-    "url": "/static/media/tuto7.d8cace18.png"
+    "url": "/static/media/tuto8.d8cace18.png"
   },
   {
     "revision": "aeb9cc606c608d9b8c08163bdb0c87a5",
-    "url": "/static/media/tuto8.aeb9cc60.png"
+    "url": "/static/media/tuto9.aeb9cc60.png"
   }
 ]);

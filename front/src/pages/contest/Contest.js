@@ -44,6 +44,7 @@ function ContestPage() {
         };
     
         const res = await axios.get(`${url}contests/${id}`,options);
+        console.log("RESPONSE",res.data);
         dispatch(setCurContest(res.data));
       } catch (err) {
         if(contest && (contest.private===0) && contest._id===id)
