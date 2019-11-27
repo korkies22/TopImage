@@ -14,6 +14,8 @@ function SearchItem(props) {
   const dispatch = useDispatch();
 
   const topImage = images => {
+    if(!images || !images[0] )
+      return "";
     let likes = 0;
     let src = images[0].url;
 
