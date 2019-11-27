@@ -1,8 +1,8 @@
 import React from 'react';
 import './SearchItem.scss';
 
-import { setCurContest } from "../../../store/contests";
-import { useDispatch } from "react-redux";
+import { setCurContest } from '../../../store/contests';
+import { useDispatch } from 'react-redux';
 
 import { useHistory } from 'react-router-dom';
 
@@ -42,8 +42,7 @@ function SearchItem(props) {
   };
 
   const goToDetail = contest => {
-    if(!contest.private)
-      dispatch(setCurContest(contest));
+    if (!contest.private) dispatch(setCurContest(contest));
     history.push(`contests/${contest._id}`);
   };
 
@@ -53,6 +52,10 @@ function SearchItem(props) {
     }
   };
 
+  const isPrivate= ()=>{
+    return  props.element.private === '1' || props.element.private === 1
+  }
+
   return (
     <button
       className="search-item"
@@ -60,7 +63,13 @@ function SearchItem(props) {
         goToDetail(props.element);
       }}
       onKeyPress={buildHandleEnterKeyPress(() => goToDetail(props.element._id))}
+      style={{
+        opacity: isPrivate() ?0.7:1
+      }}
     >
+      {isPrivate() ? (
+        <div className="search-item__privateImg"></div>
+      ) : null}
       <div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
       </div>

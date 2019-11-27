@@ -24,6 +24,14 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+
+    @media (max-width:450px){
+      padding: 1rem 3rem;
+    }
+
+    @media (max-width:380px){
+      padding: 0.5rem 2rem;
+    }
   }
 
   &__title {

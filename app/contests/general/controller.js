@@ -78,7 +78,7 @@ exports.create = async (req, res, next) => {
     let topic=req.body.topic;
     let endDateStr=req.body.endDate;
     let limit = req.body.limit;
-    let private = req.body.private;
+    let private = parseInt(req.body.private,10);
 
     console.log("BODY",req.body);
 

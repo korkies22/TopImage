@@ -17,6 +17,7 @@ function Contest(props) {
   const url = useSelector(state => state.root.url);
 
   const accessKeyText= useRef(null);
+  const featuredRef= useRef(null);
 
   const sortedImages = useMemo(() => {
     const compareImagesByLikes = (item1, item2) => {
@@ -73,6 +74,7 @@ function Contest(props) {
   const curImageSet = url => {
     const index = contest.images.findIndex(item => item.url === url);
     setCurImage(contest.images[index]);
+    scrollToRef(featuredRef);
   };
 
   const hasLiked = () => {
@@ -105,6 +107,8 @@ function Contest(props) {
     }
   };
 
+  const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop-100) 
+
   return (
     <div className="contest">
       {
@@ -134,6 +138,7 @@ function Contest(props) {
       </div>
       <div className="contest__main">
         <div className="contest__list">
+          <h2 className="contest__listName">Contest images</h2>
           {sortedImages.map(el => (
             <div className="contest__preview" key={el.url}>
               <button
@@ -149,7 +154,7 @@ function Contest(props) {
           ))}
         </div>
         {curImage ? (
-          <div className="contest__featured">
+          <div className="contest__featured" ref={featuredRef}>
             <div
               className="contest__card contest__card--main"
               style={{ backgroundImage: 'url(' + curImage.url + ')' }}
