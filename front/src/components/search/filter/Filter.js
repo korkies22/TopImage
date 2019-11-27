@@ -120,11 +120,11 @@ function Filter(props) {
         <button 
           className={`filter__tab filter__tab--left
            ${filterOwn?'':'filter__tab--active'}`}
-           onClick={()=>setFilterOwn(false)}>All rooms</button>
+           onClick={()=>setFilterOwn(false)}>All contests</button>
         <button 
           className={`filter__tab filter__tab--right
           ${filterOwn?'filter__tab--active':''}`}
-          onClick={()=>setFilterOwn(true)}>My rooms</button>
+          onClick={()=>setFilterOwn(true)}>My contests</button>
       </div>
 
       <div className="filter__contests">

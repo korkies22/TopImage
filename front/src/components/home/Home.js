@@ -214,14 +214,14 @@ function Home() {
             :null
           }
 
-          {/* Private rooms*/}
+          {/* Private contests*/}
           <label htmlFor="private" className="contestModal__inputLabel">
             <input
                 name="private"
                 type="checkbox"
                 checked={newContest.private}
                 onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
-            Wanna make your room private?
+            Wanna make your contest private?
           </label>
         </div>
       </div>
