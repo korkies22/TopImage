@@ -46,16 +46,13 @@ function ContestPage() {
         const res = await axios.get(`${url}contests/${id}`,options);
         dispatch(setCurContest(res.data));
       } catch (err) {
-        console.log(err);
-        console.log("Contest",contest);
-
-        if(contest && (contest.private==="0") && contest._id===id)
+        if(contest && (contest.private===0) && contest._id===id)
         {
           setIsLoading(false);
           return;
         }
         
-        if(err.status !== 403)
+        if(err.response && err.response.status!== 403)
           setOfflineMode(true);
 
         setPrivateValidation(true);
