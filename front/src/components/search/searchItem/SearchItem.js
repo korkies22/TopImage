@@ -39,7 +39,7 @@ function SearchItem(props) {
     hours = hours < 10 ? '0' + hours : hours;
     mins = mins < 10 ? '0' + mins : mins;
     return `${date.getDate()}/${date.getMonth() +
-      1}/${date.getFullYear()} ${hours}:${mins} ${ampm}`;
+      1}/${date.getFullYear()} ${hours}:${mins}${ampm}`;
   };
 
   const goToDetail = contest => {
@@ -73,9 +73,9 @@ function SearchItem(props) {
       }}
     >
       {isPrivate() ? <div className="search-item__privateImg"></div> : null}
-      <div className="search-item__container">
+      {/*}<div className="search-item__container">
         <span className="search-item__num">X{props.element.images.length}</span>
-      </div>
+    </div>}*/}
       {isVideo(topImage(props.element.images)) ? (
         <video
           src={topImage(props.element.images)}
@@ -83,7 +83,7 @@ function SearchItem(props) {
           preload="metadata"
           disablePictureInPicture
           controlsList="nodownload"
-          onClick={(e)=>e.preventDefault()}
+          onClick={e => e.preventDefault()}
         ></video>
       ) : (
         <div
@@ -95,12 +95,16 @@ function SearchItem(props) {
       )}
 
       {/*Text*/}
-      <h2 className="search-item__date">{formatDate(props.element.endDate)}</h2>
+
+      <h2 className="search-item__name">{props.element.name}</h2>
       <div className="search-item__group">
-        <p className="search-item__text">
-          {props.element.username} {props.element.name}
-        </p>
-        <p className="search-item__arrow">►</p>
+        <div className="search-item__detailText">
+          <p className="search-item__text">
+            End date: {formatDate(props.element.endDate)}
+          </p>
+          <p className="search-item__text">Creator: {props.element.username}</p>
+        </div>
+        <div className="search-item__arrow" />
       </div>
     </button>
   );

@@ -52,23 +52,25 @@
     padding: 0.2rem;
     font-size: 2rem;
 
-    background-color: $mainColor;
-    color: white;
-    border: white solid 1px;
+    
+    background-color: white;
+    border: $mainColor solid 1px;
+    color: $mainColor;
+
     padding: 0.5rem;
 
     cursor: pointer;
 
     &:hover {
-      background-color: white;
-      border-color: $mainColor;
-      color: $mainColor;
+      background-color: $mainColor;
+      color: white;
+      border-color: white;
     }
 
     &--active {
-      background-color: white;
-      border-color: $mainColor;
-      color: $mainColor;
+      background-color: $mainColor;
+      color: white;
+      border-color: white;
     }
 
     &--left {

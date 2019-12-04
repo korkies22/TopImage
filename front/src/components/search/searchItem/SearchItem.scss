@@ -28,10 +28,16 @@
   }
 
   &__arrow {
-    background: transparent;
+    width: 2.5rem;
+    height: 3rem;
+    margin: 0 1rem;
+    cursor: pointer;
     border: none;
-    color: $secondaryColor;
-    font-size: 2.5rem;
+    background-image: url('../../../assets/icons/go.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
   }
 
   &__container {
@@ -39,8 +45,16 @@
     justify-content: flex-end;
   }
 
+  &__detailText{
+    max-width: 86%;
+  }
+
   &__text {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  &__name{
+    font-size: 1.5rem;
   }
 
   &__num {
@@ -68,10 +82,15 @@
   }
 
   &__date,
-  &__text {
+  &__text, &__name {
     color: white;
     text-align: left;
     margin: 0;
+    word-break: break-word;
+  }
+
+  &__name{
+    margin:0 0.1rem;
   }
 
   &__group {
@@ -80,11 +99,12 @@
     justify-content: space-between;
     font-size: 1.5rem;
     font-weight: 100;
+    margin-bottom: 0.3rem;
   }
 
   &__text,
   &__arrow {
-    margin: 0 0.2rem;
+    margin: 0.5rem 0.2rem;
   }
 
   &__privateImg{
@@ -105,12 +125,14 @@
 
     .search-item__group,
     .search-item__text,
+    .search-item__name,
     .search-item__date {
       color: black;
     }
 
     .search-item__arrow {
-      color: black;
+      background-image: url('../../../assets/icons/goB.svg');
+      color:red;
     }
   }
 }

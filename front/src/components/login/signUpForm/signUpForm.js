@@ -37,6 +37,12 @@ function SignUpForm(props) {
     } catch (err) {
       console.log(err);
       console.log(err.response);
+      if(err.response && err.response.data && err.response.data.message){
+        setErrorMsg(err.response.data.message)
+      }
+      else{
+        setErrorMsg('An internal error has ocurred, please try again later')
+      }
     }
   };
 

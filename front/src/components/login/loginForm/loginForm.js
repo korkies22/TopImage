@@ -33,6 +33,13 @@ function LoginForm(props) {
     } catch (err) {
       console.log(err);
       console.log(err.response);
+      console.log(err.response.data.message);
+      if(err.response && err.response.data && err.response.data.message){
+        setErrorMsg(err.response.data.message)
+      }
+      else{
+        setErrorMsg('An internal error has ocurred, please try again later')
+      }
     }
   };
 

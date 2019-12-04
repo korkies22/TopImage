@@ -21,7 +21,7 @@ exports.signUp = async (req, res, next) => {
     const errors = validationResult(req);
     try {
       if (!errors.isEmpty()) {
-        const error = new Error("Error de validación.");
+        const error = new Error("Please fill with proper email and password");
         error.statusCode = 422;
         error.data = errors.array();
         throw error;
@@ -29,7 +29,7 @@ exports.signUp = async (req, res, next) => {
       const email = req.body.email;
       let alreadySigned = await querys.findUser({ email });
       if (alreadySigned) {
-        const error = new Error("Ya existe un usuario con este email");
+        const error = new Error("There's already an user with that email");
         error.statusCode = 422;
         throw error;
       }
@@ -64,7 +64,7 @@ exports.login = async (req, res, next) => {
     const errors = validationResult(req);
     try {
       if (!errors.isEmpty()) {
-        const error = new Error("Error de validación.");
+        const error = new Error("Please fill with proper email and password");
         error.statusCode = 422;
         error.data = errors.array();
         throw error;
@@ -72,14 +72,14 @@ exports.login = async (req, res, next) => {
       const email = req.body.email;
       let user = await querys.findUser({ email });
       if (!user) {
-        const error = new Error("Email o contraseña incorrecta");
+        const error = new Error("Incorrect email or password");
         error.statusCode = 404;
         throw error;
       }
       const password = req.body.password;
       let isEqual = await bcrypt.compare(password, user.password);
       if (!isEqual) {
-        const error = new Error("Email o contraseña incorrecta");
+        const error = new Error("Incorrect email or password");
         error.statusCode = 422;
         throw error;
       }
