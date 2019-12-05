@@ -29,6 +29,11 @@
     transform: translate(-50%, -50%);
   }
 
+  &__errorMsg{
+    color:red;
+    text-align: center;
+  }
+
   &__header {
     font-size: 3rem;
     padding: 0 1rem;

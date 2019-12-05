@@ -29,6 +29,8 @@ function ContestPage() {
   const [accessKey, setAccessKey] = useState();
   const [isLoading,setIsLoading] = useState(false);
 
+  const [errorMsg,setErrorMsg]= useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,15 +80,19 @@ function ContestPage() {
   
       const res = await axios.get(`${url}contests/${id}`,options);
       setPrivateValidation(false);
+      setErrorMsg(null)
 
       console.log("Access Key",accessKey);
       saveAccessKey(accessKey);
       dispatch(storeAccessKey(accessKey));
 
-
       dispatch(setCurContest(res.data));
     } catch (err) {
-      console.log(err);
+      if(err.response && err.response.status===403){
+        setErrorMsg(err.response.data.message)
+      }else{
+        setErrorMsg("Internal error, please try again later")
+      }
     } finally {
       setIsLoading(false);
     }
@@ -123,6 +129,7 @@ function ContestPage() {
           okText ="OK"
           cancelCBK={()=>{history.goBack()}}
           cancelText="Go Back"
+          errorMsg={errorMsg}
         />:null  
       }
       <div className="contestPage__background"></div>

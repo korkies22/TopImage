@@ -80,6 +80,7 @@ const ActionModal = props => {
           <h4 className="modal__header__title">{props.modalHeaderTitle}</h4>
         </div>
         <div className="modal__body">{props.modalBody}</div>
+        {props.errorMsg?<p className="modal__errorMsg">{props.errorMsg}</p>:null}
         <div className="modal__footer" ref={lastButtonRef} tabIndex="0">
           {buttons}
         </div>

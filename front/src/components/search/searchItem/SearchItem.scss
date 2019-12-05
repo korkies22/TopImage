@@ -13,6 +13,8 @@
   align-items: center;
   overflow: hidden;
 
+  border: none;
+
   margin: 0.5rem auto;
   border-radius: 0.5rem;
 
@@ -108,13 +110,12 @@
   }
 
   &__privateImg{
-    background: url("../../../assets/icons/lock.svg") no-repeat center;
-    background-size: 60%;
+    background: url("../../../assets/bgImage/private.svg") no-repeat 0 0;
+    background-size: 100%;
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 10;
-    opacity: 0.5;
   }
 
   &:hover {

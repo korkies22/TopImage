@@ -37,9 +37,8 @@ exports.getContest = async (req, res, next) => {
     console.log(req.header('access-key'));
     const result=await querys.findContest(decodedToken.id,req.params.id,req.header('access-key'));
     if(result===null){
-      const error = new Error("Error de autenticación.");
+      const error = new Error("Invalid access key");
       error.statusCode = 403;
-      error.data = "No tienes la clave de la sala";
       throw error;
     }
 
