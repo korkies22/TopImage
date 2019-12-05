@@ -108,7 +108,13 @@ function Contest(props) {
     }
   };
 
-  const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop - 100);
+  const scrollToRef = ref => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    if (c > ref.current.offsetTop - 100) {
+      window.requestAnimationFrame(() => scrollToRef(ref));
+      window.scrollTo(0, Math.max(c - c / 8, ref.current.offsetTop - 100));
+    }
+  };
 
   const isVideo = url => {
     return /\.(webm|ogg|mp4)$/i.test(url);
@@ -119,7 +125,11 @@ function Contest(props) {
       {// Action buttons for creator
       contest && contest.private === 1 && email === contest.username ? (
         <div className="contest__actions">
-          <textarea readOnly ref={accessKeyText} value={contest.accessKey?contest.accessKey:""} />
+          <textarea
+            readOnly
+            ref={accessKeyText}
+            value={contest.accessKey ? contest.accessKey : ''}
+          />
 
           <button className="contest__button" onClick={() => copyAccessKey()}>
             <img
@@ -193,37 +203,41 @@ function Contest(props) {
             )}
 
             <div className="contest__like">
-              <button
-                className="contest__icon"
-                alt="likes for item"
-                aria-label="like"
-                tabIndex="0"
-                style={{
-                  backgroundImage:
-                    'url(' +
-                    require(`../../assets/icons/like${
-                      hasLiked() ? '' : 'U'
-                    }.svg`) +
-                    ')',
-                }}
-                onClick={() => likePost(false)}
-              ></button>
-              <button
-                className="contest__icon"
-                aria-label="dislike"
-                alt="dislikes for item"
-                style={{
-                  backgroundImage:
-                    'url(' +
-                    require(`../../assets/icons/dislike${
-                      hasDisliked() ? '' : 'U'
-                    }.svg`) +
-                    ')',
-                }}
-                onClick={() => likePost(true)}
-              ></button>
+              <div className="contest__likeButtons">
+                <button
+                  className="contest__icon"
+                  alt="likes for item"
+                  aria-label="like"
+                  tabIndex="0"
+                  style={{
+                    backgroundImage:
+                      'url(' +
+                      require(`../../assets/icons/like${
+                        hasLiked() ? '' : 'U'
+                      }.svg`) +
+                      ')',
+                  }}
+                  onClick={() => likePost(false)}
+                ></button>
+                <p className="contest__numLikes">{curImage.likes}</p>
+                <button
+                  className="contest__icon"
+                  aria-label="dislike"
+                  alt="dislikes for item"
+                  style={{
+                    backgroundImage:
+                      'url(' +
+                      require(`../../assets/icons/dislike${
+                        hasDisliked() ? '' : 'U'
+                      }.svg`) +
+                      ')',
+                  }}
+                  onClick={() => likePost(true)}
+                ></button>
+                <p className="contest__numLikes">{curImage.dislikes}</p>
+              </div>
               <p className="contest__numLikes">
-                {curImage.likes - curImage.dislikes}
+                Total score: {curImage.likes - curImage.dislikes}
               </p>
             </div>
           </div>

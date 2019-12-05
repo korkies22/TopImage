@@ -1,4 +1,4 @@
-@import "../../css/variables.scss";
+@import '../../css/variables.scss';
 
 .contest {
   height: 100%;
@@ -55,21 +55,37 @@
     }
   }
 
+  &__likeButtons {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 485px) {
+      width: 90%;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .contest__numLikes:last-of-type {
+      margin-left: 1rem;
+    }
+  }
+
   &__list {
     width: 30%;
     max-height: 100%;
     overflow: auto;
     padding: 0 0.5rem;
+    scroll-behavior: smooth;
 
-    @media (max-width:700px) {
-      width:40%;
+    @media (max-width: 700px) {
+      width: 40%;
       margin-top: 2rem;
     }
   }
 
-  &__listName{
-    display:none;
-    @media (max-width:700px) {
+  &__listName {
+    display: none;
+    @media (max-width: 700px) {
       text-align: center;
       display: block;
     }
@@ -79,19 +95,35 @@
     padding: 1.25rem;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+
+    @media (max-width: 485px) {
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
   }
 
   &__numLikes {
     font-size: 1.5rem;
     margin: 0 0 0 1rem;
+
+    &:last-of-type {
+      margin-left: 3rem;
+    }
+
+    @media (max-width: 485px) {
+      &:last-of-type {
+        margin-left: 0;
+      }
+    }
   }
 
   &__featured {
     height: 100%;
     width: 65%;
 
-    @media (max-width:700px) {
-      width:90%;
+    @media (max-width: 700px) {
+      width: 90%;
       height: 70vh;
     }
   }
@@ -99,7 +131,7 @@
   &__icon {
     width: 2.5rem;
     height: 2.5rem;
-    margin: 0 1rem;
+    margin: 0 0 0 2rem;
     cursor: pointer;
     border: none;
     background-position: center;
@@ -117,15 +149,15 @@
     justify-content: space-between;
     width: 68%;
 
-    @media (max-width:1180px) {
+    @media (max-width: 1180px) {
       width: 75%;
     }
 
-    @media (max-width:1000px) {
+    @media (max-width: 1000px) {
       width: 85%;
     }
 
-    @media (max-width:850px) {
+    @media (max-width: 850px) {
       width: 95%;
     }
   }
@@ -142,19 +174,19 @@
     width: 70%;
     height: 70%;
 
-    @media (max-width:1180px) {
+    @media (max-width: 1180px) {
       width: 75%;
     }
 
-    @media (max-width:1000px) {
+    @media (max-width: 1000px) {
       width: 85%;
     }
 
-    @media (max-width:850px) {
+    @media (max-width: 850px) {
       width: 95%;
     }
 
-    @media (max-width:700px) {
+    @media (max-width: 700px) {
       flex-direction: column-reverse;
       align-items: center;
       height: auto;
