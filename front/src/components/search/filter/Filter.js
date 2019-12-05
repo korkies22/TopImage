@@ -132,6 +132,7 @@ function Filter(props) {
                   onChange={()=>setFilterActive(false)}
                 />
                 Already finished
+                
               </label>
             </div>
             
