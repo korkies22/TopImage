@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect,useCallback,useRef } from "react";
 import { useSelector } from 'react-redux';
 
 import "./Filter.scss";
@@ -23,6 +23,13 @@ function Filter(props) {
   const [filterActive, setFilterActive] = useState(true);
   const [filterOwn, setFilterOwn] = useState(false);
   const [filterString, setFilterString] = useState("");
+
+  const refDatePicker = useRef(null);
+
+  const clearDates=()=>{
+    if(refDatePicker.current)
+      refDatePicker.current.flatpickr.clear();
+  }
 
   const filter = useCallback(()=> {
     setFiltered(true);
@@ -81,37 +88,53 @@ function Filter(props) {
             className="filter__searchBar__searchInput"
             aria-label="Search"
             type="text"
-            placeholder="Search..."
+            placeholder="Search by contest title..."
             onChange={(e)=>setFilterString(e.target.value)}
           />
         </div>
 
         {props.hasDate ? (
           <div className="filter__actions">
-            <Flatpickr
-              data-enable-time
-              name="date"
-              aria-label="Select date"
-              placeholder="Filter dates"
-              options={{
-                minDate: formatDate(new Date()),
-                minuteIncrement: 10,
-                mode: "range",
-              }}
-              value={filterDates}
-              onChange={dates => {
-                setFilterDates(dates);
-              }}
-              className="modal__form__input modal__form__input--calendar"
-            />
-            <label>
-              Ongoing
-              <input
-                type="checkbox"
-                checked={filterActive}
-                onChange={()=>setFilterActive(!filterActive)}
+            <div className="filter__group">
+              <Flatpickr
+                name="date"
+                ref={refDatePicker}
+                aria-label="Select date"
+                placeholder="Filter dates"
+                options={{
+                  minDate: formatDate(new Date()),
+                  minuteIncrement: 10,
+                  mode: "range",
+                }}
+                value={filterDates}
+                onChange={dates => {
+                  setFilterDates(dates);
+                }}
+                className="filter__input filter__input--calendar"
               />
-            </label>
+              {filterDates && filterDates.length>0?<p className="filter__remove" onClick={()=>clearDates()}>X</p>:null}
+              
+            </div>
+            
+            <div className="filter__group">
+              <label>
+                <input
+                  type="radio"
+                  checked={filterActive}
+                  onChange={()=>setFilterActive(true)}
+                />
+                Ongoing contests
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  checked={!filterActive}
+                  onChange={()=>setFilterActive(false)}
+                />
+                Already finished
+              </label>
+            </div>
+            
           </div>
         ) : null}
       </div>
