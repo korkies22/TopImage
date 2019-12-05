@@ -106,10 +106,14 @@
     &--active {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      height: auto;
     }
 
     &__header {
       width: 100vw;
+      margin: 0;
     }
 
     &__user {
@@ -117,15 +121,23 @@
       &--responsive {
         display: flex;
         flex-direction: column;
+        width: 100%;
       }
+    }
+
+    &__action {
+      width: 100%;
+      border-top: solid 2px white;
+      padding: 0.5rem 0;
+      text-align: center;
     }
 
     &__actions {
       display: none;
-
       &--active {
         display: flex;
         flex-direction: column;
+
         background-color: $mainColor;
         width: 100vw;
       }
