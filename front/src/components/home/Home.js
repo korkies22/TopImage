@@ -171,9 +171,11 @@ function Home() {
           <label htmlFor="useRandomImg" className="contestModal__inputLabel">
             <input
               name="useRandomImg"
+              id="useRandomImg"
               type="checkbox"
               checked={useRandom}
               onChange={e => {
+                console.log('llega')
                 setNewConstest({
                   ...newContest,
                   limit: !useRandom && !newContest.limit ? '1' : undefined,
@@ -221,6 +223,7 @@ function Home() {
           <label htmlFor="private" className="contestModal__inputLabel">
             <input
               name="private"
+              id="private"
               type="checkbox"
               checked={newContest.private}
               onChange={e =>
