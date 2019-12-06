@@ -153,7 +153,7 @@ function Home() {
 
           <button className="contestModal__fileContainer">
             {files && files.length !== 0
-              ? `${files.length} files waiting to be send (add more)`
+              ? `Add more`
               : "Add your multimedia"}
             <input
               type="file"
@@ -196,7 +196,7 @@ function Home() {
               </label>
 
               <label htmlFor="limit" className="contestModal__inputLabel">
-                Limit 
+                How many? 
                 <input
                 type="number"
                 name="limit"
@@ -223,17 +223,14 @@ function Home() {
                 onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
             Wanna make your contest private?
           </label>
+
+          {newContest.private?<p className="contestModal__disclaimer">A new access key will be generated and displayed on the top right corner of the contest window. Give this key to those persons that you want to give access to your contest.</p>:null}
         </div>
       </div>
       <div className="contestModal__col">
         {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
         <button className="home__button" type="submit">
-          <img
-            className="home__img"
-            src={require("../../assets/icons/logo.svg")}
-            alt="App logo. A lightbulb inside an icon"
-          />
-          NEW TOP IMAGE
+          + NEW CONTEST
         </button>
       </div>
     </form>
