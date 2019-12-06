@@ -1,26 +1,26 @@
 /*global require*/
 /*eslint no-undef: "error"*/
 
-import React, { useState, useRef } from "react";
-import "./Home.scss";
+import React, { useState, useRef } from 'react';
+import './Home.scss';
 
-import ActionModal from "../actions/actionModal/ActionModal";
-import "../actions/actionModal/ActionModal.scss";
-import Loader from "../actions/loader/Loader";
+import ActionModal from '../actions/actionModal/ActionModal';
+import '../actions/actionModal/ActionModal.scss';
+import Loader from '../actions/loader/Loader';
 
-import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
-import "../actions/Flatpickr.scss";
-import Flatpickr from "react-flatpickr";
-import Filter from "../search/filter/Filter";
-import FilePreviewList from '../util/filePreviewList/FilePreviewList'
+import '../actions/Flatpickr.scss';
+import Flatpickr from 'react-flatpickr';
+import Filter from '../search/filter/Filter';
+import FilePreviewList from '../util/filePreviewList/FilePreviewList';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newContest, setNewConstest] = useState({private:false});
-  const [useRandom,setUseRandom] = useState(false);
+  const [newContest, setNewConstest] = useState({ private: false });
+  const [useRandom, setUseRandom] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,34 +41,34 @@ function Home() {
   const createContest = async e => {
     e.preventDefault();
 
-    if (!newContest.name || newContest.name.trim() === "")
-      return setErrorMsg("You must specify the name of your contest");
+    if (!newContest.name || newContest.name.trim() === '')
+      return setErrorMsg('You must specify the name of your contest');
     if (!newContest.endDate)
-      return setErrorMsg("Your contest needs an end date");
+      return setErrorMsg('Your contest needs an end date');
     if (beforeCurrentTime(newContest.endDate))
-      return setErrorMsg("Your contest end date can`t be before now");
-    if(!useRandom && (!files || files.length===0))
-      return setErrorMsg("You must upload something for contest.... I mean anything");
+      return setErrorMsg('Your contest end date can`t be before now');
+    if (!useRandom && (!files || files.length === 0))
+      return setErrorMsg(
+        'You must upload something for contest.... I mean anything'
+      );
     if (useRandom && newContest.limit === undefined)
-      return setErrorMsg("You need to select a type of image");
-    if (useRandom && (!newContest.topic || newContest.topic.trim() === ""))
-      return setErrorMsg("You must specify the topic of your contest");
+      return setErrorMsg('You need to select a type of image');
+    if (useRandom && (!newContest.topic || newContest.topic.trim() === ''))
+      return setErrorMsg('You must specify the topic of your contest');
 
     let formData = new FormData();
-    formData.append("name", newContest.name);
-    
-    if(newContest.topic)
-      formData.append("topic", newContest.topic);
-    if(newContest.limit)
-      formData.append("limit", newContest.limit);
-    if(newContest.private!==undefined)
-      formData.append("private",newContest.private?"1":"0");
+    formData.append('name', newContest.name);
 
-    formData.append("endDate", newContest.endDate);
+    if (newContest.topic) formData.append('topic', newContest.topic);
+    if (newContest.limit) formData.append('limit', newContest.limit);
+    if (newContest.private !== undefined)
+      formData.append('private', newContest.private ? '1' : '0');
+
+    formData.append('endDate', newContest.endDate);
     files.forEach((el, index) => {
       formData.append(`img_${index}`, el);
     });
-    console.log("FORM", formData);
+    console.log('FORM', formData);
 
     await sendContest(formData);
   };
@@ -78,7 +78,7 @@ function Home() {
     const options = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     };
 
@@ -90,10 +90,10 @@ function Home() {
   };
 
   const onChange = e => {
-    console.log("Files",Array.from(e.target.files));
+    console.log('Files', Array.from(e.target.files));
 
     let tempFiles = files.concat(Array.from(e.target.files));
-    console.log("Temp Files",tempFiles);
+    console.log('Temp Files', tempFiles);
     setFiles(tempFiles);
   };
 
@@ -101,11 +101,11 @@ function Home() {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   };
 
-  const removeFile=(index)=>{
-    const newFiles=[...files]
-    newFiles.splice(index,1)
-    setFiles(newFiles)
-  }
+  const removeFile = index => {
+    const newFiles = [...files];
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+  };
 
   const modalFormBody = (
     <form className="contestModal" onSubmit={e => createContest(e)}>
@@ -146,15 +146,18 @@ function Home() {
       <div className="contestModal__row">
         <div className="contestModal__col">
           <label htmlFor="images" className="contestModal__inputLabel">
-            Your multimedia 
+            Your multimedia
           </label>
-          
-          <FilePreviewList files={files} removeFile={(index)=>removeFile(index)}></FilePreviewList>
+
+          <FilePreviewList
+            files={files}
+            removeFile={index => removeFile(index)}
+          ></FilePreviewList>
 
           <button className="contestModal__fileContainer">
             {files && files.length !== 0
               ? `${files.length} files waiting to be send (add more)`
-              : "Add your multimedia"}
+              : 'Add your multimedia'}
             <input
               type="file"
               id="multi"
@@ -167,23 +170,24 @@ function Home() {
           {/*Use random images*/}
           <label htmlFor="useRandomImg" className="contestModal__inputLabel">
             <input
-                name="useRandomImg"
-                type="checkbox"
-                checked={useRandom}
-                onChange={e=>{ 
-                  setNewConstest({ ...newContest, 
-                    limit:!useRandom && !newContest.limit?"1":undefined 
-                  });
-                  setUseRandom(!useRandom);
-                }}/>
+              name="useRandomImg"
+              type="checkbox"
+              checked={useRandom}
+              onChange={e => {
+                setNewConstest({
+                  ...newContest,
+                  limit: !useRandom && !newContest.limit ? '1' : undefined,
+                });
+                setUseRandom(!useRandom);
+              }}
+            />
             Wanna complete with random images?
           </label>
 
-          {
-            useRandom?
+          {useRandom ? (
             <div>
               <label htmlFor="topic" className="contestModal__inputLabel">
-                Topic 
+                Topic
                 <input
                   type="text"
                   name="topic"
@@ -196,31 +200,33 @@ function Home() {
               </label>
 
               <label htmlFor="limit" className="contestModal__inputLabel">
-                Limit 
+                Limit
                 <input
-                type="number"
-                name="limit"
-                value={newContest.limit?parseInt(newContest.limit):""}
-                min="1"
-                step="1"
-                aria-label="limit"
-                onChange={e => {
-                  setErrorMsg(null);
-                  setNewConstest({ ...newContest, limit: e.target.value });
-                }}
-              />
+                  type="number"
+                  name="limit"
+                  value={newContest.limit ? parseInt(newContest.limit) : ''}
+                  min="1"
+                  step="1"
+                  aria-label="limit"
+                  onChange={e => {
+                    setErrorMsg(null);
+                    setNewConstest({ ...newContest, limit: e.target.value });
+                  }}
+                />
               </label>
             </div>
-            :null
-          }
+          ) : null}
 
           {/* Private contests*/}
           <label htmlFor="private" className="contestModal__inputLabel">
             <input
-                name="private"
-                type="checkbox"
-                checked={newContest.private}
-                onChange={e=>setNewConstest({...newContest, private:!newContest.private})}/>
+              name="private"
+              type="checkbox"
+              checked={newContest.private}
+              onChange={e =>
+                setNewConstest({ ...newContest, private: !newContest.private })
+              }
+            />
             Wanna make your contest private?
           </label>
         </div>
@@ -230,7 +236,7 @@ function Home() {
         <button className="home__button" type="submit">
           <img
             className="home__img"
-            src={require("../../assets/icons/logo.svg")}
+            src={require('../../assets/icons/logo.svg')}
             alt="App logo. A lightbulb inside an icon"
           />
           NEW TOP IMAGE
@@ -241,14 +247,14 @@ function Home() {
 
   const deactivateModal = () => {
     setNewConstest({
-      name: "",
-      type: "",
+      name: '',
+      type: '',
       endDate: null,
       images: [],
     });
 
-    console.log("Deactivate?");
-    setErrorMsg("");
+    console.log('Deactivate?');
+    setErrorMsg('');
     setIsModalOpen(false);
   };
 
@@ -256,20 +262,39 @@ function Home() {
     <div className="home">
       {isLoading ? <Loader /> : null}
 
-      <button className="home__button" onClick={() => setIsModalOpen(true)} ref={buttonModal}>
+      <button
+        className="home__button"
+        onClick={() => setIsModalOpen(true)}
+        ref={buttonModal}
+      >
         <img
           className="home__img"
-          src={require("../../assets/icons/logo.svg")}
+          src={require('../../assets/icons/logo.svg')}
           alt="App logo. A lightbulb inside an icon"
         />
         NEW TOP IMAGE
       </button>
 
+      {isModalOpen ? null : (
+        <button
+          className="home__fab"
+          onClick={() => setIsModalOpen(true)}
+          ref={buttonModal}
+        >
+          +
+        </button>
+      )}
+
       <Filter contests={contests} hasDate={true}></Filter>
 
       {isModalOpen ? (
         <ActionModal
-          close={() =>{ setIsModalOpen(false);buttonModal.current.focus();}}
+          close={() => {
+            setIsModalOpen(false);
+            if (buttonModal.current) {
+              buttonModal.current.focus();
+            }
+          }}
           modalHeaderTitle="New Top Image"
           modalBody={modalFormBody}
           okCBK={() => {}}
