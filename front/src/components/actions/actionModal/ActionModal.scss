@@ -27,6 +27,10 @@
     margin: auto;
     z-index: 3;
     transform: translate(-50%, -50%);
+    
+    @media (max-width:650px) {
+      min-width: 90%;
+    }
   }
 
   &__errorMsg{

@@ -145,7 +145,7 @@ function Home() {
       </div>
       <div className="contestModal__row">
         <div className="contestModal__col">
-          <label htmlFor="images" className="contestModal__inputLabel">
+          <label htmlFor="images" className="contestModal__inputLabel contestModal__inputLabel--multimedia">
             Your multimedia
           </label>
 
