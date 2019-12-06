@@ -32,6 +32,11 @@
     }
   }
 
+  &__disclaimer {
+    color: red;
+    font-size: 0.9rem;
+  }
+
   input {
     margin-left: 1rem;
   }
@@ -89,7 +94,7 @@
 
     font-size: 2rem;
     font-style: bold;
-    padding: 0 1rem;
+    padding: 1rem;
     margin: 2rem;
     border-radius: 1rem;
     border: 1px $borderColor solid;
