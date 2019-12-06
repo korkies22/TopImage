@@ -267,11 +267,7 @@ function Home() {
         onClick={() => setIsModalOpen(true)}
         ref={buttonModal}
       >
-        <img
-          className="home__img"
-          src={require('../../assets/icons/logo.svg')}
-          alt="App logo. A lightbulb inside an icon"
-        />
+        <p className="home__plus">+</p>
         NEW TOP IMAGE
       </button>
 
