@@ -112,11 +112,9 @@
     padding: 1rem;
     margin: 2rem;
     border-radius: 1rem;
-    border: 1px $borderColor solid;
+    border: none;
 
-    -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
-    -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 8px 6px 0px rgba(0, 0, 0, 0.3);
 
     @media (max-width:750px){
       display:none;
