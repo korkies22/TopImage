@@ -100,11 +100,12 @@ function Filter(props) {
                 name="date"
                 ref={refDatePicker}
                 aria-label="Select date"
-                placeholder="Filter dates"
+                placeholder="Filter end dates"
                 options={{
                   minDate: formatDate(new Date()),
                   minuteIncrement: 10,
                   mode: "range",
+                  dateFormat: "d-m-Y",
                 }}
                 value={filterDates}
                 onChange={dates => {
