@@ -1,17 +1,26 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
 .contest {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 4rem;
 
   &__actions {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
+  }
+
+  &__action {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0.5rem;
   }
 
   &__button {
@@ -25,6 +34,10 @@
     &:hover {
       box-shadow: 1px 2px 5px rgba($color: #000000, $alpha: 0.4);
     }
+  }
+
+  &__label {
+    margin: 0rem;
   }
 
   &__card {

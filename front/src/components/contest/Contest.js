@@ -125,24 +125,32 @@ function Contest(props) {
       {// Action buttons for creator
       contest && contest.private === 1 && email === contest.username ? (
         <div className="contest__actions">
+          <div className="contest__action">
+            <button className="contest__button" onClick={() => copyAccessKey()}>
+              <img
+                src={require('../../assets/icons/link.svg')}
+                alt="Copy AccessKey button"
+              />
+            </button>
+            <p className="contest__label">Copy access key</p>
+          </div>
+          
           <textarea
             readOnly
             ref={accessKeyText}
             value={contest.accessKey ? contest.accessKey : ''}
           />
-
-          <button className="contest__button" onClick={() => copyAccessKey()}>
-            <img
-              src={require('../../assets/icons/link.svg')}
-              alt="Copy AccessKey button"
-            />
-          </button>
-          <button className="contest__button" onClick={() => renewAccessKey()}>
-            <img
-              src={require('../../assets/icons/autorenew.svg')}
-              alt="Renew AccessKey button"
-            />
-          </button>
+          
+          <div className="contest__action">
+            <button className="contest__button" onClick={() => renewAccessKey()}>
+              <img
+                src={require('../../assets/icons/autorenew.svg')}
+                alt="Renew AccessKey button"
+              />
+            </button>
+            <p className="contest__label">Renew access key</p>
+          </div>
+          
         </div>
       ) : null}
 
