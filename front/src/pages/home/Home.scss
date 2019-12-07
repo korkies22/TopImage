@@ -4,12 +4,12 @@
   background: url("../../assets/bgImage/cameraMain.jpg") fixed center;
   background-size: cover;
   opacity: 0.4;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
 }
 
-.home__page{
+.home__page {
   padding-top: 3rem;
 }

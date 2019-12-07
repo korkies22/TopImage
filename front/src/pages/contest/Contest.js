@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import { setCurContest } from "../../store/contests";
 import { storeAccessKey } from "../../store/accessKey";
 import { saveAccessKey } from "../../util/state/localStorageUtil";
@@ -33,14 +33,23 @@ function ContestPage() {
 
   const dispatch = useDispatch();
 
-  const contestId= (contest || {}).id;
+  const contestId= (contest || {})._id;
 
   const contestPrivate= (contest || {}).private
+
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+
+  const prevState = usePrevious({contest, contestId,contestPrivate});
 
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log("Access Key",storedAccessKey);
         setIsLoading(true);
         const options = {
           headers: {
@@ -69,12 +78,17 @@ function ContestPage() {
       }
     }
     fetchData();
+
+    console.log("PREV");
+    console.log(prevState);
+    console.log("NEXT");
+    console.log({contest,contestId,contestPrivate})
   }, [id,url,dispatch,token, storedAccessKey, contestId,contestPrivate]);
 
   const getData = async ()=>{
     try {
+      console.log("Get data");
       setIsLoading(true);
-      console.log("access key",accessKey);
       const options = {
         headers: {
           Authorization: `Bearer ${token}`,

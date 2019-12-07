@@ -128,12 +128,16 @@ function Home() {
             End Date
           </label>
           <Flatpickr
-            data-enable-time
             aria-label="Date end"
             name="date"
             placeholder="Contest end date"
-            options={{ minDate: formatDate(new Date()), minuteIncrement: 30 }}
-            value={newContest.endDate}
+            options={{
+              minDate: formatDate(new Date()),
+              minuteIncrement: 10,
+              mode: "multiple",
+              dateFormat: "d-m-Y",
+            }}
+        value={newContest.endDate}
             onChange={date => {
               setErrorMsg(null);
               setNewConstest({ ...newContest, endDate: new Date(date) });

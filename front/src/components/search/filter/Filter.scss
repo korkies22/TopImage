@@ -123,14 +123,12 @@
 
   &__tab {
     margin: 0;
-    padding: 0.2rem;
     font-size: 2rem;
+    padding: 0.5rem;
 
     background-color: white;
     border: $mainColor solid 1px;
     color: $mainColor;
-
-    padding: 0.5rem;
 
     cursor: pointer;
 
@@ -163,13 +161,25 @@
   }
 }
 
-@media screen and (max-width: $sm) {
+@media screen and (max-width: $md) {
   .filter {
     &__contests {
       margin: 2rem;
       display: grid;
       grid-template-columns: 1fr;
       column-gap: 1rem;
+    }
+
+    &__searchBar {
+      &__searchInput {
+        color: $textColor;
+        font-size: 1rem;
+        padding: 0rem 2rem;
+        border-color: transparent;
+        width: 80vw;
+        background-color: transparent;
+        outline: none;
+      }
     }
 
     &__criteria {
@@ -187,7 +197,7 @@
   }
 }
 
-@media screen and (min-width: $sm) and (max-width: $md) {
+@media screen and (min-width: $md) and (max-width: $lg) {
   .filter {
     &__contests {
       margin: 2rem;
