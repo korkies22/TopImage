@@ -37,16 +37,6 @@ function ContestPage() {
 
   const contestPrivate= (contest || {}).private
 
-  function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  }
-
-  const prevState = usePrevious({contest, contestId,contestPrivate});
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -59,9 +49,10 @@ function ContestPage() {
         };
     
         const res = await axios.get(`${url}contests/${id}`,options);
-        console.log("RESPONSE",res.data);
         dispatch(setCurContest(res.data));
       } catch (err) {
+
+        console.log(contestPrivate,contestId,contest);
         if((contestPrivate===0) && contestId===id)
         {
           setIsLoading(false);
@@ -70,6 +61,9 @@ function ContestPage() {
         
         if(err.response && err.response.status!== 403)
           setOfflineMode(true);
+        if(err.message.includes("Network"))
+          setOfflineMode(true);
+
 
         setPrivateValidation(true);
 
@@ -79,10 +73,6 @@ function ContestPage() {
     }
     fetchData();
 
-    console.log("PREV");
-    console.log(prevState);
-    console.log("NEXT");
-    console.log({contest,contestId,contestPrivate})
   }, [id,url,dispatch,token, storedAccessKey, contestId,contestPrivate]);
 
   const getData = async ()=>{

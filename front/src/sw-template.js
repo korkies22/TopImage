@@ -1,7 +1,7 @@
 if ('function' === typeof importScripts) {
     const externalImagesPrefix=[
-        "https://res.cloudinary.com/",
-        "https://images.unsplash.com/"
+        "https://res.cloudinary.com",
+        "https://images.unsplash.com"
     ];
 
     const networkOnlyRoutesPrefix=[

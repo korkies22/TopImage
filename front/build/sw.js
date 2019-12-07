@@ -1,7 +1,7 @@
 if ('function' === typeof importScripts) {
     const externalImagesPrefix=[
-        "https://res.cloudinary.com/",
-        "https://images.unsplash.com/"
+        "https://res.cloudinary.com",
+        "https://images.unsplash.com"
     ];
 
     const networkOnlyRoutesPrefix=[
@@ -31,7 +31,7 @@ if ('function' === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "999655c242ff626c3b11331f7b0bba71"
+    "revision": "e44d1d0f194f053700845f23f6e0cd63"
   },
   {
     "url": "logo192.png",
@@ -42,12 +42,12 @@ if ('function' === typeof importScripts) {
     "revision": "dd9d29871509ac16b6d81a5369df987d"
   },
   {
-    "url": "precache-manifest.b37f6764a10c77e4bd32221847cb0f18.js",
-    "revision": "b37f6764a10c77e4bd32221847cb0f18"
+    "url": "precache-manifest.41722f13c814ff8c60748aeb000cd820.js",
+    "revision": "41722f13c814ff8c60748aeb000cd820"
   },
   {
     "url": "service-worker.js",
-    "revision": "0a7f6af01add0858195c27019effdfbe"
+    "revision": "2de355a50170d763da9cd7ca6ad0ddca"
   },
   {
     "url": "static/css/main.a34605ec.chunk.css",
@@ -58,8 +58,8 @@ if ('function' === typeof importScripts) {
     "revision": "99f23394399281fb9a6b568bda0a9502"
   },
   {
-    "url": "static/js/main.d3dae08f.chunk.js",
-    "revision": "3bac45718e7b2730b70dfab7bd31bf39"
+    "url": "static/js/main.6c6abfcb.chunk.js",
+    "revision": "8e6c203351821a330c4ab9a6f17601e1"
   },
   {
     "url": "static/js/runtime~main.e774a519.js",

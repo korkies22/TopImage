@@ -18,7 +18,7 @@ import FilePreviewList from '../util/filePreviewList/FilePreviewList';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newContest, setNewConstest] = useState({ private: false });
+  const [newContest, setNewContest] = useState({ private: false });
   const [useRandom, setUseRandom] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [files, setFiles] = useState([]);
@@ -67,7 +67,6 @@ function Home() {
     files.forEach((el, index) => {
       formData.append(`img_${index}`, el);
     });
-    console.log('FORM', formData);
 
     await sendContest(formData);
   };
@@ -84,15 +83,11 @@ function Home() {
     let ans = await axios.post(`${url}contests`, data, options);
 
     setIsLoading(false);
-    console.log(ans.data);
     history.push(`/contests/${ans.data.insertedId}`);
   };
 
   const onChange = e => {
-    console.log('Files', Array.from(e.target.files));
-
     let tempFiles = files.concat(Array.from(e.target.files));
-    console.log('Temp Files', tempFiles);
     setFiles(tempFiles);
   };
 
@@ -119,7 +114,7 @@ function Home() {
             aria-label="name"
             onChange={e => {
               setErrorMsg(null);
-              setNewConstest({ ...newContest, name: e.target.value });
+              setNewContest({ ...newContest, name: e.target.value });
             }}
           />
         </div>
@@ -134,13 +129,13 @@ function Home() {
             options={{
               minDate: formatDate(new Date()),
               minuteIncrement: 10,
-              mode: "multiple",
+              mode: "single",
               dateFormat: "d-m-Y",
             }}
-        value={newContest.endDate}
+            value={newContest.endDate}
             onChange={date => {
               setErrorMsg(null);
-              setNewConstest({ ...newContest, endDate: new Date(date) });
+              setNewContest({ ...newContest, endDate: new Date(date) });
             }}
             className="modal__form__input modal__form__input--calendar"
           />
@@ -179,7 +174,7 @@ function Home() {
               checked={useRandom}
               onChange={e => {
                 console.log('llega')
-                setNewConstest({
+                setNewContest({
                   ...newContest,
                   limit: !useRandom && !newContest.limit ? '1' : undefined,
                 });
@@ -199,7 +194,7 @@ function Home() {
                   aria-label="topic"
                   onChange={e => {
                     setErrorMsg(null);
-                    setNewConstest({ ...newContest, topic: e.target.value });
+                    setNewContest({ ...newContest, topic: e.target.value });
                   }}
                 />
               </label>
@@ -215,7 +210,7 @@ function Home() {
                   aria-label="limit"
                   onChange={e => {
                     setErrorMsg(null);
-                    setNewConstest({ ...newContest, limit: e.target.value });
+                    setNewContest({ ...newContest, limit: e.target.value });
                   }}
                 />
               </label>
@@ -230,7 +225,7 @@ function Home() {
               type="checkbox"
               checked={newContest.private}
               onChange={e =>
-                setNewConstest({ ...newContest, private: !newContest.private })
+                setNewContest({ ...newContest, private: !newContest.private })
               }
             />
             Wanna make your contest private?
@@ -249,7 +244,7 @@ function Home() {
   );
 
   const deactivateModal = () => {
-    setNewConstest({
+    setNewContest({
       name: '',
       type: '',
       endDate: null,
