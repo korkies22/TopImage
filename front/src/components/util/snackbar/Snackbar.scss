@@ -1,0 +1,10 @@
+@import '../../../css/variables.scss';
+
+.snackbar {
+  background: $mainColor;
+  color: white;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  text-align: center;
+}

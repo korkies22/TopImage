@@ -4,8 +4,9 @@
   background: url("../../assets/bgImage/cameraMain.jpg") fixed center;
   background-size: cover;
   opacity: 0.4;
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
   z-index: -1;
 }
