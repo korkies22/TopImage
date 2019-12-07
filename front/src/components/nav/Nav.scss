@@ -25,6 +25,12 @@
     font-size: 2rem;
     margin-left: 0.5rem;
     font-family: "ZCOOL XiaoWei", serif;
+    display:flex;
+    align-items: center;
+  }
+
+  &__img{
+    height: 3rem;
   }
 
   &__actions {
@@ -83,6 +89,10 @@
       font-weight: bold;
       cursor: pointer;
     }
+  }
+
+  &__title{
+    margin:0;
   }
 
   &__user {

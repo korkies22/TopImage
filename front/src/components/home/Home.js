@@ -239,7 +239,7 @@ function Home() {
       <div className="contestModal__col">
         {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
         <button className="home__button home__button--internal" type="submit">
-          + NEW CONTEST
+          + NEW TO IMAGE
         </button>
       </div>
     </form>
