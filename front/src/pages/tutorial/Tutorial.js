@@ -76,7 +76,7 @@ function Tutorial(props) {
 
       <ul id="menu">
       {tutorialItems.map((item, index) => (
-          <li><a href={`#item${index}`}>{item.title}</a></li>
+          <li key={index}><a href={`#item${index}`}>{item.title}</a></li>
         ))}
       </ul>
 
