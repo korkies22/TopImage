@@ -128,12 +128,16 @@ function Home() {
             End Date
           </label>
           <Flatpickr
-            data-enable-time
             aria-label="Date end"
             name="date"
             placeholder="Contest end date"
-            options={{ minDate: formatDate(new Date()), minuteIncrement: 30 }}
-            value={newContest.endDate}
+            options={{
+              minDate: formatDate(new Date()),
+              minuteIncrement: 10,
+              mode: "multiple",
+              dateFormat: "d-m-Y",
+            }}
+        value={newContest.endDate}
             onChange={date => {
               setErrorMsg(null);
               setNewConstest({ ...newContest, endDate: new Date(date) });
@@ -238,7 +242,7 @@ function Home() {
       <div className="contestModal__col">
         {errorMsg ? <p className="modal__form__errorMsg">{errorMsg}</p> : null}
         <button className="home__button home__button--internal" type="submit">
-          + NEW TO IMAGE
+          + NEW TOP IMAGE
         </button>
       </div>
     </form>
