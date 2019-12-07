@@ -31,7 +31,7 @@ if ('function' === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "3aa3cda18c3f8dbebb158d7edf7b2454"
+    "revision": "999655c242ff626c3b11331f7b0bba71"
   },
   {
     "url": "logo192.png",
@@ -42,24 +42,24 @@ if ('function' === typeof importScripts) {
     "revision": "dd9d29871509ac16b6d81a5369df987d"
   },
   {
-    "url": "precache-manifest.b0b2bc299aaf8025b3a071c80b63bbb8.js",
-    "revision": "b0b2bc299aaf8025b3a071c80b63bbb8"
+    "url": "precache-manifest.b37f6764a10c77e4bd32221847cb0f18.js",
+    "revision": "b37f6764a10c77e4bd32221847cb0f18"
   },
   {
     "url": "service-worker.js",
-    "revision": "09b6d328a46f17563b15056f30ea3667"
+    "revision": "0a7f6af01add0858195c27019effdfbe"
   },
   {
     "url": "static/css/main.a34605ec.chunk.css",
     "revision": "2efa9216f788583ab2f779e9412ca10a"
   },
   {
-    "url": "static/js/2.c75fa7b6.chunk.js",
-    "revision": "a0b00dc567eda8ecbb15e1b28fa12e1f"
+    "url": "static/js/2.5e78cd0e.chunk.js",
+    "revision": "99f23394399281fb9a6b568bda0a9502"
   },
   {
-    "url": "static/js/main.6b1ceedf.chunk.js",
-    "revision": "a771d1e5450bec2ad8efd3812ea45a2e"
+    "url": "static/js/main.d3dae08f.chunk.js",
+    "revision": "3bac45718e7b2730b70dfab7bd31bf39"
   },
   {
     "url": "static/js/runtime~main.e774a519.js",
@@ -217,7 +217,7 @@ if ('function' === typeof importScripts) {
     networkOnlyRoutesPrefix.forEach(prefix=>{
         workbox.routing.registerRoute(
             new RegExp(`${prefix}/.+`),
-            workbox.strategies.cacheOnly()
+            workbox.strategies.networkOnly()
         );    
     })
 

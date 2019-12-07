@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useState, useEffect} from "react";
 import Router from "./Router";
 import "./App.css";
 
@@ -11,6 +11,14 @@ import socketIOClient from "socket.io-client";
 import * as Events from "../util/socketio/events";
 
 function Main() {
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+  const updateNetworkInfo = () => {
+    setIsOnline(window.navigator.onLine);
+    if(window.navigator.onLine){
+      setSocket(null);
+    }
+ };  
+ const [socket,setSocket]=useState(null);
 
   const url = useSelector(state => state.root.url);
   const socketUrl = useSelector(state => state.root.socketUrl);
@@ -28,9 +36,21 @@ function Main() {
       }
     }
 
+    function setupOnlineListeners(socket){
+      window.addEventListener("offline", ()=>{
+        socket.disconnect();
+        updateNetworkInfo();
+      });
+      window.addEventListener("online", updateNetworkInfo);
+    }
+
     function setupSocket(){
-      const socket = socketIOClient(socketUrl);
-      socket.on(Events.CONTEST_EVENT, (data) => 
+      if(!isOnline){
+        return;
+      }
+
+      const tempSocket = socketIOClient(socketUrl);
+      tempSocket.on(Events.CONTEST_EVENT, (data) => 
       {
         switch(data.action){
         case Events.ACTION_INSERT:
@@ -44,14 +64,26 @@ function Main() {
         }
             
       });
-      return socket;
+      return tempSocket;
     }
 
     getData();
+
     const socket=setupSocket();
 
-    return ()=> socket.disconnect();
-  },[dispatch,socketUrl,token,url]);
+    setupOnlineListeners(socket);
+  
+    return ()=> {
+      window.removeEventListener("offline", ()=>{
+        if(socket)
+        {
+          socket.disconnect();
+        }
+        updateNetworkInfo();
+      });
+      window.removeEventListener("online", updateNetworkInfo);
+    };
+  },[dispatch,socketUrl,token,url,isOnline,socket]);
 
 
   return (

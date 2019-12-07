@@ -68,7 +68,7 @@ if ('function' === typeof importScripts) {
     networkOnlyRoutesPrefix.forEach(prefix=>{
         workbox.routing.registerRoute(
             new RegExp(`${prefix}/.+`),
-            workbox.strategies.cacheOnly()
+            workbox.strategies.networkOnly()
         );    
     })
 
