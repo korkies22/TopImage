@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import './Contest.scss';
 import axios from 'axios';
 
+import { wrapComponent } from 'react-snackbar-alert';
+
 import PropTypes from 'prop-types';
 
 function Contest(props) {
@@ -86,6 +88,11 @@ function Contest(props) {
   };
 
   const copyAccessKey = () => {
+    props.createSnackbar({
+      message: 'Access key copied to clipboard',
+      progressBar: false,
+      timeout: 4000
+    })
     accessKeyText.current.select();
     document.execCommand('copy');
 
@@ -259,4 +266,4 @@ Contest.propTypes = {
   contestId: PropTypes.string,
 };
 
-export default Contest;
+export default wrapComponent(Contest);
