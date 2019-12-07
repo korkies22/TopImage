@@ -74,9 +74,9 @@ function Tutorial(props) {
         images if you want to
       </p>
 
-      <ul>
+      <ul id="menu">
       {tutorialItems.map((item, index) => (
-          <li><a href={`#item${index}`} id="menu">{item.title}</a></li>
+          <li><a href={`#item${index}`}>{item.title}</a></li>
         ))}
       </ul>
 

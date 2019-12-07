@@ -1,4 +1,3 @@
-/*global require*/
 /*eslint no-undef: "error"*/
 
 import React, { useState, useRef } from 'react';

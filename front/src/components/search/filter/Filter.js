@@ -59,7 +59,7 @@ function Filter(props) {
     });
 
     setContestFilter(tempFilter);
-  },[filterActive, filterDates, filterString,props.contests,filterOwn,props.hasDate]);
+  },[filterActive, filterDates, filterString,props.contests,filterOwn,props.hasDate, email]);
 
   const mapContests = data => {
     return data.map((el, index) => (

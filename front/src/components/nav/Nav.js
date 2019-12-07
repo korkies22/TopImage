@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Nav.scss';
 import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from '../../store/auth';

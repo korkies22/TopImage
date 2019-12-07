@@ -33,6 +33,10 @@ function ContestPage() {
 
   const dispatch = useDispatch();
 
+  const contestId= (contest || {}).id;
+
+  const contestPrivate= (contest || {}).private
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,7 +53,7 @@ function ContestPage() {
         console.log("RESPONSE",res.data);
         dispatch(setCurContest(res.data));
       } catch (err) {
-        if(contest && (contest.private===0) && contest._id===id)
+        if((contestPrivate===0) && contestId===id)
         {
           setIsLoading(false);
           return;
@@ -65,7 +69,7 @@ function ContestPage() {
       }
     }
     fetchData();
-  }, [id,url,dispatch,token]);
+  }, [id,url,dispatch,token, storedAccessKey, contestId,contestPrivate]);
 
   const getData = async ()=>{
     try {
