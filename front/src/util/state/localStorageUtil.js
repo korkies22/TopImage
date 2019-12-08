@@ -8,8 +8,8 @@ const auth = {
 const ACCESS_KEY="accessKey";
 
 export const saveAccessKey = (accessKey)=>{
-  localStorage.setItem(ACCESS_KEY,accessKey)
-}
+  localStorage.setItem(ACCESS_KEY,accessKey);
+};
 
 export const loadAccessKey = () => {
   let accessKey = localStorage.getItem(ACCESS_KEY);

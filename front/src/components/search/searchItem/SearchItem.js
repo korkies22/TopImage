@@ -1,12 +1,12 @@
-import React from 'react';
-import './SearchItem.scss';
+import React from "react";
+import "./SearchItem.scss";
 
-import { setCurContest } from '../../../store/contests';
-import { useDispatch } from 'react-redux';
+import { setCurContest } from "../../../store/contests";
+import { useDispatch } from "react-redux";
 
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function SearchItem(props) {
   let history = useHistory();
@@ -14,7 +14,7 @@ function SearchItem(props) {
   const dispatch = useDispatch();
 
   const topImage = images => {
-    if (!images || !images[0]) return '';
+    if (!images || !images[0]) return "";
     let likes = 0;
     let src = images[0].url;
 
@@ -32,12 +32,12 @@ function SearchItem(props) {
     date = new Date(date);
     let hours = date.getHours();
     let mins = date.getMinutes();
-    let ampm = hours >= 12 ? 'pm' : 'am';
+    let ampm = hours >= 12 ? "pm" : "am";
 
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    hours = hours < 10 ? '0' + hours : hours;
-    mins = mins < 10 ? '0' + mins : mins;
+    hours = hours < 10 ? "0" + hours : hours;
+    mins = mins < 10 ? "0" + mins : mins;
     return `${date.getDate()}/${date.getMonth() +
       1}/${date.getFullYear()} ${hours}:${mins}${ampm}`;
   };
@@ -48,13 +48,13 @@ function SearchItem(props) {
   };
 
   const buildHandleEnterKeyPress = onClick => ({ key }) => {
-    if (key === 'Enter') {
+    if (key === "Enter") {
       onClick();
     }
   };
 
   const isPrivate = () => {
-    return props.element.private === '1' || props.element.private === 1;
+    return props.element.private === "1" || props.element.private === 1;
   };
 
   const isVideo = url => {
@@ -89,7 +89,7 @@ function SearchItem(props) {
         <div
           className="search-item__img"
           style={{
-            backgroundImage: 'url(' + topImage(props.element.images) + ')',
+            backgroundImage: "url(" + topImage(props.element.images) + ")",
           }}
         ></div>
       )}

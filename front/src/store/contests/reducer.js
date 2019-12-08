@@ -20,7 +20,7 @@ export default function reducer(state = initState, action) {
     let curContestTemp = { ...state.curContest };
     data=action.payload;
     if (curContestTemp["_id"] === data.id ) {
-      curContestTemp={...curContestTemp, ...data}
+      curContestTemp={...curContestTemp, ...data};
     }
     index = state.contests.findIndex(el => el._id === action.payload.id);
     tempArray = [...state.contests];

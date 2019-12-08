@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 import React, { useState, useEffect,useCallback,useRef } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 import "./Filter.scss";
 import SearchItem from "../searchItem/SearchItem";
@@ -14,9 +14,9 @@ import Flatpickr from "react-flatpickr";
 function Filter(props) {
   const [contestFilter, setContestFilter] = useState(
     props.contests);
-    const email = useSelector(state =>
-      state.auth.user ? state.auth.user.email : ''
-    );
+  const email = useSelector(state =>
+    state.auth.user ? state.auth.user.email : ""
+  );
 
   const [filtered, setFiltered] = useState(false);
   const [filterDates, setFilterDates] = useState([]);
@@ -29,7 +29,7 @@ function Filter(props) {
   const clearDates=()=>{
     if(refDatePicker.current)
       refDatePicker.current.flatpickr.clear();
-  }
+  };
 
   const filter = useCallback(()=> {
     setFiltered(true);
@@ -144,11 +144,11 @@ function Filter(props) {
       <div className="filter__tabs">
         <button 
           className={`filter__tab filter__tab--left
-           ${filterOwn?'':'filter__tab--active'}`}
-           onClick={()=>setFilterOwn(false)}>All contests</button>
+           ${filterOwn?"":"filter__tab--active"}`}
+          onClick={()=>setFilterOwn(false)}>All contests</button>
         <button 
           className={`filter__tab filter__tab--right
-          ${filterOwn?'filter__tab--active':''}`}
+          ${filterOwn?"filter__tab--active":""}`}
           onClick={()=>setFilterOwn(true)}>My contests</button>
       </div>
 

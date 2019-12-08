@@ -1,9 +1,9 @@
 /*eslint no-undef: "error"*/
 
-import React from 'react';
-import './FilePreviewList.scss';
+import React from "react";
+import "./FilePreviewList.scss";
 
-import FilePreview from '../filePreview/FilePreview';
+import FilePreview from "../filePreview/FilePreview";
 
 function FilePreviewList(props) {
 

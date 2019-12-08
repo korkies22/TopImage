@@ -1,7 +1,7 @@
 /*eslint no-undef: "error"*/
 
-import React, { useEffect, useState } from 'react';
-import './FilePreview.scss';
+import React, { useEffect, useState } from "react";
+import "./FilePreview.scss";
 
 function FilePreview(props) {
   const [imagePreview, setImagePreview] = useState(null);
@@ -21,7 +21,7 @@ function FilePreview(props) {
     };
 
     if (
-      getFileType().match('video.*') &&
+      getFileType().match("video.*") &&
       /\.(webm|ogg|mp4)$/i.test(props.file.name)
     ) {
       const video = window.URL.createObjectURL(props.file);
@@ -50,7 +50,7 @@ function FilePreview(props) {
         <video
           controls
           className="filePreview__video"
-          src={video + '#t=0.1'}
+          src={video + "#t=0.1"}
           preload="metadata"
           disablePictureInPicture
           controlsList="nodownload"

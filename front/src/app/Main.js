@@ -17,8 +17,8 @@ function Main() {
     if(window.navigator.onLine){
       setSocket(null);
     }
- };  
- const [socket,setSocket]=useState(null);
+  };  
+  const [socket,setSocket]=useState(null);
 
   const url = useSelector(state => state.root.url);
   const socketUrl = useSelector(state => state.root.socketUrl);

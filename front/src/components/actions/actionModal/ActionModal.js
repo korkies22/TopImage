@@ -75,7 +75,7 @@ const ActionModal = props => {
               >
                 &times;
               </button>
-            :null
+              :null
           }
           <h4 className="modal__header__title">{props.modalHeaderTitle}</h4>
         </div>
@@ -90,13 +90,14 @@ const ActionModal = props => {
 };
 
 ActionModal.propTypes = {
-  okCBK: PropTypes.any,
-  cancelCBK: PropTypes.any,
-  okText: PropTypes.any,
-  cancelText: PropTypes.any,
-  modalHeaderTitle: PropTypes.any,
+  okCBK: PropTypes.func,
+  cancelCBK: PropTypes.func,
+  okText: PropTypes.string,
+  cancelText: PropTypes.string,
+  modalHeaderTitle: PropTypes.string,
   modalBody: PropTypes.any,
   close: PropTypes.func,
+  errorMsg: PropTypes.string
 };
 
 export default ActionModal;

@@ -18,7 +18,7 @@ function ContestPage() {
   const url = useSelector(state => state.root.url);
   const contest = useSelector(state => state.contests.curContest);
   const token = useSelector(state => state.auth.token);
-  const storedAccessKey = useSelector(state => state.accessKey.accessKey)
+  const storedAccessKey = useSelector(state => state.accessKey.accessKey);
 
   let { id } = useParams();
   let history=useHistory();
@@ -35,7 +35,7 @@ function ContestPage() {
 
   const contestId= (contest || {})._id;
 
-  const contestPrivate= (contest || {}).private
+  const contestPrivate= (contest || {}).private;
 
   useEffect(() => {
     async function fetchData() {
@@ -86,7 +86,7 @@ function ContestPage() {
   
       const res = await axios.get(`${url}contests/${id}`,options);
       setPrivateValidation(false);
-      setErrorMsg(null)
+      setErrorMsg(null);
 
       saveAccessKey(accessKey);
       dispatch(storeAccessKey(accessKey));
@@ -94,14 +94,14 @@ function ContestPage() {
       dispatch(setCurContest(res.data));
     } catch (err) {
       if(err.response && err.response.status===403){
-        setErrorMsg(err.response.data.message)
+        setErrorMsg(err.response.data.message);
       }else{
-        setErrorMsg("Internal error, please try again later")
+        setErrorMsg("Internal error, please try again later");
       }
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   const modalFormBody=(
     <form className="contestModal">
@@ -109,11 +109,11 @@ function ContestPage() {
         type="text"
         name="accessKey"
         aria-label="accessKey"
-        onChange={(e)=>{setAccessKey(e.target.value)}}
+        onChange={(e)=>{setAccessKey(e.target.value);}}
       />
     </form>
 
-  )
+  );
 
   return (
     <div className="contestPage">
@@ -121,25 +121,25 @@ function ContestPage() {
         <div className="contestPage__loader">
           <Loader />
         </div> : 
-      null}
+        null}
 
       {
         privateValidation ? 
-        <ActionModal
-          modalHeaderTitle={offlineMode?
-            `You can´t access private rooms offline :(`:
-            `Please enter your access key`}
-          modalBody={offlineMode?null:modalFormBody}
-          okCBK={offlineMode?null:getData}
-          okText ="OK"
-          cancelCBK={()=>{history.goBack()}}
-          cancelText="Go Back"
-          errorMsg={errorMsg}
-        />:null  
+          <ActionModal
+            modalHeaderTitle={offlineMode?
+              "You can´t access private rooms offline :(":
+              "Please enter your access key"}
+            modalBody={offlineMode?null:modalFormBody}
+            okCBK={offlineMode?null:getData}
+            okText ="OK"
+            cancelCBK={()=>{history.goBack();}}
+            cancelText="Go Back"
+            errorMsg={errorMsg}
+          />:null  
       }
       <div className="contestPage__background"></div>
-        {contest && !privateValidation ? <Contest contestId={id}></Contest> : null}
-      </div>
+      {contest && !privateValidation ? <Contest contestId={id}></Contest> : null}
+    </div>
   );
 }
 

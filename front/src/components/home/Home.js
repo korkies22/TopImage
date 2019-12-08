@@ -1,20 +1,20 @@
 /*eslint no-undef: "error"*/
 
-import React, { useState, useRef } from 'react';
-import './Home.scss';
+import React, { useState, useRef } from "react";
+import "./Home.scss";
 
-import ActionModal from '../actions/actionModal/ActionModal';
-import '../actions/actionModal/ActionModal.scss';
-import Loader from '../actions/loader/Loader';
+import ActionModal from "../actions/actionModal/ActionModal";
+import "../actions/actionModal/ActionModal.scss";
+import Loader from "../actions/loader/Loader";
 
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-import '../actions/Flatpickr.scss';
-import Flatpickr from 'react-flatpickr';
-import Filter from '../search/filter/Filter';
-import FilePreviewList from '../util/filePreviewList/FilePreviewList';
+import "../actions/Flatpickr.scss";
+import Flatpickr from "react-flatpickr";
+import Filter from "../search/filter/Filter";
+import FilePreviewList from "../util/filePreviewList/FilePreviewList";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,30 +40,30 @@ function Home() {
   const createContest = async e => {
     e.preventDefault();
 
-    if (!newContest.name || newContest.name.trim() === '')
-      return setErrorMsg('You must specify the name of your contest');
+    if (!newContest.name || newContest.name.trim() === "")
+      return setErrorMsg("You must specify the name of your contest");
     if (!newContest.endDate)
-      return setErrorMsg('Your contest needs an end date');
+      return setErrorMsg("Your contest needs an end date");
     if (beforeCurrentTime(newContest.endDate))
-      return setErrorMsg('Your contest end date can`t be before now');
+      return setErrorMsg("Your contest end date can`t be before now");
     if (!useRandom && (!files || files.length === 0))
       return setErrorMsg(
-        'You must upload something for contest.... I mean anything'
+        "You must upload something for contest.... I mean anything"
       );
     if (useRandom && newContest.limit === undefined)
-      return setErrorMsg('You need to select a type of image');
-    if (useRandom && (!newContest.topic || newContest.topic.trim() === ''))
-      return setErrorMsg('You must specify the topic of your contest');
+      return setErrorMsg("You need to select a type of image");
+    if (useRandom && (!newContest.topic || newContest.topic.trim() === ""))
+      return setErrorMsg("You must specify the topic of your contest");
 
     let formData = new FormData();
-    formData.append('name', newContest.name);
+    formData.append("name", newContest.name);
 
-    if (newContest.topic) formData.append('topic', newContest.topic);
-    if (newContest.limit) formData.append('limit', newContest.limit);
+    if (newContest.topic) formData.append("topic", newContest.topic);
+    if (newContest.limit) formData.append("limit", newContest.limit);
     if (newContest.private !== undefined)
-      formData.append('private', newContest.private ? '1' : '0');
+      formData.append("private", newContest.private ? "1" : "0");
 
-    formData.append('endDate', newContest.endDate);
+    formData.append("endDate", newContest.endDate);
     files.forEach((el, index) => {
       formData.append(`img_${index}`, el);
     });
@@ -76,7 +76,7 @@ function Home() {
     const options = {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     };
 
@@ -154,7 +154,7 @@ function Home() {
 
           <button className="contestModal__fileContainer">
             {files && files.length !== 0
-              ? `Add more`
+              ? "Add more"
               : "Add your multimedia"}
             <input
               type="file"
@@ -173,10 +173,10 @@ function Home() {
               type="checkbox"
               checked={useRandom}
               onChange={e => {
-                console.log('llega')
+                console.log("llega");
                 setNewContest({
                   ...newContest,
-                  limit: !useRandom && !newContest.limit ? '1' : undefined,
+                  limit: !useRandom && !newContest.limit ? "1" : undefined,
                 });
                 setUseRandom(!useRandom);
               }}
@@ -204,7 +204,7 @@ function Home() {
                 <input
                   type="number"
                   name="limit"
-                  value={newContest.limit ? parseInt(newContest.limit) : ''}
+                  value={newContest.limit ? parseInt(newContest.limit) : ""}
                   min="1"
                   step="1"
                   aria-label="limit"
@@ -245,14 +245,14 @@ function Home() {
 
   const deactivateModal = () => {
     setNewContest({
-      name: '',
-      type: '',
+      name: "",
+      type: "",
       endDate: null,
       images: [],
     });
 
-    console.log('Deactivate?');
-    setErrorMsg('');
+    console.log("Deactivate?");
+    setErrorMsg("");
     setIsModalOpen(false);
   };
 
