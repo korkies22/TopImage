@@ -34,7 +34,7 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "ce8bae0201e3796ef5fde4fd14f63af6"
+    "revision": "217922d198ada0ba8367c222c0fa80ef"
   },
   {
     "url": "logo192.png",
@@ -45,24 +45,24 @@ if ("function" === typeof importScripts) {
     "revision": "dd9d29871509ac16b6d81a5369df987d"
   },
   {
-    "url": "precache-manifest.1667ae2b1fa63f4d5a5bc06949d4d083.js",
-    "revision": "1667ae2b1fa63f4d5a5bc06949d4d083"
+    "url": "precache-manifest.2c41717b793c25211448584a7ededcbf.js",
+    "revision": "2c41717b793c25211448584a7ededcbf"
   },
   {
     "url": "service-worker.js",
-    "revision": "bd1b02f0db5879c7532c93eb5590397a"
+    "revision": "d88afc5557a103f2943ae68e6b805d98"
   },
   {
-    "url": "static/css/main.8a3656e4.chunk.css",
-    "revision": "60528141a3f8be691ce6a1beb8104b0a"
+    "url": "static/css/main.99d2509d.chunk.css",
+    "revision": "7e6d1aec72aa6f3d54ea0323b66e2a4a"
   },
   {
-    "url": "static/js/2.f0357727.chunk.js",
-    "revision": "f1b648f62ee470dcdace4eff330656e1"
+    "url": "static/js/2.1e607ded.chunk.js",
+    "revision": "650a3f9ae93e911ef2534a42cd5ec8fd"
   },
   {
-    "url": "static/js/main.aaa2fa9f.chunk.js",
-    "revision": "23fe88a47d24103289462553fdfd7d64"
+    "url": "static/js/main.a788c939.chunk.js",
+    "revision": "05f35b122c359bd78823d8c72e11630a"
   },
   {
     "url": "static/js/runtime~main.e774a519.js",
