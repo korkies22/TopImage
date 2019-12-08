@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import "./FilePreview.scss";
 
+import PropTypes from "prop-types";
+
 function FilePreview(props) {
   const [imagePreview, setImagePreview] = useState(null);
   const [video, setVideo] = useState(null);
@@ -72,5 +74,13 @@ function FilePreview(props) {
     </div>
   );
 }
+
+FilePreview.propTypes = {
+  file:PropTypes.object({
+    type:PropTypes.string,
+    name: PropTypes.name
+  }),
+  removeFile: PropTypes.func
+};
 
 export default FilePreview;

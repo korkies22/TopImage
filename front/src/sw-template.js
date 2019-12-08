@@ -1,3 +1,6 @@
+/*global importScripts*/
+/*eslint no-undef: "error"*/
+
 if ("function" === typeof importScripts) {
   const externalImagesPrefix=[
     "https://res.cloudinary.com",
@@ -34,7 +37,8 @@ if ("function" === typeof importScripts) {
     });
     /* custom cache rules*/
     workbox.routing.registerNavigationRoute("/index.html", {
-      blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/],
+      /*eslint no-useless-escape: "error"*/
+      blacklist: [/^\/_/, /\/[^/]+\.[^/]+$/],
     });
   
     workbox.routing.registerRoute(

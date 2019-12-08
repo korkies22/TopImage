@@ -1,6 +1,9 @@
 import React from "react";
 import "./Snackbar.scss";
-export default function CustomSnackbarComponent({ message }) {
+
+import PropTypes from "prop-types";
+
+function CustomSnackbarComponent({ message }) {
   return (
     <div className="snackbar"
     >
@@ -8,3 +11,9 @@ export default function CustomSnackbarComponent({ message }) {
     </div>
   );
 }
+
+CustomSnackbarComponent.propTypes={
+  message: PropTypes.string
+};
+
+export default CustomSnackbarComponent;

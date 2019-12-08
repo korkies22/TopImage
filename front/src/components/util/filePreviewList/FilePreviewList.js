@@ -3,6 +3,8 @@
 import React from "react";
 import "./FilePreviewList.scss";
 
+import PropTypes from "prop-types";
+
 import FilePreview from "../filePreview/FilePreview";
 
 function FilePreviewList(props) {
@@ -19,5 +21,10 @@ function FilePreviewList(props) {
     </div>
   );
 }
+
+FilePreviewList.propTypes = {
+  files:PropTypes.Array,
+  removeFile: PropTypes.func
+};
 
 export default FilePreviewList;

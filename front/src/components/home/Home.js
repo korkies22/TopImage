@@ -172,7 +172,7 @@ function Home() {
               id="useRandomImg"
               type="checkbox"
               checked={useRandom}
-              onChange={e => {
+              onChange={() => {
                 console.log("llega");
                 setNewContest({
                   ...newContest,
@@ -224,7 +224,7 @@ function Home() {
               id="private"
               type="checkbox"
               checked={newContest.private}
-              onChange={e =>
+              onChange={() =>
                 setNewContest({ ...newContest, private: !newContest.private })
               }
             />

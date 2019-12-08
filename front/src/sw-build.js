@@ -1,4 +1,6 @@
-const workboxBuild = require("workbox-build");
+/*global require*/
+/*eslint no-undef: "error"*/
+const workboxBuild = require("workbox-build"); 
 // NOTE: This should be run *AFTER* all your assets are built
 const buildSW = () => {
   // This will return a Promise
@@ -7,7 +9,7 @@ const buildSW = () => {
     swDest: "build/sw.js", // this will be created in the build step
     globDirectory: "build",
     globPatterns: [
-      "**\/*.{js,css,html,png,svg,jpg}",
+      "**/*.{js,css,html,png,svg,jpg}", 
     ],
     maximumFileSizeToCacheInBytes:3000000 
   }).then(({count, size, warnings}) => {
