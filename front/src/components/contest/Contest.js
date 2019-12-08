@@ -70,6 +70,12 @@ function Contest(props) {
       );
     } catch (err) {
       console.log(err);
+
+      props.createSnackbar({
+        message: `You can´t ${isDislike?'dislike':'like'} a contest when offline`,
+        progressBar: false,
+        timeout: 4000
+      })
     }
   };
 
@@ -143,6 +149,7 @@ function Contest(props) {
           </div>
           
           <textarea
+            className="contest__accesskey"
             readOnly
             ref={accessKeyText}
             value={contest.accessKey ? contest.accessKey : ''}

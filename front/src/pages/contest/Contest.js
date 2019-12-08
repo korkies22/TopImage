@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState,useEffect } from "react";
 import { setCurContest } from "../../store/contests";
 import { storeAccessKey } from "../../store/accessKey";
 import { saveAccessKey } from "../../util/state/localStorageUtil";
@@ -52,7 +52,6 @@ function ContestPage() {
         dispatch(setCurContest(res.data));
       } catch (err) {
 
-        console.log(contestPrivate,contestId,contest);
         if((contestPrivate===0) && contestId===id)
         {
           setIsLoading(false);
@@ -73,11 +72,10 @@ function ContestPage() {
     }
     fetchData();
 
-  }, [id,url,dispatch,token, storedAccessKey, contestId,contestPrivate]);
+  }, [id,url,dispatch,token, storedAccessKey,contestId,contestPrivate]);
 
   const getData = async ()=>{
     try {
-      console.log("Get data");
       setIsLoading(true);
       const options = {
         headers: {
@@ -90,7 +88,6 @@ function ContestPage() {
       setPrivateValidation(false);
       setErrorMsg(null)
 
-      console.log("Access Key",accessKey);
       saveAccessKey(accessKey);
       dispatch(storeAccessKey(accessKey));
 
