@@ -1,37 +1,40 @@
-if ('function' === typeof importScripts) {
-    const externalImagesPrefix=[
-        "https://res.cloudinary.com",
-        "https://images.unsplash.com"
-    ];
+/*global importScripts*/
+/*eslint no-undef: "error"*/
 
-    const networkOnlyRoutesPrefix=[
-        "https://top-image.herokuapp.com/socket.io"
-    ];
+if ("function" === typeof importScripts) {
+  const externalImagesPrefix=[
+    "https://res.cloudinary.com",
+    "https://images.unsplash.com"
+  ];
 
-    const cacheFirstRoutesPrefix=[
-        "https://top-image.herokuapp.com/api"
-    ];
+  const networkOnlyRoutesPrefix=[
+    "https://top-image.herokuapp.com/socket.io"
+  ];
+
+  const cacheFirstRoutesPrefix=[
+    "https://top-image.herokuapp.com/api"
+  ];
     
-    importScripts(
-      'https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js'
-    );
-    /* global workbox */
-    if (workbox) {
-      console.log('Workbox is loaded');
+  importScripts(
+    "https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js"
+  );
+  /* global workbox */
+  if (workbox) {
+    console.log("Workbox is loaded");
   
-        /* Debug config*/
-        workbox.setConfig({ debug: true });
-        workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
+    /* Debug config*/
+    workbox.setConfig({ debug: true });
+    workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
       
-      /* injection point for manifest files.  */
-      workbox.precaching.precacheAndRoute([
+    /* injection point for manifest files.  */
+    workbox.precaching.precacheAndRoute([
   {
     "url": "favicon.png",
     "revision": "8cecfb5831592d6acda4e8ffdd66611a"
   },
   {
     "url": "index.html",
-    "revision": "e44d1d0f194f053700845f23f6e0cd63"
+    "revision": "ce8bae0201e3796ef5fde4fd14f63af6"
   },
   {
     "url": "logo192.png",
@@ -42,24 +45,24 @@ if ('function' === typeof importScripts) {
     "revision": "dd9d29871509ac16b6d81a5369df987d"
   },
   {
-    "url": "precache-manifest.41722f13c814ff8c60748aeb000cd820.js",
-    "revision": "41722f13c814ff8c60748aeb000cd820"
+    "url": "precache-manifest.1667ae2b1fa63f4d5a5bc06949d4d083.js",
+    "revision": "1667ae2b1fa63f4d5a5bc06949d4d083"
   },
   {
     "url": "service-worker.js",
-    "revision": "2de355a50170d763da9cd7ca6ad0ddca"
+    "revision": "bd1b02f0db5879c7532c93eb5590397a"
   },
   {
-    "url": "static/css/main.a34605ec.chunk.css",
-    "revision": "2efa9216f788583ab2f779e9412ca10a"
+    "url": "static/css/main.8a3656e4.chunk.css",
+    "revision": "60528141a3f8be691ce6a1beb8104b0a"
   },
   {
-    "url": "static/js/2.5e78cd0e.chunk.js",
-    "revision": "99f23394399281fb9a6b568bda0a9502"
+    "url": "static/js/2.f0357727.chunk.js",
+    "revision": "f1b648f62ee470dcdace4eff330656e1"
   },
   {
-    "url": "static/js/main.6c6abfcb.chunk.js",
-    "revision": "8e6c203351821a330c4ab9a6f17601e1"
+    "url": "static/js/main.aaa2fa9f.chunk.js",
+    "revision": "23fe88a47d24103289462553fdfd7d64"
   },
   {
     "url": "static/js/runtime~main.e774a519.js",
@@ -175,21 +178,36 @@ if ('function' === typeof importScripts) {
   }
 ]);
 
-      /* Default CRA service worker msg support*/
-      self.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'SKIP_WAITING') {
-          self.skipWaiting();
-        }
-      });
-  /* custom cache rules*/
-  workbox.routing.registerNavigationRoute('/index.html', {
-        blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/],
-      });
+    /* Default CRA service worker msg support*/
+    self.addEventListener("message", (event) => {
+      if (event.data && event.data.type === "SKIP_WAITING") {
+        self.skipWaiting();
+      }
+    });
+    /* custom cache rules*/
+    workbox.routing.registerNavigationRoute("/index.html", {
+      /*eslint no-useless-escape: "error"*/
+      blacklist: [/^\/_/, /\/[^/]+\.[^/]+$/],
+    });
   
-  workbox.routing.registerRoute(
-        /\.(?:png|gif|jpg|jpeg|svg)$/,
+    workbox.routing.registerRoute(
+      /\.(?:png|gif|jpg|jpeg|svg)$/,
+      workbox.strategies.cacheFirst({
+        cacheName: "images",
+        plugins: [
+          new workbox.expiration.Plugin({
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+          }),
+        ],
+      })
+    );
+    
+    externalImagesPrefix.forEach(prefix=>{
+      workbox.routing.registerRoute(
+        new RegExp(`${prefix}/.+`),
         workbox.strategies.cacheFirst({
-          cacheName: 'images',
+          cacheName: "images",
           plugins: [
             new workbox.expiration.Plugin({
               maxEntries: 60,
@@ -198,46 +216,32 @@ if ('function' === typeof importScripts) {
           ],
         })
       );
-    
-    externalImagesPrefix.forEach(prefix=>{
-        workbox.routing.registerRoute(
-            new RegExp(`${prefix}/.+`),
-            workbox.strategies.cacheFirst({
-                cacheName: 'images',
-                plugins: [
-                new workbox.expiration.Plugin({
-                    maxEntries: 60,
-                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-                }),
-                ],
-            })
-        );
-    })
+    });
 
     networkOnlyRoutesPrefix.forEach(prefix=>{
-        workbox.routing.registerRoute(
-            new RegExp(`${prefix}/.+`),
-            workbox.strategies.networkOnly()
-        );    
-    })
+      workbox.routing.registerRoute(
+        new RegExp(`${prefix}/.+`),
+        workbox.strategies.networkOnly()
+      );    
+    });
 
     cacheFirstRoutesPrefix.forEach(prefix=>{
-        workbox.routing.registerRoute(
-            new RegExp(`${prefix}/.+`),
-            workbox.strategies.cacheFirst({
-                    cacheName: 'contests',
-                    plugins: [
-                    new workbox.expiration.Plugin({
-                        maxEntries: 60,
-                        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-                    }),
-                ],
-            })
-        );    
-    })
+      workbox.routing.registerRoute(
+        new RegExp(`${prefix}/.+`),
+        workbox.strategies.cacheFirst({
+          cacheName: "contests",
+          plugins: [
+            new workbox.expiration.Plugin({
+              maxEntries: 60,
+              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+            }),
+          ],
+        })
+      );    
+    });
 
   
   } else {
-      console.log('Workbox could not be loaded. No Offline support');
-    }
+    console.log("Workbox could not be loaded. No Offline support");
   }
+}

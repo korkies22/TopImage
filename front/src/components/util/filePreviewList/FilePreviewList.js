@@ -23,7 +23,7 @@ function FilePreviewList(props) {
 }
 
 FilePreviewList.propTypes = {
-  files:PropTypes.Array,
+  files:PropTypes.array,
   removeFile: PropTypes.func
 };
 
