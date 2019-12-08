@@ -11,12 +11,15 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+import { wrapComponent } from "react-snackbar-alert";
 import "../actions/Flatpickr.scss";
 import Flatpickr from "react-flatpickr";
 import Filter from "../search/filter/Filter";
 import FilePreviewList from "../util/filePreviewList/FilePreviewList";
 
-function Home() {
+import PropTypes from "prop-types";
+
+function Home(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newContest, setNewContest] = useState({ private: false });
   const [useRandom, setUseRandom] = useState(false);
@@ -80,10 +83,30 @@ function Home() {
       },
     };
 
-    let ans = await axios.post(`${url}contests`, data, options);
+    try {
+      let ans = await axios.post(`${url}contests`, data, options);
 
-    setIsLoading(false);
-    history.push(`/contests/${ans.data.insertedId}`);
+      setIsLoading(false);
+      history.push(`/contests/${ans.data.insertedId}`);  
+    }
+    catch (err){
+      if(err.message.includes("Network")){
+        props.createSnackbar({
+          message: "You can´t create a contest without Internet",
+          progressBar: false,
+          timeout: 4000
+        });
+      }
+      else 
+      {
+        props.createSnackbar({
+          message: "An unexpected error just happened, please be patient while we fix this",
+          progressBar: false,
+          timeout: 4000
+        });
+      }
+      setIsLoading(false);
+    }
   };
 
   const onChange = e => {
@@ -301,4 +324,8 @@ function Home() {
   );
 }
 
-export default Home;
+Home.propTypes={
+  createSnackbar: PropTypes.func
+}
+
+export default wrapComponent(Home);

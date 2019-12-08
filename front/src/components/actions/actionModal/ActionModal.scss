@@ -27,13 +27,13 @@
     margin: auto;
     z-index: 3;
     transform: translate(-50%, -50%);
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
       width: 90%;
     }
   }
 
-  &__errorMsg{
-    color:red;
+  &__errorMsg {
+    color: red;
     text-align: center;
   }
 
@@ -205,6 +205,10 @@
 
         &:hover {
           opacity: 0.7;
+        }
+
+        @media (max-width: $sm) {
+          width: 100%;
         }
       }
     }
