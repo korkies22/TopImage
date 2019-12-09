@@ -76,9 +76,9 @@ function FilePreview(props) {
 }
 
 FilePreview.propTypes = {
-  file:PropTypes.object({
+  file:PropTypes.shape({
     type:PropTypes.string,
-    name: PropTypes.name
+    name: PropTypes.string
   }),
   removeFile: PropTypes.func
 };
