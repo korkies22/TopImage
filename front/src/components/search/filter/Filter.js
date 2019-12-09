@@ -32,12 +32,19 @@ function Filter(props) {
   };
 
   const filter = useCallback(()=> {
-    setFiltered(true);
+    let trueFilterString= filterString.trim().toLowerCase()
+    if(trueFilterString){
+      setFiltered(true);
+    }
+    else{
+      setFiltered(false);
+    }
+    
     let tempFilter = props.contests.filter(c => {
       let filterAnswer =
-        c.name.includes(filterString) ||
-        (c.topic && c.topic.includes(filterString)) ||
-        c.username.startsWith(filterString);
+        (c.name && c.name.toLowerCase().includes(trueFilterString)) ||
+        (c.topic && c.topic.toLowerCase() && c.topic.toLowerCase().includes(trueFilterString)) ||
+        (c.topic && c.username.toLowerCase().startsWith(trueFilterString));
 
       let date = new Date(c.endDate);
       if (props.hasDate && filterDates && filterDates.length >= 2) {

@@ -90,7 +90,7 @@ function Tutorial(props) {
               src={require("../../assets/tuto/tuto" + (index + 1) + ".png")}
               alt="Tutorial step"
             />
-            <a href="#menu" className="tutorial__backToMenu">Back to menu</a>
+            <a href="#menu" className="tutorial__backToMenu">Back to index</a>
           </div>
         ))}
       </div>
