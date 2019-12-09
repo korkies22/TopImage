@@ -11,7 +11,7 @@ if ("function" === typeof importScripts) {
     "https://top-image.herokuapp.com/socket.io"
   ];
 
-  const cacheFirstRoutesPrefix=[
+  const networkFirstRoutesPrefix=[
     "https://top-image.herokuapp.com/api"
   ];
     
@@ -34,7 +34,7 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "217922d198ada0ba8367c222c0fa80ef"
+    "revision": "81fa4f16d79ce37ff15d45d7db887dc3"
   },
   {
     "url": "logo192.png",
@@ -45,12 +45,12 @@ if ("function" === typeof importScripts) {
     "revision": "dd9d29871509ac16b6d81a5369df987d"
   },
   {
-    "url": "precache-manifest.2c41717b793c25211448584a7ededcbf.js",
-    "revision": "2c41717b793c25211448584a7ededcbf"
+    "url": "precache-manifest.70d44bbfb92aec381cf4f11ccfa756d9.js",
+    "revision": "70d44bbfb92aec381cf4f11ccfa756d9"
   },
   {
     "url": "service-worker.js",
-    "revision": "d88afc5557a103f2943ae68e6b805d98"
+    "revision": "e402fc9c397f236f5e439c3eb4453bf2"
   },
   {
     "url": "static/css/main.99d2509d.chunk.css",
@@ -61,8 +61,8 @@ if ("function" === typeof importScripts) {
     "revision": "650a3f9ae93e911ef2534a42cd5ec8fd"
   },
   {
-    "url": "static/js/main.a788c939.chunk.js",
-    "revision": "05f35b122c359bd78823d8c72e11630a"
+    "url": "static/js/main.4191546a.chunk.js",
+    "revision": "749b3ebcd9276421f0b37f87e81b10f4"
   },
   {
     "url": "static/js/runtime~main.e774a519.js",
@@ -225,17 +225,18 @@ if ("function" === typeof importScripts) {
       );    
     });
 
-    cacheFirstRoutesPrefix.forEach(prefix=>{
+    networkFirstRoutesPrefix.forEach(prefix=>{
       workbox.routing.registerRoute(
         new RegExp(`${prefix}/.+`),
-        workbox.strategies.cacheFirst({
-          cacheName: "contests",
-          plugins: [
-            new workbox.expiration.Plugin({
-              maxEntries: 60,
-              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-            }),
-          ],
+        workbox.strategies.networkFirst({
+            networkTimeoutSeconds: 3,
+            cacheName: 'contests',
+            plugins: [
+              new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 5 * 60, // 5 minutes
+              }),
+            ],
         })
       );    
     });

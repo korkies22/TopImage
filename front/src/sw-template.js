@@ -11,7 +11,7 @@ if ("function" === typeof importScripts) {
     "https://top-image.herokuapp.com/socket.io"
   ];
 
-  const cacheFirstRoutesPrefix=[
+  const networkFirstRoutesPrefix=[
     "https://top-image.herokuapp.com/api"
   ];
     
@@ -76,17 +76,18 @@ if ("function" === typeof importScripts) {
       );    
     });
 
-    cacheFirstRoutesPrefix.forEach(prefix=>{
+    networkFirstRoutesPrefix.forEach(prefix=>{
       workbox.routing.registerRoute(
         new RegExp(`${prefix}/.+`),
-        workbox.strategies.cacheFirst({
-          cacheName: "contests",
-          plugins: [
-            new workbox.expiration.Plugin({
-              maxEntries: 60,
-              maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-            }),
-          ],
+        workbox.strategies.networkFirst({
+            networkTimeoutSeconds: 3,
+            cacheName: 'contests',
+            plugins: [
+              new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 5 * 60, // 5 minutes
+              }),
+            ],
         })
       );    
     });
