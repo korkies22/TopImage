@@ -98,7 +98,7 @@ heroku config:set <KEY>=<value>
 
 ### Main menu
 
-![Top Image Main Menu](./readme/ss.PNG)
+![Top Image Main Menu](./readme/ss.png)
 
 ## License
 
