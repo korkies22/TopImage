@@ -1,6 +1,6 @@
 # TopImage
 
-App which allows people to create design constests for discovering the best (or top) image and search for previous winners, in order to have these as assets
+PWA App which allows people to create create constests for evaluating the best (or top) image and search for previous winners. It is aimed to be an A/B testing platform.
 
 ## Colaborators
 
@@ -18,15 +18,17 @@ App which allows people to create design constests for discovering the best (or 
 
 ## Description
 
-With TopImage, people from anywhere can post contests between a set of images they have, or a random collection retrieved using Unsplash API, in order to know what is the best/top image found here. The person must register in the system. Later, that user can create contests and vote in each of them.
+With TopImage, people from anywhere can post contests between a set of images they have, or a random collection retrieved using Unsplash API, in order to know what is the best/top image found here and perform A/B testing. The person must register in the system. Later, that user can create contests and vote in each of them.
 
 For the contest creatio we are using two public APIs: [Cloudinary](https://cloudinary.com/documentation) and [Unsplash](https://unsplash.com/documentation). Cloudinary is a web platform for storing images in many ways, and as such, we are using cloudinary to save the images uploaded by the user and obtain an unique URL to retrieve the data in the UI later on. On the other hand, unsplash is a public API for retrieving images from their community of people that upload pictures of their daily lives and catalogue them. As such, we can offer an user pictures of specific topics using this API if he/she does not have pictures to upload.
 
-The contests are composed by a name, topic, set of images and an end date. And each contest has like and dislikes buttons to express how much you like the images found here.
+The contests are composed by a name, topic, set of images and an end date. And each contest has like and dislikes buttons to express how much you like the images found here. Contests now, can also be public or private. In this case they will have an access key which they need to share. 
+
+Top image is also now a PWA. So it is heavily responsive and can be installed in many devices. It also can show cached contests while being offline.
 
 ## Objective
 
-We want to allow persons to find the best image in a set they give to the system.
+We want to allow persons to create A/B Testing contests and vote for the best Top image!
 
 ## Tecnologies used
 
@@ -36,6 +38,7 @@ This project was developed using the MERN stack.
 - **Express**: A fast, minimalistic and flexible framework for Node.js, it allows route handling in an easy way. https://expressjs.com/es/
 - **React JS**: A Front End library useful for creating components. https://reactjs.org/
 - **Node JS**: A javascript environment which allows to create a web server with javascript. https://nodejs.org
+- **Workbox**: A google utils package to create fast Service Workers. https://developers.google.com/web/tools/workbox
 
 Some extra dependencies were included in the project. Each can be seen in the backend or frontend folders or in the package.json files in the respective folders.
 
@@ -175,6 +178,12 @@ If you wish to run in development mode ("hot reload" with nodemon) type:
 npm run dev
 ```
 
+In order to build the Service Worker based on the sw-template 
+
+```
+npm run build-sw
+```
+
 ## Data Model
 
 Two main data models: Users and Contests
@@ -184,7 +193,7 @@ Users: {
     "_id":Mongo default,
     "username":String,
     "password":String,
-    "contests":Contest[] //Yes?
+    "contests":Contest[]
 }
 ```
 
@@ -195,7 +204,8 @@ Contests: {
     "topic":String,
     "username":String,
     "endDate":Date,
-    "images":Image[]
+    "images":Image[],
+    "private": 0 if false, 1 if true
 }
 ```
 
