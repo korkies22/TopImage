@@ -100,6 +100,8 @@ heroku config:set <KEY>=<value>
 
 ![Top Image Main Menu](./readme/ss.png)
 
+Cuidado con la referencia a la imágen, no se puede renderizar.
+
 ## License
 
 This project is public under the MIT license, found [here](https://github.com/korkies22/TopImage/blob/master/LICENSE)
