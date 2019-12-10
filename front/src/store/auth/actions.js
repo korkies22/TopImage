@@ -16,3 +16,4 @@ export const setAuth = data => ({
 export const logout = () => ({
   type: "LOGOUT",
 });
+//El código es fácil de leer porque está organizado 
